@@ -1,9 +1,6 @@
 # OSX
 #
 .DS_Store
-/.bundle
-/android
-/ios
 /__tests__
 # Xcode
 #
