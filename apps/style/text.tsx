@@ -4,7 +4,7 @@ export const text = StyleSheet.create({
     default: {
         color:'white',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 48,
     },
     textPrimary: {
         color:'white',
