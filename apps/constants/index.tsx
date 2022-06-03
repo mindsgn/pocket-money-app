@@ -1,6 +1,11 @@
 export const GET_AUTH = 'GET_AUTH';
-export const ADD_AUTH = 'ADD_AUTH';
-export const REMOVE_AUTH = 'REMOVE_AUTH';
+export const CONNECT = 'CONNECT';
+export const DISCONNECT = 'DISCCONNECT';
+export const GET_CONNECTION = 'GET_CONNECTION';
+export const ERROR = 'ERROR';
+export const INCREMENT = "INCREMENT"
+export const DECREMENT = "DECREMENT"
+export const CHANGE_BY_AMOUNT = "CHANGE_BY_AMOUNT"
 
 export const orbyt = {
     english: 'orbyt',

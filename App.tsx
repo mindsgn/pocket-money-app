@@ -17,9 +17,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Load from './apps/screen/load';
 import Onboarding from './apps/screen/onboarding';
 import Home from './apps/screen/home';
+import Error from './apps/screen/error';
+import Count from './apps/screen/count';
 import { store, persistor } from './apps/redux/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
+import { StatusBar } from 'react-native';
+
+StatusBar.setHidden(true);
 
 const Stack = createNativeStackNavigator();
 
@@ -35,8 +39,8 @@ const App: React.FC = () => {
                   headerShown: false
                 }}>
               <Stack.Screen name="Load" component={Load} />
-              <Stack.Screen name="Onboarding" component={Onboarding} />
               <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Onboarding" component={Onboarding} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
@@ -46,13 +50,14 @@ const App: React.FC = () => {
 
 
 export default withWalletConnect(App, {
+  bridge:"https://bridge.walletconnect.org",
   clientMeta: {
     url: 'https://orbyt.org',
-    icons: ['https://ex.junho.io/android-chrome-512x512.png'],
+    icons: ['https://www.orbyt.org/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.7fce87d2.png&w=64&q=75'],
     name: 'orbyt',
-    description: 'connect to web3',
+    description: 'connect orbyt to web3',
   },
-  redirectUrl: 'orbyt://Home',
+  redirectUrl: 'orbyt://',
   storageOptions: {
     asyncStorage: AsyncStorage as any,
   },

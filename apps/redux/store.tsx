@@ -1,22 +1,15 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistStore, persistReducer } from 'redux-persist';
-import { authReducer } from './reducer';
+import { createStore } from "redux"
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { persistStore, persistReducer } from 'redux-persist'
+import wallet from "./reducer/wallet.reducer"
 
 const persistConfig = {
-    key: '@orbyt',
-    storage: AsyncStorage,
-    whitelist: ['wallets']
+    key: 'persistedReducer',
+    storage: AsyncStorage
 };
 
-export interface State {
-    authReducer: any
-}
+const persistedReducer = persistReducer(persistConfig, wallet);
+const store = createStore(persistedReducer);
+let persistor = persistStore(store);
 
-const rootReducer: any = combineReducers({
-    authReducer: persistReducer(persistConfig, authReducer)
-});
-
-export const store = createStore<State, any, any, any>(rootReducer, applyMiddleware(thunk));
-export const persistor = persistStore(store)
+export { store, persistor }

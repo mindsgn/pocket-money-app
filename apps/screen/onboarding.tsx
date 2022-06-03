@@ -1,45 +1,27 @@
-import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import React from 'react';
-import { Text, View, TouchableOpacity, Animated } from 'react-native';
+import { View, Animated } from 'react-native';
 import { container } from '../style/container';
 import { text } from '../style/text';
-import { button } from '../style/button';
 import Button from '../components/button';
+import { connect } from 'react-redux';
+import WalletAction from '../redux/actions/wallet.action';
 
-const Onboarding = ({ navigation } : { navigation: any }) => {
-  const connector = useWalletConnect();
+const Onboarding = (props: any) => {
+  const {connected, navigation} = props
+  const { connectWallet } = WalletAction(props);
   //animations
   const progress = React.useRef(new Animated.Value(0)).current;
   const scale = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
-    isConnected();
     Animated.timing(progress, { toValue: 1, useNativeDriver: true}).start();
-    Animated.timing(scale, { toValue: 0.5, useNativeDriver: true}).start();
+    Animated.timing(scale, { toValue: 0.4, useNativeDriver: true}).start();
   },[]);
 
-  const isConnected = async () => {
-    const result = await connector.connected;
-    console.log(result)
-    if(result){
-      navigation.navigate("Home")
-    }else{
-      navigation.navigate("Onboarding")
-    }
-  }
-
-  const connect = () => {
-    try{
-      connector.connect(
-      ).then((succeess) => {
-        console.log(succeess);
-      }).catch((error) => {
-        console.log(error);
-      })
-    }catch(error){
-      console.error("Error adding a Wallet with WalletConnect",error);
-    }
-  }
+  React.useEffect(() => {
+    console.log('onboarding update', props.connected)
+    if(props.connected) navigation.navigate("Home")
+  },[props.connected]);
 
   return (
     <View
@@ -50,40 +32,64 @@ const Onboarding = ({ navigation } : { navigation: any }) => {
                 [
                     text.logo, 
                         {
-                            opacity: progress, 
-                            transform:[{scale}]
+                            opacity: progress,
                         }
                 ]
             }>
-              ORBYT
+              Set up your wallet
+          </Animated.Text>
+        </View>
+        <View>
+          <Animated.Text
+            style={
+                [
+                  {
+                    fontFamily:'SFMOono-Medium',
+                    color: '#4C4C4C',
+                    fontSize: 25,
+                    width: 300
+                  }
+                ]
+            }>
+              welcome to the world of web3, you just one step closer to total fincancial freedom.
           </Animated.Text>
         </View>
         <View
           style={{
-            width:'180%',
-            flex:1,
+            marginTop: 40,
+            width: '90%',
+            flex: 1,
+            flexDirection: 'row',
+            display: 'flex',
+            flexWrap:'wrap'
           }}>
-          <Animated.Text
-            style={
-                [
-                    text.default,
-                        {
-                            opacity: progress, 
-                            transform:[{scale}]
-                        }
-                ]
-            }>
-            Welcome to orbyt. Are you are looking to get started with decentralized finance? you have come to the right place.
-          </Animated.Text>
-        </View>
-        <View>
           <Button
-            onPress={() => connect()}
-            text={'Connect Wallet'}
-          />
+            flex={1}
+            color={'#4C4C4C'}
+            fontColor={'white'}
+            minHeight={40}
+            onPress={() => connectWallet()}
+            text={'CONNNECT WALLET'} />
+          <Button
+            color={'#39B54A'}
+            fontColor={'white'}
+            minHeight={40}
+            onPress={() => {}}
+            text={'CREATE NEW WALLET'} />
+          <Button
+              color={'#F15A24'}
+              fontColor={'white'}
+              minHeight={40}
+              onPress={() => {}}
+              text='IMPORT WALLET' />
         </View>
     </View>
   );
 };
 
-export default Onboarding;
+
+const mapStateToProps = (state: any, props: any) => {
+  return { connected: state.connected };
+}
+
+export default connect(mapStateToProps)(Onboarding);
