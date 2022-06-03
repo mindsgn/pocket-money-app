@@ -1,5 +1,6 @@
 {
   "name": "orbyt",
   "displayName": "orbyt",
-  "scheme": "orbyt"
+  "scheme": "orbyt",
+  "config": "metro.config.js"
 }

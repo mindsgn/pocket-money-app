@@ -1,39 +1,28 @@
-import { useWalletConnect } from '@walletconnect/react-native-dapp';
-import { transform } from '@babel/core';
 import React from 'react';
-import { Text, View, Animated } from 'react-native';
+import { View, Animated } from 'react-native';
 import { container } from '../style/container';
 import { text } from '../style/text';
-import Button from '../components/button';
+import { connect } from 'react-redux';
 
-const Load = ({ navigation } : { navigation?: any }) => {
-    const connector = useWalletConnect();
-    
-    //animations
+const Load = (props: any) => {
+    const {connected, navigation} = props
     const progress = React.useRef(new Animated.Value(0)).current;
     const scale = React.useRef(new Animated.Value(0)).current;
-    
-    //functions
-    const exit = () => {
-        Animated.timing(scale, { toValue: 0, useNativeDriver: true}).start();
-    }
 
     const isConnected = async () => {
-      const result = await connector.connected;
-      console.log(result)
-      if(result){
-        navigation.navigate("Home")
-      }else{
-        navigation.navigate("Onboarding")
+      if(connected){
+        navigation.navigate("Home");
+      } else {
+        navigation.navigate("Onboarding");
       }
-    }
-
+    };
+    
     React.useEffect(() => {
-        isConnected();
         Animated.timing(progress, { toValue: 1, useNativeDriver: true}).start();
         Animated.timing(scale, { toValue: 0.5, useNativeDriver: true}).start();
-    },[]);
-
+        setTimeout(isConnected, 5000);
+    },[props.connected]);
+    
     return (
     <View
         style={container.default}>
@@ -41,11 +30,11 @@ const Load = ({ navigation } : { navigation?: any }) => {
           <Animated.Text
             style={
                 [
-                    text.logo, 
-                        {
-                            opacity: progress, 
-                            transform:[{scale}]
-                        }
+                  text.logo,
+                  {
+                    opacity: progress,
+                    transform:[{scale}],
+                  }
                 ]
             }>
               ORBYT
@@ -55,4 +44,8 @@ const Load = ({ navigation } : { navigation?: any }) => {
   );
 };
 
-export default Load;
+const mapStateToProps = (state: any, props: any) => {
+  return { connected: state.connected };
+}
+
+export default connect(mapStateToProps)(Load);

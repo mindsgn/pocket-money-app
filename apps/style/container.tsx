@@ -10,15 +10,15 @@ export const container = StyleSheet.create({
         backgroundColor: 'black'
     },
     onboarding: {
-        width: '100%',
-        height:'100%',
+        display: 'flex',
+        flex: 1,
         backgroundColor: 'black',
         alignItems: 'center'
     },
     welcome: {
         width: '100%',
         height:'100%',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
     },
     import: {
         width: '100%',
@@ -34,6 +34,6 @@ export const container = StyleSheet.create({
     home: {
         width: '100%',
         height:'100%',
-        backgroundColor: 'black'
+        backgroundColor: 'white'
     }
   });
