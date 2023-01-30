@@ -8,6 +8,10 @@ export const GET_STATE = 'GET_STATE';
 export const UPDATE_LOADING = 'UPDATE_LOADING';
 export const UPDATE_RECEIVE = 'UPDATE_RECEIVE';
 export const UPDATE_SEND = 'UPDATE_SEND';
+export const UPDATE_SWITCH_NETWORK = 'UPDATE_SWITCH_NETWORK';
+export const GET_CHAIN_ID = 'GET_CHAIN_ID';
+export const GET_ADDRESS = 'GET_ADDRESS';
+export const GET_TOKEN_LIST = 'GET_TOKEN_LIST';
 
 export const colors = {
   orange: '#F15A24',

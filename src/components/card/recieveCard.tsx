@@ -6,11 +6,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 
 import { ShareCard } from './shareCard';
+import RPC from '../../lib/rpc';
 
 const ReceiveCard = (prop: any) => {
-  const { receive } = prop;
+  const { receive, privKey } = prop;
   const { updateRecieving } = AnimationAction(prop);
   const cardY: any = React.useRef(new Animated.Value(700)).current;
+
+  const [address, setAddress] = React.useState<string>('null');
+
+  const getAccounts = async () => {
+    try {
+      const response = await RPC.getAccounts(privKey);
+      setAddress(response);
+    } catch (error) {}
+  };
 
   React.useEffect(() => {
     if (receive) {
@@ -75,7 +85,7 @@ const ReceiveCard = (prop: any) => {
           size={250}
           enableLinearGradient
           linearGradient={['rgb(255,0,0)', 'rgb(0,255,255)']}
-          value="http://awesome.link.qr"
+          value={`${address}`}
         />
       </View>
     </Animated.View>
@@ -85,6 +95,7 @@ const ReceiveCard = (prop: any) => {
 const mapStateToProps = (state: any, props: any) => {
   return {
     receive: state.animation.receive,
+    privKey: state.wallet.privKey,
   };
 };
 

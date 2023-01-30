@@ -14,8 +14,14 @@ import { connect } from 'react-redux';
 import { style } from './style';
 
 const SignIn = (props: any) => {
-  const { connected, navigation, error, privKey } = props;
-  const { connectWithWeb3Auth, testConnection } = WalletAction(props);
+  const { connected, navigation, privKey, address } = props;
+  const {
+    connectWithWeb3Auth,
+    testConnection,
+    getChainId,
+    getAccount,
+    getTokenList,
+  } = WalletAction(props);
   const progress = React.useRef(new Animated.Value(0)).current;
   const scale = React.useRef(new Animated.Value(0)).current;
 
@@ -28,7 +34,12 @@ const SignIn = (props: any) => {
   }, []);
 
   React.useEffect(() => {
-    if (connected) navigation.navigate('HOME');
+    if (connected) {
+      getChainId();
+      getAccount(privKey);
+      getTokenList(address);
+      navigation.navigate('HOME');
+    }
   }, [connected]);
 
   return (
@@ -84,7 +95,11 @@ const SignIn = (props: any) => {
 };
 
 const mapStateToProps = (state: any, props: any) => {
-  return { connected: state.wallet.connected };
+  return {
+    connected: state.wallet.connected,
+    privKey: state.wallet.privKey,
+    address: state.wallet.address,
+  };
 };
 
 export default connect(mapStateToProps)(SignIn);

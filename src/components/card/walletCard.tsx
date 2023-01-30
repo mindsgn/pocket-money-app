@@ -1,38 +1,21 @@
 //@ts-ignore
-import { ETHLogo } from '@orbyt/assets';
+import { ETHLogo, MaticLogo } from '@orbyt/assets';
+//@ts-ignore
+import { AnimationAction, WalletAction } from '@orbyt/redux';
+import { getAddress } from 'ethers/lib/utils';
+// import { getAddress } from 'ethers/lib/utils';
 import React from 'react';
-import { View, Text, Animated } from 'react-native';
+import { View, Text, Animated, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import RPC from '../../lib/rpc';
-
 const WalletCard = (props: any) => {
-  const { privKey } = props;
+  const { networkID, ens, address, currencySymbol, privKey } = props;
+  const { updateSwitchNetwork } = AnimationAction(props);
+  const { getChainId, getAccount, getTokenList } = WalletAction(props);
   const [mounted, setMounted] = React.useState<boolean>(false);
   const cardOpacity = React.useRef(new Animated.Value(0)).current;
-  const [address, setAddress] = React.useState<string | null>(null);
   const [balance, setBalance] = React.useState<number | null>(null);
   const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
-
-  const getAccounts = async () => {
-    try {
-      const address = await RPC.getAccounts(privKey);
-      console.log(privKey);
-      setAddress(address);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getBalance = async () => {
-    try {
-      const balance: any = await RPC.getBalance(privKey);
-      console.log(balance);
-      setBalance(balance);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const truncateEthAddress = (address: string) => {
     if (address === '') return null;
@@ -43,16 +26,15 @@ const WalletCard = (props: any) => {
 
   React.useEffect(() => {
     if (mounted) {
-      getAccounts();
-      getBalance();
-
       Animated.timing(cardOpacity, {
         toValue: 1,
         duration: 2500,
         useNativeDriver: true,
       }).start();
     }
-
+    getChainId();
+    getAccount(privKey);
+    getTokenList(address);
     setMounted(true);
   }, [mounted]);
 
@@ -78,7 +60,7 @@ const WalletCard = (props: any) => {
             fontSize: 20,
           }}
         >
-          {address && truncateEthAddress(address)}
+          {ens && ens ? ens : address && truncateEthAddress(address)}
         </Text>
       </View>
       <View
@@ -93,10 +75,10 @@ const WalletCard = (props: any) => {
             fontSize: 45,
           }}
         >
-          R {balance}
+          {`${currencySymbol}`}
         </Text>
       </View>
-      <View
+      <TouchableOpacity
         style={{
           position: 'absolute',
           right: '2%',
@@ -108,8 +90,16 @@ const WalletCard = (props: any) => {
           maxHeight: 50,
         }}
       >
-        <ETHLogo width={50} height={50} />
-      </View>
+        {networkID && networkID === 137 ? (
+          <MaticLogo
+            width={50}
+            height={50}
+            onPress={updateSwitchNetwork(true)}
+          />
+        ) : networkID && networkID === 1 ? (
+          <ETHLogo width={50} height={50} onPress={updateSwitchNetwork(true)} />
+        ) : null}
+      </TouchableOpacity>
     </Animated.View>
   );
 };
@@ -120,6 +110,11 @@ const mapStateToProps = (state: any) => {
     privKey: state.wallet.privKey,
     user: state.wallet.user,
     error: state.wallet.error,
+    networkID: state.wallet.networkID,
+    ens: state.wallet.ens,
+    address: state.wallet.address,
+    currencySymbol: state.wallet.currencySymbol,
+    currency: state.wallet.currency,
   };
 };
 

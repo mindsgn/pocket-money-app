@@ -1,4 +1,8 @@
-import { UPDATE_RECEIVE, UPDATE_SEND } from '@orbyt/constants';
+import {
+  UPDATE_RECEIVE,
+  UPDATE_SEND,
+  UPDATE_SWITCH_NETWORK,
+} from '@orbyt/constants';
 import React from 'react';
 
 export const AnimationAction = (props: any) => {
@@ -30,8 +34,23 @@ export const AnimationAction = (props: any) => {
     }
   };
 
+  const updateSwitchNetwork = (state: boolean) => {
+    try {
+      props.dispatch({
+        type: UPDATE_SWITCH_NETWORK,
+        send: state,
+      });
+    } catch (error) {
+      props.dispatch({
+        type: UPDATE_SWITCH_NETWORK,
+        send: false,
+      });
+    }
+  };
+
   return {
     updateRecieving,
     updateSending,
+    updateSwitchNetwork,
   };
 };

@@ -1,3 +1,4 @@
+import { AnimationAction, WalletAction } from '@orbyt/redux';
 import React from 'react';
 import { View, Animated } from 'react-native';
 // import SplashScreen from 'react-native-splash-screen';
@@ -6,7 +7,8 @@ import { connect } from 'react-redux';
 import { style } from './style';
 
 const Load = (props: any) => {
-  const { connected, navigation } = props;
+  const { getChainId, getAccount, getTokenList } = WalletAction(props);
+  const { connected, navigation, privKey, address } = props;
   const [mounted, setMounted] = React.useState<boolean>(false);
   const textOpacity = React.useRef(new Animated.Value(0)).current;
 
@@ -36,9 +38,14 @@ const Load = (props: any) => {
         useNativeDriver: true,
       }).start();
 
+      if (privKey) {
+        getChainId();
+        getAccount(privKey);
+        getTokenList(address);
+      }
       setTimeout(isConnected, 2000);
     }
-  }, [mounted, connected]);
+  }, [mounted]);
 
   return (
     <View style={style.default}>
@@ -65,6 +72,8 @@ const Load = (props: any) => {
 const mapStateToProps = (state: any, props: any) => {
   return {
     connected: state.wallet.connected,
+    privKey: state.wallet.privKey,
+    address: state.wallet.address,
   };
 };
 

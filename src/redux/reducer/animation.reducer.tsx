@@ -2,6 +2,7 @@
 import {
   UPDATE_LOADING,
   UPDATE_RECEIVE,
+  UPDATE_SWITCH_NETWORK,
   UPDATE_SEND,
   //@ts-ignore
 } from '@orbyt/constants';
@@ -10,6 +11,9 @@ const initialState: any = {
   loading: true,
   receive: false,
   send: false,
+  switch: false,
+  networkID: 137,
+  networkName: 'Matic',
 };
 
 export default (state = initialState, action: any) => {
@@ -28,6 +32,11 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         send: action.send,
+      };
+    case UPDATE_SWITCH_NETWORK:
+      return {
+        ...state,
+        switch: action.switch,
       };
     default:
       return state;

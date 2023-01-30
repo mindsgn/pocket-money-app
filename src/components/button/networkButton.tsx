@@ -1,8 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
 
-export const OnboardingButton = ({
+export const SignInButton = ({
   color,
   text,
   onPress,
@@ -11,6 +10,13 @@ export const OnboardingButton = ({
   text: string;
   onPress(): void;
 }) => {
+  const getAccounts = async () => {
+    try {
+      const response = await RPC.getAccounts(privKey);
+      setAddress(response);
+    } catch (error) {}
+  };
+
   return (
     <TouchableOpacity
       style={{

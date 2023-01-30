@@ -4,6 +4,9 @@ import {
   ERROR,
   GET_COINGECKO,
   GET_STATE,
+  GET_CHAIN_ID,
+  GET_ADDRESS,
+  GET_TOKEN_LIST,
   //@ts-ignore
 } from '@orbyt/constants';
 
@@ -18,6 +21,14 @@ const initialState: walletState = {
   error: false,
   auth: null,
   markets: [],
+  address: null,
+  networkName: null,
+  networkID: null,
+  ens: null,
+  providerUrl: 'https://rpc.ankr.com/polygon',
+  tokenList: [],
+  currency: 'zar',
+  currencySymbol: 'R',
 };
 
 export default (state = initialState, action: any) => {
@@ -46,6 +57,22 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         markets: action.markets,
+      };
+    case GET_CHAIN_ID:
+      return {
+        ...state,
+        networkName: action.networkName,
+        networkID: action.networkID,
+      };
+    case GET_ADDRESS:
+      return {
+        ...state,
+        address: action.address,
+      };
+    case GET_TOKEN_LIST:
+      return {
+        ...state,
+        tokenList: action.tokenList,
       };
     case ERROR:
       return {
