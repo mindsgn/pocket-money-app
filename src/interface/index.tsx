@@ -34,6 +34,7 @@ export interface walletState {
   tokenList: any[];
   currency: string;
   currencySymbol: string;
+  settings: any;
 }
 
 export interface nft {
