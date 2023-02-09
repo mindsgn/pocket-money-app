@@ -31,13 +31,12 @@ export interface walletState {
   networkID: number | null;
   ens: string | null;
   providerUrl: string;
-  tokenList: any[];
+  marketTokenList: any[];
+  walletTokenList: any[];
   currency: string;
   currencySymbol: string;
-<<<<<<< HEAD
   settings: any;
-=======
->>>>>>> f4aa1f2448e7494a500eda5f8a90aec45b5385b0
+  totalBalance: number;
 }
 
 export interface nft {

@@ -8,32 +8,23 @@ import React from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import RPC from '../../lib/rpc';
 import { style } from './style';
+import RPC from '../../lib/rpc';
 
 export const Error = (props: any) => {
   const { privKey } = props;
 
   const getChainId = async () => {
     const networkDetails = await RPC.getChainId();
-    // console.log(networkDetails)
   };
 
   const sendTransaction = async () => {
     const tx = await RPC.sendTransaction(privKey);
-    // console.log(tx)
   };
 
   const signMessage = async () => {
     const message = await RPC.signMessage(privKey);
-    // console.log(message)
   };
-
-  React.useEffect(() => {
-    if (privKey) {
-      //    getAccounts()
-    }
-  }, [privKey]);
 
   return (
     <View style={style.default}>

@@ -1,14 +1,16 @@
 //@ts-ignore
 import { network } from '@orbyt/constants';
 //@ts-ignore
+import { colors } from '@orbyt/constants';
 import { AnimationAction, WalletAction } from '@orbyt/redux';
 import React from 'react';
-import { View, TouchableOpacity, Text, Animated } from 'react-native';
+import { View, TouchableOpacity, Text, Animated, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 
 const SwitchNetworkCard = (props: any) => {
-  const { switchNetwork, providerUrl, settings, address } = props;
+  const { switchNetwork, providerUrl, settings, address, marketTokenList } =
+    props;
   const { updateSwitchNetwork } = AnimationAction(props);
   const { getTokenList, getChainId, switchToNetwork } = WalletAction(props);
   const cardOpacity = React.useRef(new Animated.Value(0)).current;
@@ -43,19 +45,21 @@ const SwitchNetworkCard = (props: any) => {
   }, [switchNetwork]);
 
   React.useEffect(() => {
-    getTokenList(address, settings);
+    getTokenList(address, settings, marketTokenList);
     getChainId(providerUrl);
   }, [providerUrl]);
   return (
     <Animated.View
       style={[
         {
-          position: 'absolute',
           width: '100%',
           backgroundColor: 'black',
           height: '80%',
-          padding: 10,
-          zIndex: 1,
+          bottom: '0%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start',
         },
         {
           opacity: cardOpacity,
@@ -67,13 +71,31 @@ const SwitchNetworkCard = (props: any) => {
         },
       ]}
     >
-      <TouchableOpacity
-        onPress={() => {
-          updateSwitchNetwork(!switchNetwork);
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          margin: 10,
         }}
       >
-        <Icon color="white" name="close" size={40} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            updateSwitchNetwork(!switchNetwork);
+          }}
+        >
+          <Icon color="white" name="close" size={40} />
+        </TouchableOpacity>
+        <Text
+          style={{
+            fontFamily: 'SF-Pro-Rounded-Bold',
+            fontSize: 25,
+            color: colors.white,
+          }}
+        >
+          NETWORK
+        </Text>
+      </View>
       <View
         style={{
           padding: 10,
@@ -84,6 +106,9 @@ const SwitchNetworkCard = (props: any) => {
             <TouchableOpacity
               key={item.name}
               style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
                 margin: 10,
               }}
               onPress={() => {
@@ -91,9 +116,11 @@ const SwitchNetworkCard = (props: any) => {
                 switchToNetwork(item);
               }}
             >
+              {item.icon}
               <Text
                 style={{
                   color: 'white',
+                  marginLeft: 10,
                 }}
               >
                 {item.name}
@@ -112,6 +139,7 @@ const mapStateToProps = (state: any) => {
     providerUrl: state.wallet.providerUrl,
     settings: state.wallet.settings,
     address: state.wallet.address,
+    marketTokenList: state.wallet.marketTokenList,
   };
 };
 
