@@ -62,13 +62,32 @@ const SendCard = (prop: any) => {
           width: '90%',
         }}
       >
-        <TouchableOpacity
-          onPress={() => {
-            updateSending(!send);
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            margin: 10,
           }}
         >
-          <Icon color="white" name="close" size={40} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              updateSending(!send);
+            }}
+          >
+            <Icon color="white" name="close" size={40} />
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontFamily: 'SF-Pro-Rounded-Bold',
+              fontSize: 25,
+              color: colors.white,
+            }}
+          >
+            SEND
+          </Text>
+        </View>
+
         <TextInput type="send to" />
         <TextInput type="send amount" />
         <Button text="Next" onPress={() => {}} color={colors.green} />

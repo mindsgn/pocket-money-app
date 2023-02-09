@@ -7,11 +7,19 @@ import { View, Text, Animated, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 const WalletCard = (props: any) => {
-  const { networkID, ens, address, currencySymbol, privKey, providerUrl } =
-    props;
+  const {
+    networkID,
+    ens,
+    address,
+    currencySymbol,
+    privKey,
+    providerUrl,
+    totalBalance,
+  } = props;
   const { updateSwitchNetwork } = AnimationAction(props);
-  const { getChainId, getAccount } = WalletAction(props);
+  const { getChainId, getAccount, setBalance } = WalletAction(props);
   const [mounted, setMounted] = React.useState<boolean>(false);
+  const [total, setTotal] = React.useState<number>(0);
   const cardOpacity = React.useRef(new Animated.Value(0)).current;
   const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
@@ -32,7 +40,6 @@ const WalletCard = (props: any) => {
     }
     getChainId(providerUrl);
     getAccount(privKey);
-    // getTokenList(address, settings);
     setMounted(true);
   }, [mounted]);
 
@@ -47,10 +54,10 @@ const WalletCard = (props: any) => {
         margin: 10,
         padding: 20,
         borderColor: 'white',
-        borderWidth: 2,
+        borderWidth: 5,
       }}
     >
-      <View>
+      <TouchableOpacity>
         <Text
           style={{
             fontFamily: 'SF-Pro-Rounded-Bold',
@@ -60,21 +67,23 @@ const WalletCard = (props: any) => {
         >
           {ens && ens ? ens : address && truncateEthAddress(address)}
         </Text>
-      </View>
+      </TouchableOpacity>
       <View
         style={{
           marginTop: -20,
         }}
       >
-        <Text
-          style={{
-            fontFamily: 'SF-Pro-Rounded-Heavy',
-            color: 'white',
-            fontSize: 45,
-          }}
-        >
-          {`${currencySymbol}`}
-        </Text>
+        <TouchableOpacity>
+          <Text
+            style={{
+              fontFamily: 'SF-Pro-Rounded-Heavy',
+              color: 'white',
+              fontSize: 45,
+            }}
+          >
+            {`${currencySymbol} ${totalBalance.toFixed(2)}`}
+          </Text>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         style={{
@@ -116,6 +125,7 @@ const mapStateToProps = (state: any) => {
     currency: state.wallet.currency,
     providerUrl: state.wallet.providerUrl,
     settings: state.wallet.settings,
+    totalBalance: state.wallet.totalBalance,
   };
 };
 

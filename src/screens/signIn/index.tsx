@@ -5,8 +5,7 @@ import { colors } from '@orbyt/constants';
 //@ts-ignore
 import { WalletAction } from '@orbyt/redux';
 import React from 'react';
-import { View, Animated, Text, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Animated, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 // import { OnboardingButton as Button } from '../../components/onboarding/button';
@@ -14,14 +13,21 @@ import { connect } from 'react-redux';
 import { style } from './style';
 
 const SignIn = (props: any) => {
-  const { connected, navigation, privKey, address, providerUrl, settings } =
-    props;
+  const {
+    connected,
+    navigation,
+    marketTokenList,
+    privKey,
+    address,
+    providerUrl,
+    settings,
+  } = props;
   const {
     connectWithWeb3Auth,
-    testConnection,
     getChainId,
     getAccount,
     getTokenList,
+    getMarketList,
   } = WalletAction(props);
   const progress = React.useRef(new Animated.Value(0)).current;
   const scale = React.useRef(new Animated.Value(0)).current;
@@ -38,7 +44,6 @@ const SignIn = (props: any) => {
     if (connected) {
       getChainId(providerUrl);
       getAccount(privKey);
-      getTokenList(address, settings);
       navigation.navigate('Home');
     }
   }, [connected]);
@@ -102,6 +107,7 @@ const mapStateToProps = (state: any, props: any) => {
     address: state.wallet.address,
     providerUrl: state.wallet.providerUrl,
     settings: state.wallet.settings,
+    marketTokenList: state.wallet.marketTokenList,
   };
 };
 

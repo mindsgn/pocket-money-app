@@ -1,14 +1,17 @@
-import { ALCHEMY_SDK } from '@env';
+import { ALCHEMY_SDK_MAINNET } from '@env';
 import {
   CONNECT,
   DISCONNECT,
   ERROR,
-  GET_COINGECKO,
+  GET_COINGECKO_LIST,
   GET_STATE,
   GET_CHAIN_ID,
   GET_ADDRESS,
   GET_TOKEN_LIST,
   SWITCH_NETWORK,
+  INCREASE_BALANCE,
+  DECREASE_BALANCE,
+  SET_BALANCE,
   //@ts-ignore
 } from '@orbyt/constants';
 import { Network } from 'alchemy-sdk';
@@ -28,13 +31,15 @@ const initialState: walletState = {
   networkName: null,
   networkID: null,
   ens: null,
-  providerUrl: 'https://rpc.ankr.com/polygon',
-  tokenList: [],
+  providerUrl: 'https://rpc.ankr.com/eth',
+  walletTokenList: [],
+  marketTokenList: [],
   currency: 'zar',
+  totalBalance: 0,
   currencySymbol: 'R',
   settings: {
-    apiKey: ALCHEMY_SDK,
-    network: Network.MATIC_MAINNET,
+    apiKey: ALCHEMY_SDK_MAINNET,
+    network: Network.ETH_MAINNET,
   },
 };
 
@@ -60,16 +65,12 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
       };
-    case GET_COINGECKO:
-      return {
-        ...state,
-        markets: action.markets,
-      };
     case GET_CHAIN_ID:
       return {
         ...state,
         networkName: action.networkName,
         networkID: action.networkID,
+        totalBalance: 0,
       };
     case GET_ADDRESS:
       return {
@@ -79,7 +80,12 @@ export default (state = initialState, action: any) => {
     case GET_TOKEN_LIST:
       return {
         ...state,
-        tokenList: action.tokenList,
+        walletTokenList: action.walletTokenList,
+      };
+    case GET_COINGECKO_LIST:
+      return {
+        ...state,
+        marketTokenList: action.marketTokenList,
       };
     case SWITCH_NETWORK:
       return {
@@ -87,10 +93,24 @@ export default (state = initialState, action: any) => {
         settings: action.settings,
         providerUrl: action.providerUrl,
       };
+    case INCREASE_BALANCE:
+      return {
+        ...state,
+        totalBalance: state.totalBalance + action.amount,
+      };
+    case DECREASE_BALANCE:
+      return {
+        ...state,
+        totalBalance: state.totalBalance - action.amount,
+      };
+    case SET_BALANCE:
+      return {
+        ...state,
+        totalBalance: action.amount,
+      };
     case ERROR:
       return {
         ...state,
-        action,
       };
     default:
       return state;

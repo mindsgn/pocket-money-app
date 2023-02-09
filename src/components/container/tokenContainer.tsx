@@ -8,11 +8,10 @@ import { View, Text, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 const TokenContainer = (props: any) => {
-  const { getTokenList } = WalletAction(props);
   const opacity = React.useRef(new Animated.Value(0)).current;
   const [mounted, setMounted] = React.useState<any>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
-  const { tokenList, address, settings } = props;
+  const { walletTokenList, currency, currencySymbol, providerUrl } = props;
 
   function slideUp() {
     Animated.timing(opacity, {
@@ -24,12 +23,15 @@ const TokenContainer = (props: any) => {
 
   React.useEffect(() => {
     if (mounted) {
-      // getTokenList(address, settings);
       setTimeout(slideUp, 2000);
       setLoading(false);
     }
     setMounted(true);
   }, [mounted]);
+
+  React.useEffect(() => {
+    // getTokenList(address, settings);
+  }, [providerUrl]);
 
   return (
     <Animated.View
@@ -44,15 +46,23 @@ const TokenContainer = (props: any) => {
         },
       ]}
     >
-      <Text
+      <View
         style={{
-          fontFamily: 'SF-Pro-Rounded-Bold',
-          fontSize: 25,
-          color: colors.orange,
+          display: 'flex',
+          width: '100%',
+          height: 50,
         }}
       >
-        TOKENS
-      </Text>
+        <Text
+          style={{
+            fontFamily: 'SF-Pro-Rounded-Bold',
+            fontSize: 25,
+            color: colors.orange,
+          }}
+        >
+          TOKENS
+        </Text>
+      </View>
       {loading ? (
         <View
           style={{
@@ -72,7 +82,7 @@ const TokenContainer = (props: any) => {
             LOADING
           </Text>
         </View>
-      ) : !loading && tokenList.length === 0 ? (
+      ) : !loading && walletTokenList.length === 0 ? (
         <View
           style={{
             flex: 1,
@@ -92,13 +102,18 @@ const TokenContainer = (props: any) => {
           </Text>
         </View>
       ) : (
-        tokenList.map((item: any, index: any) => {
+        walletTokenList.map((item: any, index: any) => {
           return (
             <TokenCard
               key={index}
+              logo={item.logo}
               name={item.symbol}
               symbol={item.symbol}
               amount={item.balance}
+              fiatAmount={item.fiatAmount}
+              props={props}
+              currency={currency}
+              currencySymbol={currencySymbol}
             />
           );
         })
@@ -110,8 +125,11 @@ const TokenContainer = (props: any) => {
 const mapStateToProps = (state: any) => {
   return {
     address: state.wallet.address,
-    tokenList: state.wallet.tokenList,
+    walletTokenList: state.wallet.walletTokenList,
     settings: state.wallet.settings,
+    providerUrl: state.wallet.providerUrl,
+    currencySymbol: state.wallet.currencySymbol,
+    currency: state.wallet.currency,
   };
 };
 

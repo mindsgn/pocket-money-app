@@ -1,14 +1,17 @@
 //@ts-ignore
-import { COINGECKO_API, CLIENT_ID, ALCHEMY_SDK } from '@env';
+import { COINGECKO_API, CLIENT_ID } from '@env';
 import {
   CONNECT,
   DISCONNECT,
   ERROR,
-  GET_COINGECKO,
+  GET_COINGECKO_LIST,
   GET_CHAIN_ID,
   GET_ADDRESS,
   GET_TOKEN_LIST,
   SWITCH_NETWORK,
+  INCREASE_BALANCE,
+  DECREASE_BALANCE,
+  SET_BALANCE,
   //@ts-ignore
 } from '@orbyt/constants';
 import * as WebBrowser from '@toruslabs/react-native-web-browser';
@@ -29,18 +32,8 @@ global.Buffer = global.Buffer || Buffer;
 const scheme = 'orbyt';
 const resolvedRedirectUrl = `${scheme}://openlogin`;
 
-const settings = {
-  apiKey: ALCHEMY_SDK,
-  network: Network.MATIC_MAINNET,
-};
-
 export const WalletAction = (props: any) => {
-  // const [alchemy, setAlchemy] = React.useState<any>(new Alchemy(settings));
-  //const [providerUrl, setProviderUrl] = React.useState<string>(
-  //  'https://rpc.ankr.com/polygon'
-  //);
-  //sign in with wallet
-  const connectWithWeb3Auth = React.useCallback(async () => {
+  const connectWithWeb3Auth = async () => {
     try {
       const response = await new Web3Auth(WebBrowser, {
         clientId: `${CLIENT_ID}`,
@@ -67,10 +60,10 @@ export const WalletAction = (props: any) => {
         error,
       });
     }
-  }, []);
+  };
 
   //sign in without wallet
-  const testConnection = React.useCallback(async (address: string) => {
+  const testConnection = async (address: string) => {
     try {
       props.dispatch({
         type: CONNECT,
@@ -89,11 +82,10 @@ export const WalletAction = (props: any) => {
         error,
       });
     }
-  }, []);
+  };
 
   //disconnect wallet
-  const disconnectWallet = React.useCallback(async (auth: any) => {
-    // console.log('response: ', auth)
+  const disconnectWallet = async (auth: any) => {
     try {
       //@ts-ignore
       const response = await auth.logout();
@@ -113,7 +105,7 @@ export const WalletAction = (props: any) => {
         error,
       });
     }
-  }, []);
+  };
 
   //remove error
   const removeError = React.useCallback(async () => {
@@ -124,27 +116,17 @@ export const WalletAction = (props: any) => {
   }, []);
 
   //get market data
-  const getMarketData = React.useCallback(async () => {
-    const response = await fetch(
-      `${COINGECKO_API}/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false`,
-      {
-        method: 'GET',
-      }
-    )
-      .then((success) => {
-        success.json().then((data) => {
-          props.dispatch({
-            type: GET_COINGECKO,
-            markets: data,
-          });
-        });
-      })
-      .catch((error) => {
+  const getMarketList = React.useCallback(async (location: string) => {
+    await fetch(`${COINGECKO_API}/list`, {
+      method: 'GET',
+    }).then((success) => {
+      success.json().then((data) => {
         props.dispatch({
-          type: ERROR,
-          error,
+          type: GET_COINGECKO_LIST,
+          marketTokenList: data,
         });
       });
+    });
   }, []);
 
   const getChainId = React.useCallback(async (providerUrl: string) => {
@@ -156,6 +138,7 @@ export const WalletAction = (props: any) => {
         networkName: networkDetails.name,
         networkID: networkDetails.chainId,
         ens: networkDetails.ensAddress,
+        balance: 0,
       });
     } catch (error) {
       props.dispatch({
@@ -216,29 +199,53 @@ export const WalletAction = (props: any) => {
     []
   );
 
-  const signMessage = React.useCallback(async (key: string) => {
-    try {
-      const ethersProvider = ethers.getDefaultProvider(providerUrl);
-      const wallet = new ethers.Wallet(key, ethersProvider);
+  const signMessage = React.useCallback(
+    async (key: string, providerUrl: string) => {
+      try {
+        const ethersProvider = ethers.getDefaultProvider(providerUrl);
+        const wallet = new ethers.Wallet(key, ethersProvider);
 
-      const originalMessage = 'YOUR_MESSAGE';
+        const originalMessage = 'YOUR_MESSAGE';
 
-      // Sign the message
-      const signedMessage = await wallet.signMessage(originalMessage);
+        // Sign the message
+        const signedMessage = await wallet.signMessage(originalMessage);
 
-      return signedMessage;
-    } catch (error) {
+        return signedMessage;
+      } catch (error) {
+        props.dispatch({
+          type: ERROR,
+          error,
+        });
+      }
+    },
+    []
+  );
+
+  const updateBalance = (sum: boolean, amount: number) => {
+    if (sum) {
       props.dispatch({
-        type: ERROR,
-        error,
+        type: INCREASE_BALANCE,
+        amount,
+      });
+    } else {
+      props.dispatch({
+        type: DECREASE_BALANCE,
+        amount,
       });
     }
-  }, []);
+  };
+
+  const setBalance = (amount: number) => {
+    props.dispatch({
+      type: SET_BALANCE,
+      amount,
+    });
+  };
 
   const getTokenList = React.useCallback(
     async (address: string, settings: any) => {
       try {
-        const alchemy = new Alchemy(settings);
+        const alchemy = await new Alchemy(settings);
         const balances = await alchemy.core.getTokenBalances(address);
 
         const nonZeroBalances = balances.tokenBalances.filter((token: any) => {
@@ -248,33 +255,31 @@ export const WalletAction = (props: any) => {
           );
         });
 
-        const array = [];
-        // Loop through all tokens with non-zero balance
-        for (const token of balances) {
-          // Get balance of token
-          let balance = token.tokenBalance;
+        const array: any[] = [];
+
+        for await (const token of nonZeroBalances) {
+          let balance: any = token.tokenBalance;
 
           // Get metadata of token
           const metadata = await alchemy.core.getTokenMetadata(
             token.contractAddress
           );
 
-          // Compute token balance in human-readable format
-          balance = balance / Math.pow(10, metadata.decimals);
-          // console.log(balance);
-          // balance = balance.toFixed(2);
+          balance = balance / Math.pow(10, parseFloat(`${metadata.decimals}`));
 
           array.push({
             name: `${metadata.name}`,
             balance: `${balance}`,
             symbol: `${metadata.symbol}`,
+            logo: `${metadata.logo}`,
             contactAddress: token.contractAddress,
+            fiatAmount: '0.00',
           });
         }
 
         props.dispatch({
           type: GET_TOKEN_LIST,
-          tokenList: array,
+          walletTokenList: array,
         });
       } catch (error) {
         props.dispatch({
@@ -291,7 +296,7 @@ export const WalletAction = (props: any) => {
       props.dispatch({
         type: SWITCH_NETWORK,
         settings: {
-          apiKey: ALCHEMY_SDK,
+          apiKey: network.keys,
           network: network.network,
         },
         providerUrl: network.url,
@@ -305,15 +310,17 @@ export const WalletAction = (props: any) => {
   }, []);
 
   return {
+    setBalance,
+    updateBalance,
     connectWithWeb3Auth,
     disconnectWallet,
     removeError,
-    getMarketData,
     testConnection,
     getChainId,
     sendTransaction,
     signMessage,
     getAccount,
+    getMarketList,
     getTokenList,
     switchToNetwork,
   };
