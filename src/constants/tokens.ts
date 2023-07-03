@@ -8313,7 +8313,7 @@ export const tokens = [
     id: 'chainlink',
     symbol: 'link',
     name: 'Chainlink',
-    possibleName: ['link', 'chainlink', "ChainLink Token"],
+    possibleName: ['link', 'chainlink', 'ChainLink Token'],
     verified: true,
   },
   {
