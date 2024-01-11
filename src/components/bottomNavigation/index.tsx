@@ -2,9 +2,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useRef } from 'react';
 import { Animated, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useAuth } from '../../context';
 
 import { colors } from '../../constants';
+import { useAuth } from '../../context';
 import { Home, Tokens, Contact, Profile, Settings } from '../../screens';
 
 const Tab = createBottomTabNavigator();

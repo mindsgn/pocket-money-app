@@ -6,7 +6,6 @@ import React, {
   SetStateAction,
   useContext,
   useEffect,
-  useReducer,
   useState,
 } from 'react';
 
@@ -27,6 +26,8 @@ function useAuth(): AuthContextType {
 
 const AuthProvider = (props: { children: ReactNode }): ReactElement => {
   const [auth, setAuth] = useState<{ [key: string]: any } | null>(null);
+
+  useEffect(() => {}, []);
 
   return <AuthContext.Provider {...props} value={{ auth, setAuth }} />;
 };

@@ -1,29 +1,38 @@
 import React, { useEffect } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, NativeModules } from 'react-native';
+const { Wallet } = NativeModules;
 
 import { style } from './style';
 
 const Loading = (props: any) => {
   const { navigation, route } = props;
-  const { params } = route;
-  const { MagicKey } = params;
 
   const isauth = async () => {
     try {
-      const isLoggedIn = await MagicKey.user.isLoggedIn();
-      if (isLoggedIn) {
-        navigation.replace('HomeTabs');
-      } else {
-        navigation.replace('SignIn');
-      }
+      // const isLoggedIn = await MagicKey.user.isLoggedIn();
+      //if (isLoggedIn) {
+      // navigation.replace('HomeTabs');
+      //} else {
+      // navigation.replace('SignIn');
+      //}
     } catch (error) {
       //log error
-      navigation.replace('HomeTabs');
+      // navigation.replace('HomeTabs');
     }
   };
 
+  const getMetadata = async () => {
+    await Wallet.getMetadata('', async (err: any, metadata: any) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(metadata);
+    });
+  };
+
   useEffect(() => {
-    isauth();
+    getMetadata();
   }, []);
 
   return (

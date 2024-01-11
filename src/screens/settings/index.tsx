@@ -26,7 +26,16 @@ const Settings = (props: any) => {
 
   return (
     <View style={style.default}>
+      <View style={style.account}>
+        <View style={style.profile} />
+      </View>
+      <View style={style.account}></View>
       <View>
+        <Button
+          title={'DELETE ACCOUNT'}
+          color={colors.red}
+          onPress={() => {}}
+        />
         <Button title={'LOGOUT'} color={colors.red} onPress={() => logout()} />
       </View>
       <View
