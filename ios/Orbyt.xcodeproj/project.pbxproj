@@ -14,6 +14,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-Orbyt-OrbytTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Orbyt-OrbytTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9C4F5F01149D49489976B0E1 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 08BB05C05DA746038D84DB1B /* SF-Pro-Rounded-Bold.otf */; };
+		BEC68437C2344E31B87CA444 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = F471FD8204F84420B436CE57 /* SF-Pro-Rounded-Heavy.otf */; };
+		0C4A748370904C75BCB6033F /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B262CC5172C4262A73D8471 /* SF-Pro-Rounded-Medium.otf */; };
+		4684B5D3C53B4CFFA0928FED /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 573FC33574AD448CBC736AD3 /* SF-Pro-Rounded-Regular.otf */; };
+		C817E5676BDE4C0FA590303E /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A929787E033546C1A4DEA634 /* SF-Pro-Rounded-Semibold.otf */; };
+		2F2C36DE2B35445883A93DAB /* SFMono-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2E72626E17CD47139E9F385A /* SFMono-Medium.otf */; };
+		08E42C870B704AD8B4011A95 /* SFMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91A43B90F94A42D68D45B3E8 /* SFMono-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,28 +29,35 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = "Orbyt";
+			remoteInfo = Orbyt;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* OrbytTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OrbytTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* OrbytTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OrbytTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* OrbytTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrbytTests.m"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Orbyt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Orbyt.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Orbyt/AppDelegate.h"; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "Orbyt/AppDelegate.mm"; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Orbyt/Images.xcassets"; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Orbyt/Info.plist"; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Orbyt/main.m"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* OrbytTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrbytTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Orbyt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orbyt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Orbyt/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Orbyt/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Orbyt/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Orbyt/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Orbyt/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Orbyt-OrbytTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orbyt-OrbytTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-Orbyt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orbyt.debug.xcconfig"; path = "Target Support Files/Pods-Orbyt/Pods-Orbyt.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Orbyt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orbyt.release.xcconfig"; path = "Target Support Files/Pods-Orbyt/Pods-Orbyt.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Orbyt-OrbytTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orbyt-OrbytTests.debug.xcconfig"; path = "Target Support Files/Pods-Orbyt-OrbytTests/Pods-Orbyt-OrbytTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Orbyt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orbyt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = "Orbyt/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Orbyt/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Orbyt-OrbytTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orbyt-OrbytTests.release.xcconfig"; path = "Target Support Files/Pods-Orbyt-OrbytTests/Pods-Orbyt-OrbytTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		08BB05C05DA746038D84DB1B /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; name = "SF-Pro-Rounded-Bold.otf"; path = "../src/fonts/SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F471FD8204F84420B436CE57 /* SF-Pro-Rounded-Heavy.otf */ = {isa = PBXFileReference; name = "SF-Pro-Rounded-Heavy.otf"; path = "../src/fonts/SF-Pro-Rounded-Heavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0B262CC5172C4262A73D8471 /* SF-Pro-Rounded-Medium.otf */ = {isa = PBXFileReference; name = "SF-Pro-Rounded-Medium.otf"; path = "../src/fonts/SF-Pro-Rounded-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		573FC33574AD448CBC736AD3 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; name = "SF-Pro-Rounded-Regular.otf"; path = "../src/fonts/SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A929787E033546C1A4DEA634 /* SF-Pro-Rounded-Semibold.otf */ = {isa = PBXFileReference; name = "SF-Pro-Rounded-Semibold.otf"; path = "../src/fonts/SF-Pro-Rounded-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2E72626E17CD47139E9F385A /* SFMono-Medium.otf */ = {isa = PBXFileReference; name = "SFMono-Medium.otf"; path = "../src/fonts/SFMono-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		91A43B90F94A42D68D45B3E8 /* SFMono-Regular.otf */ = {isa = PBXFileReference; name = "SFMono-Regular.otf"; path = "../src/fonts/SFMono-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +86,7 @@
 				00E356F21AD99517003FC87E /* OrbytTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = "OrbytTests";
+			path = OrbytTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -93,7 +107,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = "Orbyt";
+			name = Orbyt;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -122,6 +136,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				A8B9B2ADC0C144528AEBF200 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -148,6 +163,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A8B9B2ADC0C144528AEBF200 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				08BB05C05DA746038D84DB1B /* SF-Pro-Rounded-Bold.otf */,
+				F471FD8204F84420B436CE57 /* SF-Pro-Rounded-Heavy.otf */,
+				0B262CC5172C4262A73D8471 /* SF-Pro-Rounded-Medium.otf */,
+				573FC33574AD448CBC736AD3 /* SF-Pro-Rounded-Regular.otf */,
+				A929787E033546C1A4DEA634 /* SF-Pro-Rounded-Semibold.otf */,
+				2E72626E17CD47139E9F385A /* SFMono-Medium.otf */,
+				91A43B90F94A42D68D45B3E8 /* SFMono-Regular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -167,8 +197,7 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = "OrbytTests";
-			productname = "OrbytTests";
+			name = OrbytTests;
 			productReference = 00E356EE1AD99517003FC87E /* OrbytTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -188,8 +217,8 @@
 			);
 			dependencies = (
 			);
-			name = "Orbyt";
-			productName = "Orbyt";
+			name = Orbyt;
+			productName = Orbyt;
 			productReference = 13B07F961A680F5B00A75B9A /* Orbyt.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -243,6 +272,13 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				9C4F5F01149D49489976B0E1 /* SF-Pro-Rounded-Bold.otf in Resources */,
+				BEC68437C2344E31B87CA444 /* SF-Pro-Rounded-Heavy.otf in Resources */,
+				0C4A748370904C75BCB6033F /* SF-Pro-Rounded-Medium.otf in Resources */,
+				4684B5D3C53B4CFFA0928FED /* SF-Pro-Rounded-Regular.otf in Resources */,
+				C817E5676BDE4C0FA590303E /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				2F2C36DE2B35445883A93DAB /* SFMono-Medium.otf in Resources */,
+				08E42C870B704AD8B4011A95 /* SFMono-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,7 +453,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "OrbytTests/Info.plist";
+				INFOPLIST_FILE = OrbytTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -429,7 +465,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "mindsgn.studio.orbyt";
+				PRODUCT_BUNDLE_IDENTIFIER = mindsgn.studio.orbyt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Orbyt.app/Orbyt";
 			};
@@ -441,7 +477,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = "OrbytTests/Info.plist";
+				INFOPLIST_FILE = OrbytTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -453,7 +489,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "mindsgn.studio.orbyt";
+				PRODUCT_BUNDLE_IDENTIFIER = mindsgn.studio.orbyt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Orbyt.app/Orbyt";
 			};
@@ -467,8 +503,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Orbyt/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "Orbyt";
+				INFOPLIST_FILE = Orbyt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Orbyt;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -479,8 +515,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "mindsgn.studio.orbyt";
-				PRODUCT_NAME = "Orbyt";
+				PRODUCT_BUNDLE_IDENTIFIER = mindsgn.studio.orbyt;
+				PRODUCT_NAME = Orbyt;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -494,8 +530,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = "Orbyt/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "Orbyt";
+				INFOPLIST_FILE = Orbyt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Orbyt;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -506,8 +542,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "mindsgn.studio.orbyt";
-				PRODUCT_NAME = "Orbyt";
+				PRODUCT_BUNDLE_IDENTIFIER = mindsgn.studio.orbyt;
+				PRODUCT_NAME = Orbyt;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -546,7 +582,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -574,6 +610,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -581,7 +618,14 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-Wl",
+					"-ld_classic",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -618,7 +662,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -638,6 +682,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -645,7 +690,14 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-Wl",
+					"-ld_classic",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

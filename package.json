@@ -1,20 +1,54 @@
 {
   "name": "orbyt",
-  "version": "0.0.1",
+  "version": "0.10.0",
   "private": true,
   "engines": {
     "node": "18.0.0"
   },
   "scripts": {
+    "postinstall": "rn-nodeify --install fs,dgram,process,path,console,stream,crypto,main --hack",
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
     "lint": "eslint .",
-    "start": "react-native start",
-    "test": "jest"
+    "start": "react-native start --reset-cache --experimental-debugger",
+    "test": "jest",
+    "android:beta": "yarn version --minor && bundle exec fastlane android beta"
   },
   "dependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@haskkor/react-native-pincode": "^1.22.6",
+    "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
+    "@realm/react": "0.5.0",
+    "@shopify/react-native-skia": "^0.1.233",
+    "aes-js": "^3.1.2",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "base-64": "^1.0.0",
+    "bdk-rn": "^0.30.0",
+    "buffer": "^6.0.3",
+    "console-browserify": "^1.2.0",
+    "jetifier": "^2.0.0",
+    "path-browserify": "^0.0.0",
+    "process": "^0.11.10",
     "react": "18.2.0",
-    "react-native": "0.73.2"
+    "react-native": "0.73.2",
+    "react-native-crypto": "^2.2.0",
+    "react-native-dotenv": "^3.4.9",
+    "react-native-fs": "^2.20.0",
+    "react-native-keychain": "^8.1.2",
+    "react-native-level-fs": "^3.0.1",
+    "react-native-logs": "^5.0.1",
+    "react-native-randombytes": "^3.6.1",
+    "react-native-reanimated": "^3.6.1",
+    "react-native-safe-area-context": "^4.8.2",
+    "react-native-screens": "^3.29.0",
+    "react-native-udp": "^2.7.0",
+    "readable-stream": "^1.0.33",
+    "realm": "12.2.1",
+    "rn-nodeify": "^10.3.0",
+    "stream-browserify": "^1.0.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -24,7 +58,9 @@
     "@react-native/eslint-config": "0.73.2",
     "@react-native/metro-config": "0.73.3",
     "@react-native/typescript-config": "0.73.1",
+    "@types/aes-js": "^3.1.4",
     "@types/react": "^18.2.6",
+    "@types/react-native-dotenv": "^0.2.2",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
     "eslint": "^8.19.0",
@@ -32,5 +68,31 @@
     "prettier": "2.8.8",
     "react-test-renderer": "18.2.0",
     "typescript": "5.0.4"
+  },
+  "react-native": {
+    "console": "console-browserify",
+    "crypto": "react-native-crypto",
+    "path": "path-browserify",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "dgram": "react-native-udp",
+    "stream": "stream-browserify"
+  },
+  "browser": {
+    "console": "console-browserify",
+    "crypto": "react-native-crypto",
+    "path": "path-browserify",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "dgram": "react-native-udp",
+    "stream": "stream-browserify"
   }
 }

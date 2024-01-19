@@ -7,6 +7,9 @@
 .env
 __snapshots__
 gradle.properties
+google_play.json
+upload_cert.der
+upload_certificate.pem
 
 # Xcode
 #
