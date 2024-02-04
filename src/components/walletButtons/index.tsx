@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Touchable, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { style } from './style';
 
@@ -7,8 +7,8 @@ const WalletButtons = ({
   goToSend,
   goToRecieve,
 }: {
-  goToSend: any;
-  goToRecieve: any;
+  goToSend?: any;
+  goToRecieve?: any;
 }) => {
   return (
     <View style={style.default}>

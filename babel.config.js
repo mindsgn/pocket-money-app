@@ -1,28 +1,30 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: ['module:@react-native/babel-preset'],
   plugins: [
-    [
-      'module-resolver',
-      {
-        alias: {
-          '@orbyt/assets': './src/assets',
-          '@orbyt/components': './src/components',
-          '@orbyt/constants': './src/constants',
-          '@orbyt/context': './src/context',
-          '@orbyt/screen': './src/screen',
-          '@orbyt/types': './src/types',
-          '@orbyt/style': './src/style',
-          '@orbyt/hooks': './src/hooks',
-        },
-      },
-    ],
+    'transform-remove-console',
+    '@babel/plugin-proposal-export-namespace-from',
+    'react-native-reanimated/plugin',
     [
       'module:react-native-dotenv',
       {
         moduleName: '@env',
         path: '.env',
+        blocklist: null,
+        allowlist: null,
+        safe: false,
+        allowUndefined: true,
+        verbose: false,
       },
     ],
-    'react-native-reanimated/plugin',
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        extensions: ['.ts', '.js', '.jsx', '.tsx', '.jsx', '.js', '.json'],
+        alias: {
+          '@app': './src',
+        },
+      },
+    ],
   ],
 };

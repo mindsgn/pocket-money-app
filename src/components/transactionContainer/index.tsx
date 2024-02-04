@@ -3,7 +3,6 @@ import { View, Text, FlatList } from 'react-native';
 
 import { style } from './style';
 import { useWallet } from '../../context';
-import { TransactionCard } from '../transactionCard';
 import { TransactionLoadingContainer } from '../transactionLoadingContainer ';
 import { TransactionEmptyContainer } from '../transactionEmptyContainer';
 
@@ -20,14 +19,7 @@ const TransactionContainer = () => {
           <FlatList
             data={transactions}
             ListEmptyComponent={<TransactionEmptyContainer />}
-            renderItem={({ item }) => (
-              <TransactionCard
-                key={`${item.blockHash}`}
-                date={item.timeStamp}
-                label={item.label}
-                amount={item.value}
-              />
-            )}
+            renderItem={({ item }) => <></>}
           />
         )}
       </View>

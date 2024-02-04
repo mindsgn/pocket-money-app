@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
+import { colors, text } from '../../constants';
 
 export const style = StyleSheet.create({
   default: {
@@ -29,7 +29,7 @@ export const style = StyleSheet.create({
     borderBottomEndRadius: 10,
   },
   buttonText: {
-    fontFamily: 'SF-Pro-Rounded-Heavy',
+    fontFamily: text.heavy,
     fontSize: 28,
     color: colors.white,
   },

@@ -1,39 +1,21 @@
 {
+  "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
-    "jsx": "react-native",
-    "types": ["jest", "react-native", "Node"],
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["esnext", "dom"],
-    "moduleResolution": "node",
-    "noEmit": true,
-    "strict": true,
-    "target": "esnext",
-    "baseUrl": ".",
-    "resolveJsonModule": true,
+    "baseUrl": "./src",
     "paths": {
-      "@env": ["node_modules/react-native-dotenv"],
-      "@orbyt/components": ["./src/components"],
-      "@orbyt/context": ["./src/context"],
-      "@orbyt/assets": ["./src/assets"],
-      "@orbyt/constants": ["./src/constants"],
-      "@orbyt/screen": ["./src/screen"],
-      "@orbyt/types": ["./src/types"],
-      "@orbyt/style": ["./src/style"],
-      "@orbyt/hooks": ["./src/hooks"]
+      "@orbyt/*": ["src/*"],
+      "@orbyt/screen": ["src/screen/*"],
+      "@orbyt/components": ["src/components/*"],
+      "@orbyt/context": ["src/context/*"],
+      "typeRoots": ["./src/@types"]
     }
   },
-  "include": ["./src/**/*"],
   "exclude": [
-    "./android",
-    "./ios",
-    "./node_modules",
-    "./babel.config.js",
-    "./metro.config.js",
-    "./jest.config.js"
-  ],
-  "moduleFileExtensions": ["ts", "tsx"]
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
 }
