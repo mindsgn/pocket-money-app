@@ -1,9 +1,23 @@
 import Realm, { ObjectSchema } from 'realm';
-import { APP_SECRET } from '@env';
 import { createRealmContext } from '@realm/react';
-import { realm_key } from './../constants';
 
 const encryptionKey = new Int8Array(64);
+
+class Settings extends Realm.Object<Settings> {
+  _id!: Realm.BSON.ObjectId;
+
+  static schema: ObjectSchema = {
+    name: 'Settings',
+    properties: {
+      _id: 'objectId',
+      currency: 'string',
+      currencySymbol: 'string',
+      network: 'string',
+      createdAt: 'date',
+    },
+    primaryKey: '_id',
+  };
+}
 
 class Wallet extends Realm.Object<Wallet> {
   _id!: Realm.BSON.ObjectId;
@@ -13,17 +27,20 @@ class Wallet extends Realm.Object<Wallet> {
     properties: {
       _id: 'objectId',
       type: 'string',
-      privateKeys: 'string',
-      nmemonic: 'string',
+      privateKey: 'string',
+      publicKey: 'string?',
+      nmemonic: 'string?',
       address: 'string',
+      network: 'string?',
+      createdAt: 'date',
     },
     primaryKey: '_id',
   };
 }
 
 const realmConfig: Realm.Configuration = {
-  schema: [Wallet],
-  schemaVersion: 1,
+  schema: [Settings, Wallet],
+  schemaVersion: 10,
   encryptionKey,
   path: 'orbyt.realm',
 };

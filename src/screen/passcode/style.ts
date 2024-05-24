@@ -10,6 +10,21 @@ export const style = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'black',
   },
+  loadingOverlay:{
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    width: '100%',
+    height: '100%',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+    justifyContent: 'center',
+    alignItems: 'center',
+    transform: [{ translateY: 1000 }],
+  },
   title: {
     paddingTop: 50,
     fontFamily: text.heavy,

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
+import { colors, fontSize } from '../../constants';
 
 export const style = StyleSheet.create({
   default: {
@@ -15,8 +15,18 @@ export const style = StyleSheet.create({
   },
   amount: {
     fontFamily: 'SF-Pro-Rounded-Heavy',
-    fontSize: 60,
+    fontSize: fontSize.medium,
     color: colors.white,
+    marginBottom: -80,
+    zIndex: 0,
+    backgroundColor: "rgba(0,0,0,0)",
+  },
+  text: {
+    fontFamily: 'SF-Pro-Rounded-Heavy',
+    fontSize: fontSize.small,
+    color: colors.white,
+    backgroundColor: "rgba(0,0,0,0)",
+    zIndex: 1,
   },
   networkButton: {
     display: 'flex',
@@ -33,7 +43,7 @@ export const style = StyleSheet.create({
   },
   networkButtonText: {
     fontFamily: 'SF-Pro-Rounded-Regular',
-    fontSize: 12,
+    fontSize: fontSize.small,
     color: colors.black,
     marginLeft: 5,
   },

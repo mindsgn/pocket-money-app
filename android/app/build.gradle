@@ -18,11 +18,11 @@ android {
         applicationId "mindsgn.studio.orbyt"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9011
-        versionName "0.9.0"
+        versionCode 9017
+        versionName "0.41.0"
     }
     signingConfigs {
-        debug {
+        release {
             if (project.hasProperty('ORBYT_UPLOAD_STORE_FILE')) {
                 storeFile file(ORBYT_UPLOAD_STORE_FILE)
                 storePassword ORBYT_UPLOAD_STORE_PASSWORD
@@ -31,13 +31,8 @@ android {
             }
         }
 
-        release {
-            if (project.hasProperty('ORBYT_UPLOAD_STORE_FILE')) {
-                storeFile file(ORBYT_UPLOAD_STORE_FILE)
-                storePassword ORBYT_UPLOAD_STORE_PASSWORD
-                keyAlias ORBYT_UPLOAD_KEY_ALIAS
-                keyPassword ORBYT_UPLOAD_KEY_PASSWORD
-            }
+        debug {
+            
         }
     }
     buildTypes {

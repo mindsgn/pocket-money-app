@@ -3,10 +3,11 @@ import { View, Text, ActivityIndicator, LogBox } from 'react-native';
 import { APP_NAME } from '@env';
 import { style } from './style';
 import { useEffect } from 'react';
-import { useAuth } from 'context';
+import { useAuth, useWallet } from 'context';
 
 const Loading = (props: any) => {
   const { navigation } = props;
+  const { connected } = useWallet
   const { ready, isNew } = useAuth();
 
   useEffect(() => {
