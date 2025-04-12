@@ -1,23 +1,26 @@
 {
   "expo": {
-    "name": "Meme Money",
-    "slug": "meme",
+    "name": "Pocket-Money",
+    "slug": "pocket",
     "version": "0.2.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "meme",
+    "scheme": "pocket",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "mindsgn.studio.meme"
+      "bundleIdentifier": "mindsgn.studio.pockt",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "mindsgn.studio.meme"
+      "package": "mindsgn.studio.pockt"
     },
     "web": {
       "bundler": "metro",
@@ -40,8 +43,11 @@
       "typedRoutes": true
     },
     "extra": {
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "a2eaede8-f358-4a5f-9fbd-7549d03464c7"
+        "projectId": "b58130ee-6872-4a8f-8d5d-b30a289e7bef"
       }
     }
   }
