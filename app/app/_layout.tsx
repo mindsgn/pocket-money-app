@@ -35,13 +35,13 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      init();
+      // init();
     }
   }, [loaded]);
 
   useEffect(() => {
     if(firebase){
-      getBackupOrInit(); 
+      // getBackupOrInit(); 
     }
   }, [firebase]);
   
