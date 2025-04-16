@@ -6,12 +6,12 @@ import { keywords } from '@/constants/keywords';
 import {APIProvider} from '@vis.gl/react-google-maps';
 
 export const metadata: Metadata = {
-  title: 'MEME MONEY',
-  applicationName: 'MEME MONEY',
+  title: 'POCKET MONEY',
+  applicationName: 'POCKET MONEY',
   authors: [
     {
       name: 'sibongiseni',
-      url: 'https://sibongiseni.eth'
+      url: 'https://sibongiseni.xyz'
     },
     {
       name: 'Mindsgn Studio',
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     }
   ],
   description:
-    'MEME MONEY is a modern, open source asset management software that lets you create, manage, assign and overview your assets and equipment. From small office equipment to construction cranes.',
+    'POCKET MONEY a simple wallet',
   keywords,
   twitter: {
-    site: 'https://meme.mindsgn.studio',
-    title: 'MEME MONEY'
+    site: 'https://pocket.mindsgn.studio',
+    title: 'POCKET MONEY'
   }
 };
 

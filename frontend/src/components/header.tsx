@@ -34,26 +34,7 @@ function Header({}: HeaderProps) {
           color="white"
           cursor={'pointer'}
         >
-          MEME MONEY
-        </Heading>
-      </Box>
-
-      <Box
-        background="white"
-        padding={4}
-        borderRadius={10}
-        cursor="pointer"
-        onClick={() => {
-          router.push('/login');
-        }}
-      >
-        <Heading
-          fontFamily="heavy"
-          fontSize={20}
-          color="black"
-          cursor={'pointer'}
-        >
-          GET STARTED
+          POCKET MONEY
         </Heading>
       </Box>
     </Box>

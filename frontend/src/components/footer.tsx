@@ -24,7 +24,7 @@ function Footer({}: FooterProp) {
         color="white"
         fontSize={21}
       >
-        &copy; {currentYear} MEME MONEY
+        &copy; {currentYear} POCKET MONEY
       </Text>
       <Box flexDir={'row'} display={['none', 'none', 'none', 'flex']}>
         <Text
