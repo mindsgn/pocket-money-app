@@ -4,7 +4,7 @@
     "slug": "pocket",
     "version": "0.2.1",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./@src/assets/images/icon.png",
     "scheme": "pocket",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./@src/assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
       "package": "mindsgn.studio.pockt"
@@ -25,19 +25,27 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./@src/assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "react-native-cloud-storage",
+        {
+          "iCloudContainerEnvironment": "Production",
+          "iCloudContainerIdentifier": "iCloud.mindsgn.studio.pockt.icloud"
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./@src/assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true
