@@ -23,17 +23,14 @@ export default function Home() {
   },[address]);
 
   useEffect(() => {
-    if(address===""){
       SplashScreen.hide();
-    }
-  },[address]);
+  },[]);
 
   return(
     <View style={style.container}>
+      <Toast />
       <Card />
-      <Actions />
       <Transactions />
-      <Terms />
       <Address />
     </View>
   );

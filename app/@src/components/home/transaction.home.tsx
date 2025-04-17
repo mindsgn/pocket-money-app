@@ -11,7 +11,7 @@ import { useWallet } from "@/@src/store/wallet";
 export default function Transactions() {
   const { transactions, loading } = useWallet();
 
-  if(!loading){
+  if(loading){
     return(
       <View style={[style.container]}>
         <ActivityIndicator />

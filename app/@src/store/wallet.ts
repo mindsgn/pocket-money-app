@@ -39,7 +39,7 @@ interface useWallet{
   wallet: Wallet | null,
   toast: Toast,
   init: (firebase: FirebaseApp) => void,
-  updateWallet: (wallet: Wallet) => void,
+  updateWallet: (wallet: Wallet, address: string) => void,
   getWalletBalance: (firebase: FirebaseApp) => void,
 }
 
@@ -50,7 +50,7 @@ const useWallet = create((set, get) => ({
   wallet: {
     totalBalance: "0.00",
     balance: [], 
-    address: "",
+    address: null,
     privateKey: "",
     encrypted: false,
     mnemonic: "",
@@ -74,9 +74,7 @@ const useWallet = create((set, get) => ({
     })
     .then(async (result) => {
       const { data } = result;
-
       await CloudStorage.writeFile('/ethereum.json', JSON.stringify(data));
-      
       const { address, encrypted, mnemonic, privateKey } = data as Wallet;
       set({
         wallet: {
@@ -113,43 +111,47 @@ const useWallet = create((set, get) => ({
       wallet
     })
   },
-  getWalletBalance: (firebase: FirebaseApp) => {
+  getWalletBalance: (firebase: FirebaseApp, address: string) => {
+    set({loading: true});
+    if(!firebase) set({loading: false});
     const functions = getFunctions(firebase);
-    connectFunctionsEmulator(functions, "localhost", 5001);
+    // connectFunctionsEmulator(functions, "localhost", 5001);
     const getBalance = httpsCallable(functions, 'getBalance');
 
     //@ts-expect-error  
     const wallet = get().wallet;
     const { wallet: walletData } = wallet
-    const { privateKey, encrypted, network, address } = walletData;
+    // const { network = "tes"} = walletData;
     
     getBalance({
-      address: "0x019D0706D65c4768ec8081eD7CE41F59Eef9b86c",
-      privateKey,
-      encrypted,
-      network,
+      address,
       type: "ethereum"
     })
     .then((response) => {
       const { data } = response;
       //@ts-expect-error
       const { totalBalance, tokens, transactions  } = data;
+      // console.log(data)
       const { lastUpdatedAt } = tokens[0];
+     
+      //@ts-expect-error
       const wallet = get().wallet;
-      
+
       set({
         wallet: {
           ...wallet,
-          totalBalance,
+          address,
+          totalBalance, 
           lastUpdatedAt
         },
         transactions,
-        loading: true
-      })
+      });
       
     })
     .catch((error) => {
       console.log(error)
+    }).finally(()=> {
+      set({loading: false});
     });
   },
   sendMoney: () => {

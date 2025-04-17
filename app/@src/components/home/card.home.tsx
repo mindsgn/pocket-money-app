@@ -10,9 +10,9 @@ import { formatCompactNumber } from "@/@src/hook";
 export default function Card() {
   //@ts-expect-error
   const { wallet, loading } = useWallet();
-  const { totalBalance } = wallet;
+  const { totalBalance, lastUpdatedAt } = wallet;
 
-  if(!loading){
+  if(loading){
     return(
       <View style={[style.container, style.placeHolder]}>
         <ActivityIndicator />
@@ -24,6 +24,9 @@ export default function Card() {
     <View style={style.container}>
       <Text style={style.balance}>{"$"}{totalBalance}</Text>
       <Text style={style.title}>{"balance"}</Text>
+      <View style={style.date}>
+        <Text style={style.title}>{`${lastUpdatedAt}`}</Text>
+      </View>
     </View>
   );
 }
@@ -36,6 +39,7 @@ const style = StyleSheet.create({
     backgroundColor: COLOR.dark.cardBackgroundColor,
     padding: 20,
     borderRadius: 20,
+    marginBottom: 20,
   },
   placeHolder: {
     display: "flex",
@@ -50,5 +54,11 @@ const style = StyleSheet.create({
   title: {
     color: COLOR.dark.balanceColor,
     ...TEXT.title
+  },
+  date: {
+    display: "flex",
+    flex:1,
+    alignItems: "flex-end",
+    justifyContent: "flex-end"
   }
 })

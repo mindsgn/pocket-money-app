@@ -35,7 +35,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      // init();
+      init();
     }
   }, [loaded]);
 

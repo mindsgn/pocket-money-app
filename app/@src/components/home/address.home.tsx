@@ -14,14 +14,16 @@ import Animated, {
 import { TEXT } from "@/@src/constants/text";
 import { useUser } from "@/@src/store/user";
 import { useWallet } from "@/@src/store/wallet";
+import { useFirebase } from "@/@src/store/firebase";
 
 export default function Address() {
     const [ walletAddress, setWalletAddress ] = useState();
-    const { wallet, loading } = useWallet();
+    const { firebase } = useFirebase();
+    const { wallet, loading, getWalletBalance } = useWallet();
     const { address } = wallet;
     const duration = 500;
     const isOpen = useSharedValue(false);
-    const height = useSharedValue(0);
+    const height = useSharedValue(Dimensions.get("window").height);
     const progress = useDerivedValue(() =>
         withTiming(isOpen.value ? 0 : 1, { duration })
     );
@@ -39,7 +41,7 @@ export default function Address() {
 
 
     useEffect(() => {
-        if(address===""){
+        if(!address){
             isOpen.value = true;
         }else{
             isOpen.value = false;
@@ -48,23 +50,19 @@ export default function Address() {
 
     return (
         <Animated.View
-            style={[styles.container, backdropStyle]}> 
-            <Animated.View style={[styles.backdrop]}/>
+            style={[styles.container, sheetStyle]}> 
+            <Animated.View style={[styles.backdrop, backdropStyle]}/>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : null}
-                style={{ flex: 1 }}>
-                {
-                    loading ?
-                        <ActivityIndicator />
-                    :
+               >
                         <Animated.View
                             style={[styles.modal, sheetStyle]}
                             onLayout={(e) => {
-                                height.value = e.nativeEvent.layout.height;
+                               
                             }}>
                             <View>
                                 <TextInput
-                                    multiline={true}
+                                    multiline={false}
                                     autoCorrect={true}
                                     spellCheck={true}
                                     autoCapitalize={"sentences"}
@@ -78,15 +76,19 @@ export default function Address() {
                                     }}
                                 />
                             </View>
-                        <Button
-                            size={"full"}
-                            title={"GET WALLET"} 
-                            onPress={() => {
-                                // agree()
-                            }}
-                        />
+                            {
+                                loading ?
+                                    <ActivityIndicator />
+                                :
+                                    <Button
+                                        size={"full"}
+                                        title={"GET WALLET"} 
+                                        onPress={() => {
+                                            getWalletBalance(firebase, walletAddress);
+                                        }}
+                                    />
+                            }
                     </Animated.View>
-                }
             </KeyboardAvoidingView>
         </Animated.View>
     );
@@ -125,7 +127,11 @@ const styles = StyleSheet.create({
     input:{
         height: 40,
         width: Dimensions.get("window").width - 20,
-        backgroundColor: "black",
+        backgroundColor: "none",
+        borderWidth: 2,
+        borderColor: "black",
+        borderRadius: 10,
+        padding: 10,
         marginVertical: 20,
     }
 }); 
