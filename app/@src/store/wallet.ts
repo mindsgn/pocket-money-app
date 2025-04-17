@@ -10,8 +10,15 @@ interface Toast{
   title: string | null,
 }
 
+interface Error {
+  error: false,
+  title: string | null,
+  message: string | null,
+}
+
 interface Wallet{
   totalBalance: string,
+  error: Error,
   balance: any[], 
   address: string,
   privateKey: string,
@@ -22,6 +29,11 @@ interface Wallet{
 
 interface useWallet{
   balance: any[], 
+  error: {
+    error: false,
+    title: "",
+    message: "",
+  }
   loading: boolean,
   transactions: any[], 
   wallet: Wallet | null,

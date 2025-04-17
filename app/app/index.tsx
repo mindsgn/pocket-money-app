@@ -11,15 +11,22 @@ import Toast from "@/@src/components/home/toast.home";
 import { useFirebase } from "@/@src/store/firebase";
 import { useColorScheme } from "react-native";
 import { useWallet } from "@/@src/store/wallet";
+import Address from "@/@src/components/home/address.home";
 
 export default function Home() {
-  const { wallet } = useWallet()
+  const { wallet } = useWallet();
+  const { address } = wallet;
 
   useEffect(() => {
-    if(wallet){
+    if(address === "" ){
+    }
+  },[address]);
+
+  useEffect(() => {
+    if(address===""){
       SplashScreen.hide();
     }
-  },[wallet]);
+  },[address]);
 
   return(
     <View style={style.container}>
@@ -27,6 +34,7 @@ export default function Home() {
       <Actions />
       <Transactions />
       <Terms />
+      <Address />
     </View>
   );
 }

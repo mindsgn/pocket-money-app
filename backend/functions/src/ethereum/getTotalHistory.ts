@@ -22,6 +22,7 @@ const getTotalHistory = async({
 }: GetTotalHistory) => {
     try{
         const polygonscanEndpoint = `https://api.polygonscan.com/api?module=account&action=txlist&address=${address}&offset=10&sort=desc&apikey=${process.env.POLYGONSCAN_API}`;
+
         const response = await fetch(polygonscanEndpoint);
         
         if (!response.ok) {
@@ -32,7 +33,6 @@ const getTotalHistory = async({
         
         const transactions = data.result;
         const formatedTransactions: Transactions[] = [];
-
 
         //@ts-expect-error
         transactions.map((transaction, index) => {
@@ -55,6 +55,8 @@ const getTotalHistory = async({
                 timeStamp
             });
         })
+
+        // const gnosisScan = `https://api.gnosisscan.io/api?module=account&action=txlist&address=${address}&offset=10&sort=desc&apikey=${process.env.GNOSISSCAN_API}`
 
         if (data.status === '1') {
             return formatedTransactions;
