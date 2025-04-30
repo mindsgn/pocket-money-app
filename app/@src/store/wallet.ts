@@ -2,59 +2,100 @@ import { FirebaseApp } from 'firebase/app';
 import { create } from 'zustand'
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
 import { CloudStorage } from 'react-native-cloud-storage';
-import { formatCompactNumber } from '../hook';
 
-interface Toast{
+interface ToastInterface{
   show: boolean,
   messsage: string | null,
   title: string | null,
 }
 
-interface Error {
+interface TransactionInterface{
+  fiatValue: number
+  formatedFiatValue: string,
+  transactionType: string
+  timeStamp: string
+  blockNumber?: string,
+  hash?: string,
+  nonce?: string
+  blockHash?: string,
+  transactionIndex?: string,
+  to?: string, 
+  gas?: string, 
+  gasPrice?: string, 
+  txreceipt_status?: string
+}
+
+interface ErrorInterface {
   error: false,
   title: string | null,
   message: string | null,
 }
 
-interface Wallet{
-  totalBalance: string,
-  error: Error,
-  balance: any[], 
-  address: string,
-  privateKey: string,
-  encrypted: boolean,
-  mnemonic: string,
-  lastUpdatedAt: string,
+interface WalletInterface{
+  show?: boolean,
+  totalBalance?: string,
+  error?: Error | null,
+  balance?: any[], 
+  address?: string | null,
+  privateKey?: string,
+  encrypted?: boolean,
+  mnemonic?: string,
+  lastUpdatedAt?: string,
+  today?: number,
+  week?: number,
+  month?: number,
 }
 
-interface useWallet{
+interface Details {
+  show: boolean,
+  fiatValue?: number
+  formatedFiatValue?: string,
+  transactionType?: string
+  timeStamp?: string
+  blockNumber?: string,
+  hash?: string,
+  nonce?: string
+  blockHash?: string,
+  transactionIndex?: string,
+  to?: string, 
+  gas?: string, 
+  gasPrice?: string, 
+  transactionFee?: number
+}
+
+interface UseWalletInterface{
   balance: any[], 
-  error: {
-    error: false,
-    title: "",
-    message: "",
-  }
+  error: ErrorInterface | null,
+  details: Details,
   loading: boolean,
   transactions: any[], 
-  wallet: Wallet | null,
-  toast: Toast,
+  wallet: WalletInterface | null,
+  toast: ToastInterface,
   init: (firebase: FirebaseApp) => void,
-  updateWallet: (wallet: Wallet, address: string) => void,
-  getWalletBalance: (firebase: FirebaseApp) => void,
+  updateWallet: (wallet: WalletInterface, address: string) => void,
+  getWalletBalance: (firebase: FirebaseApp, address: string) => void,
+  triggerTransaction: () => void,
+  triggerWallet: () => void,
 }
 
-const useWallet = create((set, get) => ({
+const useWallet = create<UseWalletInterface>((set, get) => ({
   balance: [],
   loading: false,
   transactions: [],
+  error: null,
+  details: {
+    show: false
+  },
   wallet: {
+    show: false,
     totalBalance: "0.00",
-    balance: [], 
+    balance: [],
     address: null,
     privateKey: "",
     encrypted: false,
     mnemonic: "",
-    lastUpdatedAt: new Date(),
+    lastUpdatedAt: `${new Date()}`,
+    error: null,
   },
   toast: {
     show: false,
@@ -106,7 +147,7 @@ const useWallet = create((set, get) => ({
       }, 2500);
     });
   },
-  updateWallet: (wallet: Wallet) => {
+  updateWallet: (wallet: WalletInterface) => {
     set({
       wallet
     })
@@ -117,11 +158,6 @@ const useWallet = create((set, get) => ({
     const functions = getFunctions(firebase);
     // connectFunctionsEmulator(functions, "localhost", 5001);
     const getBalance = httpsCallable(functions, 'getBalance');
-
-    //@ts-expect-error  
-    const wallet = get().wallet;
-    const { wallet: walletData } = wallet
-    // const { network = "tes"} = walletData;
     
     getBalance({
       address,
@@ -130,19 +166,22 @@ const useWallet = create((set, get) => ({
     .then((response) => {
       const { data } = response;
       //@ts-expect-error
-      const { totalBalance, tokens, transactions  } = data;
+      const { totalBalance, tokens, transactions, today, week, month } = data;
+      
+
       // console.log(data)
       const { lastUpdatedAt } = tokens[0];
-     
-      //@ts-expect-error
       const wallet = get().wallet;
 
       set({
         wallet: {
           ...wallet,
           address,
-          totalBalance, 
-          lastUpdatedAt
+          totalBalance,
+          lastUpdatedAt,
+          today, 
+          week, 
+          month
         },
         transactions,
       });
@@ -156,6 +195,26 @@ const useWallet = create((set, get) => ({
   },
   sendMoney: () => {
   },
+  triggerTransaction: (data?: TransactionInterface) => {
+    const { show } = get().details;
+    set({
+      details: {
+        show: !show,
+        ...data
+      }
+    });
+  },
+  triggerWallet: () => {
+    const { wallet } = get();
+    const { show } = wallet;
+
+    set({
+      wallet: {
+        ...wallet,
+        show: !show,
+      }
+    });
+  }
 }));
 
 export { useWallet }

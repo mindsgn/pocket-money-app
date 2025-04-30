@@ -7,6 +7,7 @@ import { useFirebase } from "@/@src/store/firebase";
 import "react-native-reanimated";
 import { useWallet } from "@/@src/store/wallet";
 import { CloudStorage } from 'react-native-cloud-storage';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -46,8 +47,10 @@ export default function RootLayout() {
   }, [firebase]);
   
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
+    </GestureHandlerRootView>
   );
 }

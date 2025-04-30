@@ -25,6 +25,7 @@ export default function Button({title, onPress, outline=false, size} : Button) {
 const style = StyleSheet.create({
     container: { 
         width: 150,
+        marginVertical: 10,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

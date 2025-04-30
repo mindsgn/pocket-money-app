@@ -16,7 +16,6 @@ const style = StyleSheet.create({
   container: {
     width: WIDTH - 20,
   },
-  //@ts-expect-error
   title: {
     color: COLOR.dark.balanceColor,
     ...TEXT.transactionHead

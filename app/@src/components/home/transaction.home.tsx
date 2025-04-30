@@ -25,8 +25,21 @@ export default function Transactions() {
         ListEmptyComponent={<Empty />}
         data={transactions}
         renderItem={({ item }) => {
-          //@ts-expect-error
-          const { formatedFiatValue, transactionType, timeStamp, fiatValue } = item;
+          const { 
+            formatedFiatValue, 
+            transactionType, 
+            timeStamp, 
+            fiatValue, 
+            blockNumber, 
+            hash, 
+            nonce, 
+            blockHash, 
+            transactionIndex, 
+            to,
+            gas, 
+            gasPrice,
+            transactionFee
+          } = item;
 
           return ( 
             <TransactionCard
@@ -34,6 +47,15 @@ export default function Transactions() {
               transactionType={transactionType}
               formatedFiatValue={formatedFiatValue}
               timeStamp={timeStamp}
+              blockNumber={blockNumber}
+              hash={hash}
+              nonce={nonce}
+              blockHash={blockHash}
+              transactionIndex={transactionIndex}
+              to={to}
+              gas={gas}
+              gasPrice={gasPrice}
+              transactionFee={transactionFee}
             />
           )
         }

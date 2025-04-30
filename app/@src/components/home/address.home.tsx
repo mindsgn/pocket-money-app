@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Dimensions, StyleSheet, KeyboardAvoidingView, TextInput, ActivityIndicator, Platform } from "react-native";
-import { View, Text } from "react-native";
+import { Dimensions, StyleSheet, KeyboardAvoidingView, TextInput, ActivityIndicator, Platform, } from "react-native";
+import { View } from "react-native";
 import { COLOR } from "@/@src/constants/color";
 import Button from "@/@src/components/home/button.home"
 import Animated, {
@@ -12,7 +12,6 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated';
 import { TEXT } from "@/@src/constants/text";
-import { useUser } from "@/@src/store/user";
 import { useWallet } from "@/@src/store/wallet";
 import { useFirebase } from "@/@src/store/firebase";
 
@@ -39,7 +38,6 @@ export default function Address() {
           : withDelay(duration, withTiming(-1, { duration: 0 })),
     }));
 
-
     useEffect(() => {
         if(!address){
             isOpen.value = true;
@@ -54,7 +52,7 @@ export default function Address() {
             <Animated.View style={[styles.backdrop, backdropStyle]}/>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : null}
-               >
+            >
                         <Animated.View
                             style={[styles.modal, sheetStyle]}
                             onLayout={(e) => {
@@ -66,11 +64,9 @@ export default function Address() {
                                     autoCorrect={true}
                                     spellCheck={true}
                                     autoCapitalize={"sentences"}
-                                    // editable={!sending}
                                     value={walletAddress}
                                     style={styles.input}
                                     placeholder="Enter wallet address"
-                                    // placeholderTextColor={COLORS["light"].background }
                                     onChangeText={(text) => {
                                         setWalletAddress(text);
                                     }}
@@ -80,13 +76,30 @@ export default function Address() {
                                 loading ?
                                     <ActivityIndicator />
                                 :
+                                <View>
                                     <Button
                                         size={"full"}
                                         title={"GET WALLET"} 
                                         onPress={() => {
+                                            if(walletAddress === "" || !walletAddress) return null;
                                             getWalletBalance(firebase, walletAddress);
                                         }}
                                     />
+                                    {
+                                        /*
+                                            <Button
+                                                size={"full"}
+                                                title={"CREATE NEW WALLET"} 
+                                                onPress={() => {}}
+                                            />
+                                            <Button
+                                                size={"full"}
+                                                title={"IMPORT WALLET"} 
+                                                onPress={() => {}}
+                                            />
+                                         */
+                                    }
+                                </View>
                             }
                     </Animated.View>
             </KeyboardAvoidingView>
@@ -101,6 +114,7 @@ const styles = StyleSheet.create({
         height: Dimensions.get("window").height,
         backgroundColor: "rgba(0, 0, 0, 0.9)",
         position: "absolute",
+        zIndex: 2,
     },
     backdrop: {
         flex: 1,

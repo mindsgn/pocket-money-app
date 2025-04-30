@@ -12,6 +12,8 @@ import { useFirebase } from "@/@src/store/firebase";
 import { useColorScheme } from "react-native";
 import { useWallet } from "@/@src/store/wallet";
 import Address from "@/@src/components/home/address.home";
+import TransactionDetails from "@/@src/components/home/transactionDetails.home";
+import QuickDetails from "@/@src/components/home/quick.home";
 
 export default function Home() {
   const { wallet } = useWallet();
@@ -32,6 +34,8 @@ export default function Home() {
       <Card />
       <Transactions />
       <Address />
+      <TransactionDetails />
+      <QuickDetails />
     </View>
   );
 }

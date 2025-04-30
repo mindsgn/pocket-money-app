@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { COLOR } from "@/@src/constants/color";
-import { View, Text, StyleSheet, Dimensions, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from "react-native";
 import { TEXT } from "@/@src/constants/text";
 import { WIDTH } from "@/@src/constants/dimension";
-import { useUser } from "@/@src/store/user";
 import { useWallet } from "@/@src/store/wallet";
-import { formatCompactNumber } from "@/@src/hook";
 
 export default function Card() {
-  //@ts-expect-error
-  const { wallet, loading } = useWallet();
+  const { wallet, loading, triggerWallet } = useWallet();
   const { totalBalance, lastUpdatedAt } = wallet;
+  const date = new Date(parseInt(lastUpdatedAt)) * 1000
+
 
   if(loading){
     return(
@@ -21,13 +20,10 @@ export default function Card() {
   }
   
   return(
-    <View style={style.container}>
-      <Text style={style.balance}>{"$"}{totalBalance}</Text>
+    <TouchableOpacity style={style.container} onPress={() => triggerWallet()}>
+      <Text style={style.balance}>{"R"}{totalBalance}</Text>
       <Text style={style.title}>{"balance"}</Text>
-      <View style={style.date}>
-        <Text style={style.title}>{`${lastUpdatedAt}`}</Text>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
