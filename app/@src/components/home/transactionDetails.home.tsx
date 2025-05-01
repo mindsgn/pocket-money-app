@@ -52,7 +52,7 @@ export default function Address() {
                         <ActivityIndicator/>
                     :
                         <View>
-                            <Text style={styles.title}>{`Transaction Details\n\n`}</Text>
+                            <Text style={styles.title}>{`Transaction Details\n`}</Text>
                             <Text>{`Transaction Amount:\n R${fiatValue}\n`}</Text>
                             <Text>{`Transaction Date:\n ${new Date(parseInt(`${timeStamp}`) * 1000)}\n`}</Text>
                             <Text>{`Transaction Fee:\n R${transactionFee}\n`}</Text>
