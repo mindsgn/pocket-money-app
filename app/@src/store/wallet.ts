@@ -1,6 +1,6 @@
 import { FirebaseApp } from 'firebase/app';
 import { create } from 'zustand'
-import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
+import { getFunctions, httpsCallable } from 'firebase/functions';
 import { CloudStorage } from 'react-native-cloud-storage';
 
 interface ToastInterface{
@@ -104,7 +104,6 @@ const useWallet = create<UseWalletInterface>((set, get) => ({
   },
   init: (firebase: FirebaseApp) => {
     const functions = getFunctions(firebase);
-    // connectFunctionsEmulator(functions, "localhost", 5001);
     const createNewWallet = httpsCallable(functions, 'newWallet');
 
     createNewWallet({

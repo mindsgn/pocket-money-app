@@ -56,22 +56,8 @@ export default function Address() {
                         <Animated.View
                             style={[styles.modal, sheetStyle]}
                             onLayout={(e) => {
-                               
                             }}>
-                            <View>
-                                <TextInput
-                                    multiline={false}
-                                    autoCorrect={true}
-                                    spellCheck={true}
-                                    autoCapitalize={"sentences"}
-                                    value={walletAddress}
-                                    style={styles.input}
-                                    placeholder="Enter wallet address"
-                                    onChangeText={(text) => {
-                                        setWalletAddress(text);
-                                    }}
-                                />
-                            </View>
+                           
                             {
                                 loading ?
                                     <ActivityIndicator />
@@ -79,26 +65,14 @@ export default function Address() {
                                 <View>
                                     <Button
                                         size={"full"}
-                                        title={"GET WALLET"} 
-                                        onPress={() => {
-                                            if(walletAddress === "" || !walletAddress) return null;
-                                            getWalletBalance(firebase, walletAddress);
-                                        }}
+                                        title={"CREATE NEW WALLET"} 
+                                        onPress={() => {}}
                                     />
-                                    {
-                                        /*
-                                            <Button
-                                                size={"full"}
-                                                title={"CREATE NEW WALLET"} 
-                                                onPress={() => {}}
-                                            />
-                                            <Button
-                                                size={"full"}
-                                                title={"IMPORT WALLET"} 
-                                                onPress={() => {}}
-                                            />
-                                         */
-                                    }
+                                    <Button
+                                        size={"full"}
+                                        title={"IMPORT WALLET"} 
+                                        onPress={() => {}}
+                                    />
                                 </View>
                             }
                     </Animated.View>

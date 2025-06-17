@@ -43,6 +43,7 @@ const style = StyleSheet.create({
     },
     title: {
         ...TEXT.button,
+        fontWeight: "bold",
         color: COLOR.dark.balanceColor,
     },
 });

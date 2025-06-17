@@ -6,14 +6,11 @@ import { useEffect } from "react";
 import { useFirebase } from "@/@src/store/firebase";
 import "react-native-reanimated";
 import { useWallet } from "@/@src/store/wallet";
-import { CloudStorage } from 'react-native-cloud-storage';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  //@ts-expect-error
   const { init: initWallet, updateWallet, getWalletBalance } = useWallet();
   const { init, firebase } = useFirebase();
 
@@ -21,18 +18,6 @@ export default function RootLayout() {
     regular: require("../@src/assets/fonts/regular.ttf"),
     bold: require("../@src/assets/fonts/bold.ttf"),
   });
-
-  const getBackupOrInit = async() => {
-    try{
-      const value = await CloudStorage.readFile('/ethereum.json');
-      const data = JSON.parse(value);
-      updateWallet({wallet: data});
-      getWalletBalance(firebase);
-    } catch(error) {
-      await initWallet(firebase);
-      console.log(error)
-    }
-  };
 
   useEffect(() => {
     if (loaded) {
