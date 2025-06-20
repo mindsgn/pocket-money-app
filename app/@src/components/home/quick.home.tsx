@@ -16,7 +16,7 @@ import { useWallet } from "@/@src/store/wallet";
 export default function Quck() {
     const [ loading ] = useState(false);
     const { wallet, triggerWallet } = useWallet();
-    const { show, today, week, month } = wallet;
+    const { show, today = 0, week = 0, month = 0 } = wallet;
     const duration = 500;
     const isOpen = useSharedValue(false);
     const height = useSharedValue(Dimensions.get("window").height);
@@ -45,15 +45,15 @@ export default function Quck() {
         <Animated.View style={[styles.container, backdropStyle]}>
             <Animated.View style={[styles.modal, sheetStyle]} onLayout={(e) => {}}>
                 <View>
-                    <Text>{`Spent Today:\nR${today}\n`}</Text>
-                    <Text>{`Spent This Week:\nR${week}\n`}</Text>
-                    <Text>{`Spent This Month:\nR${month}\n`}</Text>
-                            <Button
-                                title={"OK"} 
-                                onPress={() => {
-                                    triggerWallet()
-                                }}
-                                size={"full"}/>
+                    <Text style={styles.text}>{`Spent Today:\nR${today}\n`}</Text>
+                    <Text style={styles.text}>{`Spent This Week:\nR${week}\n`}</Text>
+                    <Text style={styles.text}>{`Spent This Month:\nR${month}\n`}</Text>
+                    <Button
+                            title={"OK"} 
+                            onPress={() => {
+                                triggerWallet()
+                            }}
+                            size={"full"}/>
                         </View>
             </Animated.View>
         </Animated.View>
@@ -72,11 +72,15 @@ const styles = StyleSheet.create({
     backdrop: {
         flex: 1,
     },
+    text: {
+        color: COLOR.dark.balanceColor,
+        ...TEXT.emptyBody
+    },
     modal:{
       display: "flex",
       justifyContent: "space-between",
       paddingTop: 10,
-      backgroundColor: COLOR.light.backgroundColor,
+      backgroundColor: COLOR.dark.backgroundColor,
       borderRadius: 10,
       padding: 10,
       paddingBottom: 30,

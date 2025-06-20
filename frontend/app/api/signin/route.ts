@@ -94,9 +94,9 @@ export async function POST(req: Request) {
     });
 
     const { error } = await resend.emails.send({
-      from: "Abakcus <no-reply@abakcus.xyz>",
+      from: "Vibe Connect <no-reply@Vibe Connect.xyz>",
       to: [email],
-      subject: "Abakcus: Auth",
+      subject: "Vibe Connect: Auth",
       html: emailTemplate,
     });
 

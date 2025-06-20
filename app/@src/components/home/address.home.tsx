@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Dimensions, StyleSheet, KeyboardAvoidingView, TextInput, ActivityIndicator, Platform, } from "react-native";
+import { Dimensions, StyleSheet, KeyboardAvoidingView, ActivityIndicator, Platform, } from "react-native";
 import { View } from "react-native";
 import { COLOR } from "@/@src/constants/color";
 import Button from "@/@src/components/home/button.home"
@@ -13,13 +13,15 @@ import Animated, {
 } from 'react-native-reanimated';
 import { TEXT } from "@/@src/constants/text";
 import { useWallet } from "@/@src/store/wallet";
-import { useFirebase } from "@/@src/store/firebase";
+import { useSortedRowIds } from "tinybase/ui-react";
 
 export default function Address() {
+    const data = useSortedRowIds("ethereum", "done");
     const [ walletAddress, setWalletAddress ] = useState();
-    const { firebase } = useFirebase();
+    // const { firebase } = useFirebase();
     const { wallet, loading, getWalletBalance } = useWallet();
     const { address } = wallet;
+    
     const duration = 500;
     const isOpen = useSharedValue(false);
     const height = useSharedValue(Dimensions.get("window").height);
@@ -39,11 +41,6 @@ export default function Address() {
     }));
 
     useEffect(() => {
-        if(!address){
-            isOpen.value = true;
-        }else{
-            isOpen.value = false;
-        }
     }, [address]);
 
     return (
@@ -66,11 +63,6 @@ export default function Address() {
                                     <Button
                                         size={"full"}
                                         title={"CREATE NEW WALLET"} 
-                                        onPress={() => {}}
-                                    />
-                                    <Button
-                                        size={"full"}
-                                        title={"IMPORT WALLET"} 
                                         onPress={() => {}}
                                     />
                                 </View>

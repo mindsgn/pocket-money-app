@@ -7,9 +7,15 @@ import { useWallet } from "@/@src/store/wallet";
 
 export default function Card() {
   const { wallet, loading, triggerWallet } = useWallet();
-  const { totalBalance, lastUpdatedAt } = wallet;
-  const date = new Date(parseInt(lastUpdatedAt)) * 1000
+  const [ total, setTotal ] = useState<string>("")
+  const { totalBalance, languageTag, currencyCode, address } = wallet;
 
+  useEffect(() => {
+    if(address){
+      const total = new Intl.NumberFormat(languageTag, { style: "currency", currency: currencyCode }).format(totalBalance)
+      setTotal(total)
+    }
+  }, [wallet])
 
   if(loading){
     return(
@@ -21,7 +27,7 @@ export default function Card() {
   
   return(
     <TouchableOpacity style={style.container} onPress={() => triggerWallet()}>
-      <Text style={style.balance}>{"R"}{totalBalance}</Text>
+      <Text style={style.balance}>{total}</Text>
       <Text style={style.title}>{"balance"}</Text>
     </TouchableOpacity>
   );
@@ -45,6 +51,7 @@ const style = StyleSheet.create({
   balance: {
     color: COLOR.dark.balanceColor,
     ...TEXT.balance,
+    fontWeight: "bold",
     fontSize: 45
   },
   title: {

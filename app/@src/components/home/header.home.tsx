@@ -1,6 +1,6 @@
 import React from "react";
 import { COLOR } from "@/@src/constants/color";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { TEXT } from "@/@src/constants/text";
 import { WIDTH } from "@/@src/constants/dimension";
 
@@ -18,6 +18,7 @@ const style = StyleSheet.create({
   },
   title: {
     color: COLOR.dark.balanceColor,
+    fontWeight: "bold",
     ...TEXT.transactionHead
   }
 })

@@ -12,7 +12,6 @@ import {
   CardTitle,
 } from "@/@src/components/ui/card";
 import { Alert, AlertDescription } from "@/@src/components/ui/alert";
-import { Badge } from "@/@src/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -29,16 +28,13 @@ import {
   ArrowLeft,
   Loader2,
   AlertCircle,
-  Sparkles,
   MapPin,
   Globe,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { useSearchParams } from "next/navigation";
-import { useUserStore } from "../store/user";
-import Logo from "./logo";
 
-type OnboardingStep = "profile" | "business" | "token" | "complete";
+type OnboardingStep = "start" | "brief" | "resources" | "prize";
 
 interface UserProfile {
   name: string;
@@ -70,42 +66,19 @@ const businessTypes = [
 ];
 
 export default function OnboardingFlow() {
-  // const { user } = useUserStore();
   const searchParams = useSearchParams();
-  const profileCompleted = searchParams.get("profileCompleted");
-  const tokenCompleted = searchParams.get("tokenCompleted");
-  const businessCompleted = searchParams.get("businessCompleted");
   const { makeAuthenticatedRequest } = useAuth();
-  const [currentStep, setCurrentStep] = useState<OnboardingStep>("profile");
+  const [currentStep, setCurrentStep] = useState<OnboardingStep>("start");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [userProfile, setUserProfile] = useState<UserProfile>({
     name: "",
   });
-  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>({
-    businessName: "",
-    businessType: "",
-    businessAddress: "",
-    website: "",
-    description: "",
-  });
-
-  const [loyaltyToken, setLoyaltyToken] = useState<LoyaltyToken>({
-    tokenName: "",
-    tokenSymbol: "",
-    description: "",
-  });
 
   useEffect(() => {
     const checkOnboardingStatus = async () => {
       try {
-        if (!profileCompleted || profileCompleted === "false") {
-          setCurrentStep("profile");
-        } else if (!businessCompleted || businessCompleted === "false") {
-          setCurrentStep("business");
-        } else {
-          setCurrentStep("complete");
-        }
+        setCurrentStep("start");
       } catch (error) {
         console.error("Failed to check onboarding status:", error);
       }
@@ -128,7 +101,7 @@ export default function OnboardingFlow() {
       });
 
       if (response.ok) {
-        setCurrentStep("business");
+        setCurrentStep("brief");
         return;
       }
 
@@ -155,7 +128,7 @@ export default function OnboardingFlow() {
 
       if (response.ok) {
         console.log("Business profile saved:", businessProfile);
-        setCurrentStep("complete");
+        setCurrentStep("resources");
 
         if (typeof window !== "undefined" && (window as any).gtag) {
           (window as any).gtag("event", "onboarding_completed", {
@@ -181,9 +154,10 @@ export default function OnboardingFlow() {
 
   const renderProgressBar = () => {
     const steps = [
-      { key: "profile", label: "Profile", icon: User },
-      { key: "business", label: "Business", icon: Building2 },
-      { key: "complete", label: "Complete", icon: CheckCircle },
+      { key: "start", label: "Get Started", icon: User },
+      { key: "brief", label: "Create Brief", icon: Building2 },
+      { key: "resources", label: "Resources", icon: CheckCircle },
+      { key: "prize", label: "Prize", icon: CheckCircle },
     ];
 
     const currentIndex = steps.findIndex((step) => step.key === currentStep);
@@ -242,7 +216,7 @@ export default function OnboardingFlow() {
       });
 
       if (response.ok) {
-        setCurrentStep("complete");
+        // setCurrentStep("complete");
 
         // Track token creation completion
         if (typeof window !== "undefined" && (window as any).gtag) {
@@ -267,26 +241,12 @@ export default function OnboardingFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-to-pink-500 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <Logo />
-            <span className="font-bold text-2xl">Vibe Connect</span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome to Vibe Connect!
-          </h1>
-          <p className="text-gray-600">
-            Let's set up your account to get started with Vibe Connect.
-          </p>
-        </div>
-
+    <div>
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {renderProgressBar()}
 
         {/* Profile Step */}
-        {currentStep === "profile" && (
+        {currentStep === "start" && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
@@ -333,7 +293,7 @@ export default function OnboardingFlow() {
                 <Button
                   title={"button-submit-name"}
                   type="submit"
-                  className="w-full h-12 bg-gradient-to-r from-pink-500 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  className="w-full h-12 bg-gradient-to-r from-pink-500 to-blue-600 hover:from-pink-500 hover:to-blue-700"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -354,7 +314,7 @@ export default function OnboardingFlow() {
         )}
 
         {/* Business Step */}
-        {currentStep === "business" && (
+        {currentStep === "brief" && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
@@ -513,7 +473,7 @@ export default function OnboardingFlow() {
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => setCurrentStep("profile")}
+                    onClick={() => setCurrentStep("start")}
                     className="flex-1 h-12"
                     disabled={isLoading}
                   >
@@ -523,7 +483,7 @@ export default function OnboardingFlow() {
                   <Button
                     title={"button-submit-business"}
                     type="submit"
-                    className="flex-1 h-12 bg-gradient-to-r from-pink-500 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                    className="flex-1 h-12 bg-gradient-to-r from-pink-500 to-orange-600 hover:from-pink-500 hover:to-orange-700"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -540,61 +500,6 @@ export default function OnboardingFlow() {
                   </Button>
                 </div>
               </form>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Complete Step */}
-        {currentStep === "complete" && (
-          <Card>
-            <CardContent className="text-center py-12">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Sparkles className="w-10 h-10 text-green-600" />
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                🎉 Welcome to Vibe Connect!
-              </h2>
-              <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                Your account is all set up! You're ready to start building
-                customer loyalty and growing your business.
-              </p>
-
-              {
-                /*  
-                <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 mb-6">
-                <h3 className="font-semibold text-purple-900 mb-2">
-                  What's next?
-                </h3>
-                <ul className="text-sm text-purple-800 space-y-1">
-                  <li>• Set up your loyalty program rules</li>
-                  <li>• Customize your rewards and points system</li>
-                  <li>• Start inviting customers to join</li>
-                  <li>• Track your program's performance</li>
-                </ul>
-              </div>
-                */
-              }
-              
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button
-                  onClick={goToDashboard}
-                  className="bg-gradient-to-r from-pink-500 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8"
-                >
-                  Go to Dashboard
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button variant="outline">Watch Tutorial</Button>
-              </div>
-
-              <div className="mt-8 flex justify-center">
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-100 text-blue-700"
-                >
-                  Beta Access • Free during launch period
-                </Badge>
-              </div>
             </CardContent>
           </Card>
         )}

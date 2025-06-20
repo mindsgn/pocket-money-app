@@ -129,13 +129,8 @@ export default function DashboardPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">Campaign Management</h1>
-            <p className="text-muted-foreground">
-              Create and manage campaigns that customers can claim with points
-            </p>
-          </div>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4, mb-4">
+          <div />
           <VoucherCreateModal onVoucherCreated={handleVoucherCreated} />
         </div>
         {/* Success/Error Messages */}
@@ -149,10 +144,7 @@ export default function DashboardPage() {
         {/* Vouchers Table */}
         <Card>
           <CardHeader>
-            <CardTitle>Your Vouchers</CardTitle>
-            <CardDescription>
-              Manage all your vouchers and track their performance
-            </CardDescription>
+           
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -265,20 +257,10 @@ export default function DashboardPage() {
             ) : (
               <div className="text-center py-8">
                 <Gift className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">No vouchers yet</h3>
+                <h3 className="text-lg font-medium mb-2">Hey there 👋, welcome aboard!</h3>
                 <p className="text-muted-foreground mb-4">
-                  Create your first voucher to start offering rewards to your
-                  customers.
+                 Learn what makes Posted different, the problems it solves for your brand, and the four wins you’ll gain from using Posted.
                 </p>
-                <VoucherCreateModal
-                  onVoucherCreated={handleVoucherCreated}
-                  triggerButton={
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Create Your First Voucher
-                    </Button>
-                  }
-                />
               </div>
             )}
           </CardContent>

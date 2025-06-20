@@ -4,13 +4,13 @@ import SignInForm from "@/@src/components/signin";
 import { Heart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Sign In | Abakcus",
-  description: "Sign in to your Abakcus account to manage your loyalty program",
+  title: "Sign In | Vibe Connect",
+  description: "Sign in to your Vibe Connect account to manage your loyalty program",
 };
 
 export default function SigninPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-to-pink-500 to-indigo-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* Logo and header */}
         <div className="text-center">

@@ -10,24 +10,23 @@ import { useWallet } from "@/@src/store/wallet";
 import Address from "@/@src/components/home/address.home";
 import TransactionDetails from "@/@src/components/home/transactionDetails.home";
 import QuickDetails from "@/@src/components/home/quick.home";
+import Actions from "@/@src/components/home/actions.home";
 
 export default function Home() {
   const { wallet } = useWallet();
   const { address } = wallet;
 
   useEffect(() => {
-    if(address === "" ){
+    if(address){
+      SplashScreen.hide();
     }
   },[address]);
-
-  useEffect(() => {
-      SplashScreen.hide();
-  },[]);
 
   return(
     <View style={style.container}>
       <Toast />
       <Card />
+      <Actions />
       <Transactions />
       <Address />
       <TransactionDetails />

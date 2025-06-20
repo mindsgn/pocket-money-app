@@ -25,7 +25,7 @@ test('should navigate to the sign in page and sign in', async ({ page }) => {
   await expect(page).toHaveURL('http://localhost:3000/signin');
   
   await page.waitForTimeout(1000);
-  await page.getByTitle("input-email").fill(`${user.name}.${user.surname}@abakcus.xyz`);;
+  await page.getByTitle("input-email").fill(`${user.name}.${user.surname}@Vibe Connect.xyz`);;
   await page.waitForTimeout(1000);
   await page.getByTitle("btn-submit").click();
   await page.waitForTimeout(3000);

@@ -181,7 +181,7 @@ export default function SignInForm() {
             Welcome back, {}!
           </h3>
           <p className="text-sm text-gray-600 mb-4">
-            You've successfully signed in to your Abakcus account.
+            You've successfully signed in to your Vibe Connect account.
           </p>
         </div>
 
@@ -192,7 +192,7 @@ export default function SignInForm() {
           </div>
         </div>
 
-        <Alert className="border-blue-200 bg-blue-50">
+        <Alert className="border-blue-200 bg-to-pink-500">
           <AlertDescription className="text-blue-800 text-sm">
             Redirecting you to your dashboard in a few seconds...
           </AlertDescription>
@@ -304,7 +304,7 @@ export default function SignInForm() {
           </Button>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="bg-to-pink-500 border border-blue-200 rounded-lg p-4">
           <h4 className="text-sm font-medium text-blue-900 mb-2">
             Didn't receive the code?
           </h4>

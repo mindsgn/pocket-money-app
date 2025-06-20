@@ -17,7 +17,7 @@ export default function Main() {
   return (
     <main className="flex-1">
       {/* Hero Section */}
-      <section className="py-12 md:py-24 lg:py-32 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50">
+      <section className="py-12 md:py-24 lg:py-32 bg-gradient-to-br from-purple-50 via-to-pink-500 to-indigo-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_600px] items-center">
             <div className="flex flex-col justify-center space-y-6">
@@ -33,7 +33,7 @@ export default function Main() {
                   Turn One-Time Customers Into Loyal Brand Advocates
                 </h1>
                 <p className="max-w-[600px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Abakcus empowers small businesses with enterprise-level
+                  Vibe Connect empowers small businesses with enterprise-level
                   loyalty programs. Increase repeat purchases by 40%, boost
                   customer lifetime value, and reduce acquisition costs—all
                   without the complexity.
@@ -75,7 +75,7 @@ export default function Main() {
                         Active Members
                       </div>
                     </div>
-                    <div className="bg-blue-50 p-4 rounded-lg">
+                    <div className="bg-to-pink-500 p-4 rounded-lg">
                       <div className="text-2xl font-bold text-blue-600">
                         R12.4k
                       </div>
@@ -135,7 +135,7 @@ export default function Main() {
               <div className="absolute -top-4 -right-4 bg-green-500 text-white p-2 rounded-lg shadow-lg">
                 <div className="text-xs font-medium">+40% Repeat Sales</div>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-blue-500 text-white p-2 rounded-lg shadow-lg">
+              <div className="absolute -bottom-4 -left-4 bg-to-pink-5000 text-white p-2 rounded-lg shadow-lg">
                 <div className="text-xs font-medium">-60% Churn Rate</div>
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function Main() {
       {/* Solution Section */}
       <section
         id="features"
-        className="py-12 md:py-24 bg-gradient-to-br from-gray-50 to-blue-50"
+        className="py-12 md:py-24 bg-gradient-to-br from-gray-50 to-to-pink-500"
       >
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center space-y-4 mb-12">
@@ -216,7 +216,7 @@ export default function Main() {
               variant="secondary"
               className="bg-purple-100 text-purple-700"
             >
-              The Abakcus Solution
+              The Vibe Connect Solution
             </Badge>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               Enterprise-Level Loyalty, Small Business Simplicity
@@ -322,7 +322,7 @@ export default function Main() {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-blue-200 bg-blue-50/50">
+            <Card className="text-center border-blue-200 bg-to-pink-500/50">
               <CardContent className="p-6">
                 <div className="text-4xl font-bold text-blue-600 mb-2">25%</div>
                 <div className="font-semibold text-lg mb-2">

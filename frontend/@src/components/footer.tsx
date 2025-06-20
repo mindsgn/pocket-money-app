@@ -8,7 +8,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">A</span>
               </div>
-              <span className="font-bold text-xl">Abakcus</span>
+              <span className="font-bold text-xl">Vibe Connect</span>
             </div>
             <p className="text-gray-600 text-sm">
               Empowering small businesses with enterprise-level loyalty
@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-gray-600">
-          <p>&copy; {new Date().getFullYear()} Abakcus. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Vibe Connect. All rights reserved.</p>
         </div>
       </div>
     </footer>

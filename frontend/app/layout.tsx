@@ -14,18 +14,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title:
-    "Abakcus - Loyalty Programs for Small Businesses | Increase Customer Retention by 40%",
+    "Vibe Connect",
   description:
-    "Transform one-time customers into loyal brand advocates with Abakcus. Enterprise-level loyalty programs designed for small businesses. Increase repeat purchases by 40%, boost customer lifetime value, and reduce acquisition costs. Join 500+ businesses on our waitlist.",
+    "",
   openGraph: {
     title:
-      "Abakcus - Loyalty Programs for Small Businesses | Increase Customer Retention by 40%",
-    description:
-      "Transform one-time customers into loyal brand advocates with Abakcus. Enterprise-level loyalty programs designed for small businesses.",
+      "Vibe Connect",
+    description:"",
     images: ["/og-home.jpg"],
   },
   alternates: {
-    canonical: "https://abakcus.com",
+    canonical: "https://Vibe Connect.com",
   },
 };
 

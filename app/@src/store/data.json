@@ -1,0 +1,33 @@
+{
+    "address": "0xcF33780bfD08A26fE48Dfe3C6B8214EE927cd030", 
+    "chainCode": "0x92b314a67ae1a45383544972192f95a01e259f595d6837a7b774833ae9e30025", 
+    "currencyCode": "ZAR", 
+    "currencySymbol": "R", 
+    "decimalSeparator": ".", 
+    "depth": 5, 
+    "digitGroupingSeparator": ",", 
+    "encrypted": false, 
+    "fingerprint": "0x011642d7", 
+    "index": 0, 
+    "languageCode": "en", 
+    "languageCurrencyCode": "ZAR", 
+    "languageCurrencySymbol": "R", 
+    "languageRegionCode": "ZA", 
+    "languageTag": "en-ZA", 
+    "measurementSystem": "metric", 
+    "mnemonic": {
+        "entropy": "0x3293dcd6d46fb463a3f90f184957f137", 
+        "password": "", 
+        "phrase": "crater page cup potato win crack morning capable blue enjoy wisdom hundred", 
+        "wordlist": {
+            "locale": "en"
+        }
+    }, 
+        "parentFingerprint": "0x8b855664", 
+        "path": "m/44'/60'/0'/0/0", 
+        "provider": null, 
+        "publicKey": "0x0255539ed526e4ad7d74f0dc7ddd077e2feedf06761254c610f001f19fe75cf380", 
+        "regionCode": "ZA", 
+        "temperatureUnit": "celsius", 
+        "textDirection": "ltr"
+    }

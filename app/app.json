@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Pocket-Money",
-    "slug": "pocket",
+    "name": "Vibe-Connect",
+    "slug": "vibe-connect",
     "version": "0.2.26",
     "orientation": "portrait",
     "icon": "./@src/assets/images/icon.png",
@@ -45,7 +45,8 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

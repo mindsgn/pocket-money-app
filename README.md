@@ -1,6 +1,9 @@
 # POCKET MONEY
 Open Source Wallet
 
+## Notes
+- tinybase: https://github.com/expo/examples/blob/master/with-tinybase/App.js
+
 ## CARD PROVIDERS
 - https://hyperwallet.com
 - https://paymentology.com

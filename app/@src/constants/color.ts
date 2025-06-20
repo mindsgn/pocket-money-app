@@ -8,10 +8,10 @@ const COLOR = {
         cardBackgroundColor: "#3E3B34",
     },
     dark: {
-        backgroundColor: "#1E1D19",
-        cardBackgroundColor: "#3E3B34",
+        backgroundColor: "#000000",
+        cardBackgroundColor: "#0D0D0D",
         balanceColor: "#FEFAE0",
-        buttoneColor: "black",
+        buttoneColor: "#0D0D0D",
     }
 }
 

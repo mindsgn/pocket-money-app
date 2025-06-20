@@ -1,15 +1,12 @@
-import { FirebaseApp } from 'firebase/app';
 import { create } from 'zustand'
-import { getFunctions, httpsCallable } from 'firebase/functions';
-import { CloudStorage } from 'react-native-cloud-storage';
 
-interface ToastInterface{
+interface ToastInterface {
   show: boolean,
   messsage: string | null,
   title: string | null,
 }
 
-interface TransactionInterface{
+interface TransactionInterface {
   fiatValue: number
   formatedFiatValue: string,
   transactionType: string
@@ -31,7 +28,7 @@ interface ErrorInterface {
   message: string | null,
 }
 
-interface WalletInterface{
+interface WalletInterface {
   show?: boolean,
   totalBalance?: string,
   error?: Error | null,
@@ -69,13 +66,21 @@ interface UseWalletInterface{
   details: Details,
   loading: boolean,
   transactions: any[], 
-  wallet: WalletInterface | null,
+  wallet: Wallet,
   toast: ToastInterface,
   init: (firebase: FirebaseApp) => void,
-  updateWallet: (wallet: WalletInterface, address: string) => void,
+  updateWallet: (wallet: Wallet) => void,
   getWalletBalance: (firebase: FirebaseApp, address: string) => void,
   triggerTransaction: () => void,
   triggerWallet: () => void,
+}
+
+export interface Wallet {
+  address: string | null,
+  totalBalance?: number,
+  currencyCode?: string, 
+  currencySymbol?: string, 
+  languageTag?: string
 }
 
 const useWallet = create<UseWalletInterface>((set, get) => ({
@@ -87,110 +92,32 @@ const useWallet = create<UseWalletInterface>((set, get) => ({
     show: false
   },
   wallet: {
-    show: false,
-    totalBalance: "0.00",
-    balance: [],
     address: null,
-    privateKey: "",
-    encrypted: false,
-    mnemonic: "",
-    lastUpdatedAt: `${new Date()}`,
-    error: null,
+    totalBalance: 0,
   },
   toast: {
     show: false,
     messsage: null,
     title: null
   },
-  init: (firebase: FirebaseApp) => {
-    const functions = getFunctions(firebase);
-    const createNewWallet = httpsCallable(functions, 'newWallet');
-
-    createNewWallet({
-      network: "testnet",
-      type: "ethereum",
-      encrypted: false,
-      password: null
-    })
-    .then(async (result) => {
-      const { data } = result;
-      await CloudStorage.writeFile('/ethereum.json', JSON.stringify(data));
-      const { address, encrypted, mnemonic, privateKey } = data as Wallet;
-      set({
-        wallet: {
-          address,
-          privateKey,
-          encrypted,
-          mnemonic
-        },
-        loading: true
-      })
-    })
-    .catch(error => {
-      console.log(error)
-      set({
-        toast: {
-          show: true,
-          messsage: "Error",
-          title: "failed to create wallet. Please try again later"
-        }
-      })
-      setTimeout(() => {
-        set({
-          toast: {
-            show: false,
-            messsage: null,
-            title: null
-          }
-        });
-      }, 2500);
-    });
+  init: () => {
   },
-  updateWallet: (wallet: WalletInterface) => {
-    set({
-      wallet
-    })
-  },
-  getWalletBalance: (firebase: FirebaseApp, address: string) => {
-    set({loading: true});
-    if(!firebase) set({loading: false});
-    const functions = getFunctions(firebase);
-    // connectFunctionsEmulator(functions, "localhost", 5001);
-    const getBalance = httpsCallable(functions, 'getBalance');
+  updateWallet: (wallet: Wallet) => {
+    const { address,  currencyCode,  currencySymbol, languageTag } = wallet
+    const { wallet: oldWallet } = get();
     
-    getBalance({
-      address,
-      type: "ethereum"
+    set({
+      wallet : {
+        ...oldWallet,
+        address,
+        currencyCode,  
+        currencySymbol, 
+        languageTag
+      }
     })
-    .then((response) => {
-      const { data } = response;
-      //@ts-expect-error
-      const { totalBalance, tokens, transactions, today, week, month } = data;
-      
-
-      // console.log(data)
-      const { lastUpdatedAt } = tokens[0];
-      const wallet = get().wallet;
-
-      set({
-        wallet: {
-          ...wallet,
-          address,
-          totalBalance,
-          lastUpdatedAt,
-          today, 
-          week, 
-          month
-        },
-        transactions,
-      });
-      
-    })
-    .catch((error) => {
-      console.log(error)
-    }).finally(()=> {
-      set({loading: false});
-    });
+  },
+  getWalletBalance: (address: string) => {
+    set({loading: true});
   },
   sendMoney: () => {
   },
