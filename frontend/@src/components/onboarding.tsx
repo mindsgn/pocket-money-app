@@ -35,7 +35,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { useSearchParams } from "next/navigation";
-import { useUserStore } from "../store/user";
 import Logo from "./logo";
 
 type OnboardingStep = "profile" | "business" | "token" | "complete";
@@ -59,13 +58,21 @@ interface LoyaltyToken {
 }
 
 const businessTypes = [
-  "Restaurant",
-  "Retail Store",
-  "Service Business",
-  "Health & Beauty",
-  "Fitness & Wellness",
-  "Professional Services",
-  "Entertainment",
+  "Apparel & Fashion",
+  "Beauty & Cosmetics",
+  "Child & Baby Products",
+  "Finance & Insurance",
+  "Eductation & Training",
+  "Dating",
+  "Food & Beverage",
+  "Games & Toys",
+  "Health & Wellness",
+  "Home & Garden",
+  "Pets & Animals",
+  "Real Estate",
+  "Sports & Fitness",
+  "Technology & Gadgets",
+  "Travel & Hospitality",
   "Other",
 ];
 

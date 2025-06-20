@@ -9,9 +9,7 @@ import { Alert } from "@/@src/components/ui/alert";
 import { AlertDescription } from "@/@src/components/ui/alert";
 import { CardHeader } from "@/@src/components/ui/card";
 import { Table } from "@/@src/components/ui/table";
-import { TableHeader } from "@/@src/components/ui/table";
-import { CardTitle } from "@/@src/components/ui/card";
-import { CardDescription } from "@/@src/components/ui/card";
+import { TableHeader } from "@/@src/components/ui/table"; 
 import { Skeleton } from "@/@src/components/ui/skeleton";
 import { TableRow } from "@/@src/components/ui/table";
 import { TableHead } from "@/@src/components/ui/table";
@@ -19,7 +17,6 @@ import { TableBody } from "@/@src/components/ui/table";
 import { TableCell } from "@/@src/components/ui/table";
 import { Badge } from "@/@src/components/ui/badge";
 import {
-  Plus,
   Edit,
   Trash2,
   Gift,

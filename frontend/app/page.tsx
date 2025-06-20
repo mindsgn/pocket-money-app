@@ -1,19 +1,10 @@
 import { Button } from "@/@src/components/ui/button";
-import { Card, CardContent } from "@/@src/components/ui/card";
 import { Badge } from "@/@src/components/ui/badge";
 import {
-  Users,
-  Zap,
-  Target,
-  Shield,
-  DollarSign,
-  TrendingUp,
   Camera,
   Heart,
   ArrowRight,
-  CheckCircle,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import Header from "@/@src/components/header";
 

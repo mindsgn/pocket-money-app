@@ -13,66 +13,53 @@ import {
 } from "@/@src/components/ui/card";
 import { Alert, AlertDescription } from "@/@src/components/ui/alert";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/@src/components/ui/select";
-import { Textarea } from "@/@src/components/ui/textarea";
-import {
   User,
   Building2,
   CheckCircle,
   ArrowRight,
-  ArrowLeft,
   Loader2,
-  AlertCircle,
-  MapPin,
-  Globe,
+  AlertCircle
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { useSearchParams } from "next/navigation";
+import SelectDropDown from "./select";
+import { nanoid } from 'nanoid'
 
 type OnboardingStep = "start" | "brief" | "resources" | "prize";
 
-interface UserProfile {
-  name: string;
-}
-
-interface BusinessProfile {
-  businessName: string;
-  businessType: string;
-  businessAddress: string;
-  website: string;
-  description: string;
-}
-
-interface LoyaltyToken {
-  tokenName: string;
-  tokenSymbol: string;
-  description: string;
+interface Details {
+  title: string;
+  industry?: string [];
 }
 
 const businessTypes = [
-  "Restaurant",
-  "Retail Store",
-  "Service Business",
-  "Health & Beauty",
-  "Fitness & Wellness",
-  "Professional Services",
-  "Entertainment",
+  "Apparel & Fashion",
+  "Beauty & Cosmetics",
+  "Child & Baby Products",
+  "Finance & Insurance",
+  "Eductation & Training",
+  "Dating",
+  "Food & Beverage",
+  "Games & Toys",
+  "Health & Wellness",
+  "Home & Garden",
+  "Pets & Animals",
+  "Real Estate",
+  "Sports & Fitness",
+  "Technology & Gadgets",
+  "Travel & Hospitality",
   "Other",
 ];
 
 export default function OnboardingFlow() {
-  const searchParams = useSearchParams();
+  const formID = nanoid() 
   const { makeAuthenticatedRequest } = useAuth();
   const [currentStep, setCurrentStep] = useState<OnboardingStep>("start");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [userProfile, setUserProfile] = useState<UserProfile>({
-    name: "",
+  const [details, setDetails] = useState<Details>({
+    title:"",
+    industry: [],
   });
 
   useEffect(() => {
@@ -87,16 +74,18 @@ export default function OnboardingFlow() {
     checkOnboardingStatus();
   }, []);
 
-  const handleProfileSubmit = async (e: React.FormEvent) => {
+  const handleDetailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
     try {
-      const response = await makeAuthenticatedRequest("/api/user", {
+      const response = await makeAuthenticatedRequest("/api/contests", {
         method: "PUT",
         body: JSON.stringify({
-          ...userProfile,
+          formID,
+          step: "start",
+          ...details,
         }),
       });
 
@@ -113,43 +102,32 @@ export default function OnboardingFlow() {
     }
   };
 
-  const handleBusinessSubmit = async (e: React.FormEvent) => {
+  const handleBriefSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
     try {
-      const response = await makeAuthenticatedRequest("/api/business", {
+      const response = await makeAuthenticatedRequest("/api/contests", {
         method: "PUT",
         body: JSON.stringify({
-          ...businessProfile,
+          formID,
+          step: "start",
+          ...details,
         }),
       });
 
       if (response.ok) {
-        console.log("Business profile saved:", businessProfile);
-        setCurrentStep("resources");
-
-        if (typeof window !== "undefined" && (window as any).gtag) {
-          (window as any).gtag("event", "onboarding_completed", {
-            event_category: "user_journey",
-            event_label: "business_setup",
-          });
-        }
+        setCurrentStep("brief");
         return;
       }
 
-      // Track onboarding completion
       throw Error("Failed to save profile. Please try again.");
     } catch (err) {
-      setError("Failed to save business profile. Please try again.");
+      setError("Failed to save profile. Please try again.");
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const goToDashboard = () => {
-    window.location.href = "/dashboard/contests";
   };
 
   const renderProgressBar = () => {
@@ -202,44 +180,6 @@ export default function OnboardingFlow() {
     );
   };
 
-  const handleTokenSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
-
-    try {
-      const response = await makeAuthenticatedRequest("/api/token", {
-        method: "POST",
-        body: JSON.stringify({
-          ...loyaltyToken,
-        }),
-      });
-
-      if (response.ok) {
-        // setCurrentStep("complete");
-
-        // Track token creation completion
-        if (typeof window !== "undefined" && (window as any).gtag) {
-          (window as any).gtag("event", "token_created", {
-            event_category: "onboarding",
-            event_label: "loyalty_token",
-            token_symbol: loyaltyToken.tokenSymbol,
-          });
-        }
-        return;
-      }
-      throw new Error("Failed to create loyalty token. Please try again.");
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Failed to create loyalty token. Please try again.",
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div>
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -251,34 +191,46 @@ export default function OnboardingFlow() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <User className="w-5 h-5 mr-2 text-pink-500" />
-                Personal Information
+                Customize your Contest
               </CardTitle>
-              <p className="text-sm text-gray-600">
-                Tell us a bit about yourself
-              </p>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleProfileSubmit} className="space-y-6">
+              <form onSubmit={handleDetailSubmit} className="space-y-6">
                 <div>
                   <Label
                     htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Full Name *
+                    Add Contest Title
                   </Label>
                   <Input
                     title={"input-name"}
                     id="name"
                     type="text"
                     required
-                    value={userProfile.name}
+                    value={details.title}
                     onChange={(e) =>
-                      setUserProfile({ ...userProfile, name: e.target.value })
+                      setDetails({ ...details, title: e.target.value })
                     }
                     className="mt-1 h-12"
-                    placeholder="Enter your full name"
+                    placeholder="Add Contest Title"
                     disabled={isLoading}
                   />
+                </div>
+
+                <div>
+                  <Label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Choose Industry
+                  </Label>
+                  <SelectDropDown
+                    label="Select Industry"
+                    types={businessTypes}
+                    onChange={(value) =>
+                      setDetails({ ...details, industry: [value] })
+                    }/>
                 </div>
 
                 {error && (
@@ -313,151 +265,52 @@ export default function OnboardingFlow() {
           </Card>
         )}
 
-        {/* Business Step */}
+        {/*Brief Step*/}
         {currentStep === "brief" && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Building2 className="w-5 h-5 mr-2 text-pink-500" />
-                Business Information
+                <User className="w-5 h-5 mr-2 text-pink-500" />
+                Customize your Contest
               </CardTitle>
-              <p className="text-sm text-gray-600">
-                Set up your business profile for your loyalty program
-              </p>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleBusinessSubmit} className="space-y-6">
+              <form onSubmit={handleDetailSubmit} className="space-y-6">
                 <div>
                   <Label
-                    htmlFor="businessName"
+                    htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Business Name *
+                    Add Contest Title
                   </Label>
                   <Input
-                    title={"input-business-name"}
-                    id="businessName"
+                    title={"input-name"}
+                    id="name"
                     type="text"
                     required
-                    value={businessProfile.businessName}
+                    value={details.title}
                     onChange={(e) =>
-                      setBusinessProfile({
-                        ...businessProfile,
-                        businessName: e.target.value,
-                      })
+                      setDetails({ ...details, title: e.target.value })
                     }
                     className="mt-1 h-12"
-                    placeholder="Enter your business name"
+                    placeholder="Add Contest Title"
                     disabled={isLoading}
                   />
                 </div>
 
                 <div>
                   <Label
-                    htmlFor="businessType"
+                    htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Business Type *
+                    Choose Industry
                   </Label>
-                  <Select
-                    value={businessProfile.businessType}
-                    onValueChange={(value) =>
-                      setBusinessProfile({
-                        ...businessProfile,
-                        businessType: value,
-                      })
-                    }
-                    disabled={isLoading}
-                  >
-                    <SelectTrigger className="mt-1 h-12">
-                      <SelectValue placeholder="Select your business type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {businessTypes.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label
-                    htmlFor="businessAddress"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Business Address
-                  </Label>
-                  <div className="mt-1 relative">
-                    <Input
-                      title={"input-business-address"}
-                      id="businessAddress"
-                      type="text"
-                      value={businessProfile.businessAddress}
-                      onChange={(e) =>
-                        setBusinessProfile({
-                          ...businessProfile,
-                          businessAddress: e.target.value,
-                        })
-                      }
-                      className="h-12 pl-10"
-                      placeholder="123 Main St, City, State"
-                      disabled={isLoading}
-                    />
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  </div>
-                </div>
-
-                <div>
-                  <Label
-                    htmlFor="website"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Website
-                  </Label>
-                  <div className="mt-1 relative">
-                    <Input
-                      title={"input-business-website"}
-                      id="website"
-                      type="url"
-                      value={businessProfile.website}
-                      onChange={(e) =>
-                        setBusinessProfile({
-                          ...businessProfile,
-                          website: e.target.value,
-                        })
-                      }
-                      className="h-12 pl-10"
-                      placeholder="https://yourbusiness.com"
-                      disabled={isLoading}
-                    />
-                    <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  </div>
-                </div>
-
-                <div>
-                  <Label
-                    htmlFor="description"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Business Description
-                  </Label>
-                  <Textarea
-                    title={"input-business-description"}
-                    id="description"
-                    value={businessProfile.description}
-                    onChange={(e) =>
-                      setBusinessProfile({
-                        ...businessProfile,
-                        description: e.target.value,
-                      })
-                    }
-                    className="mt-1"
-                    placeholder="Tell us about your business..."
-                    rows={3}
-                    disabled={isLoading}
-                  />
+                  <SelectDropDown
+                    label="Select Industry"
+                    types={businessTypes}
+                    onChange={(value) =>
+                      setDetails({ ...details, industry: [value] })
+                    }/>
                 </div>
 
                 {error && (
@@ -469,36 +322,24 @@ export default function OnboardingFlow() {
                   </Alert>
                 )}
 
-                <div className="flex space-x-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setCurrentStep("start")}
-                    className="flex-1 h-12"
-                    disabled={isLoading}
-                  >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back
-                  </Button>
-                  <Button
-                    title={"button-submit-business"}
-                    type="submit"
-                    className="flex-1 h-12 bg-gradient-to-r from-pink-500 to-orange-600 hover:from-pink-500 hover:to-orange-700"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Saving...
-                      </>
-                    ) : (
-                      <>
-                        Complete Setup
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </>
-                    )}
-                  </Button>
-                </div>
+                <Button
+                  title={"button-submit-name"}
+                  type="submit"
+                  className="w-full h-12 bg-gradient-to-r from-pink-500 to-blue-600 hover:from-pink-500 hover:to-blue-700"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      Continue
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
               </form>
             </CardContent>
           </Card>

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { withAuth, type AuthenticatedRequest } from "@/lib/middleware";
 import client from "@/lib/mongo";
-import { nanoid } from "nanoid";
 
 async function postHandler(request: AuthenticatedRequest) {
   const db = client.db(`${process.env.DATABASE}`);
@@ -13,9 +12,8 @@ async function postHandler(request: AuthenticatedRequest) {
     const { userID } = user;
     const business = await db.collection("business").findOne({ userID });
 
-    await db.collection("campaign").insertOne({
+    await db.collection("contests").insertOne({
       businessID: business?.businessID,
-      campaignID: nanoid(),
       ...data,
       image: null,
       onChain: false,
@@ -49,7 +47,7 @@ async function getHandler(request: AuthenticatedRequest) {
     );
 
     const vouchers = await db
-      .collection("campaign")
+      .collection("contests")
       .find({ businessID: business?.businessID, isActive: true })
       .toArray();
 
@@ -70,7 +68,7 @@ async function updateHandler(request: AuthenticatedRequest) {
     const { user } = request;
     const { userID } = user;
 
-    const { campaignID, data } = await request.json();
+    const { constestID, data } = await request.json();
 
     const business = await db.collection("business").findOne(
       { userID },
@@ -81,8 +79,8 @@ async function updateHandler(request: AuthenticatedRequest) {
       },
     );
 
-    await db.collection("campaign").findOneAndUpdate(
-      { businessID: business?.businessID, campaignID },
+    await db.collection("contests").findOneAndUpdate(
+      { businessID: business?.businessID, constestID },
       {
         $set: {
           ...data,
@@ -105,7 +103,7 @@ async function deleteHandler(request: AuthenticatedRequest) {
   try {
     const { user } = request;
     const { userID } = user;
-    const { campaignID } = await request.json();
+    const { constestID } = await request.json();
 
     const business = await db.collection("business").findOne(
       { userID },
@@ -116,8 +114,8 @@ async function deleteHandler(request: AuthenticatedRequest) {
       },
     );
 
-    await db.collection("campaign").findOneAndUpdate(
-      { businessID: business?.businessID, campaignID, isActive: true },
+    await db.collection("contests").findOneAndUpdate(
+      { businessID: business?.businessID, constestID, isActive: true },
       {
         $set: {
           isActive: false,
@@ -125,14 +123,14 @@ async function deleteHandler(request: AuthenticatedRequest) {
       },
     );
 
-    const campaigns = await db
-      .collection("campaign")
-      .find({ businessID: business?.businessID, campaignID, isActive: true })
+    const contests = await db
+      .collection("contests")
+      .find({ businessID: business?.businessID, constestID, isActive: true })
       .toArray();
 
     return NextResponse.json({
       succes: true,
-      campaigns,
+      contests,
     });
   } catch (error) {
     return NextResponse.json({ error: `${error}` });
