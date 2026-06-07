@@ -1,8 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
 import { usePrivy, useEmbeddedEthereumWallet } from '@privy-io/expo';
 import {useEffect, useState} from "react"
-import { Button } from '@/components/shared/button';
-import { createZeroDevSmartAccount } from "@/lib/zero-dev";
 
 type chainTypes = "ethereum"
 
@@ -11,7 +9,7 @@ export default function Home() {
   const { wallets, create } = useEmbeddedEthereumWallet();
   const [smartAddress, setSmartAddress] = useState<string | null>(null);
   
-  const createWallet = (chainType: chainTypes) => {
+  const createEmbeddedWallet = (chainType: chainTypes) => {
     switch (chainType) {
       case "ethereum":
         return create({  });
@@ -54,7 +52,6 @@ export default function Home() {
     }
   }
 
-
   useEffect(() => {
     if(user && wallets.length === 0){
       createWallet("ethereum")
@@ -63,17 +60,6 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Text>User: {user?.id}</Text>
-      <Text>EOA: {wallets[0]?.address}</Text>
-      <Text>Smart Wallet: {smartAddress ?? "Not created yet"}</Text>
-
-      <Button 
-        testID='test-create'
-        label="create wallet"
-        onPress={() => {
-          createSmartAccount()
-        }}
-      />
     </View>
   );
 }
