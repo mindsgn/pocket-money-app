@@ -1,0 +1,50 @@
+{
+  "name": "afika",
+  "version": "1.0.0",
+  "main": "entrypoint.js",
+  "dependencies": {
+    "@ethersproject/shims": "^5.8.0",
+    "@expo/vector-icons": "^15.1.1",
+    "@privy-io/expo": "^0.69.0",
+    "@privy-io/expo-native-extensions": "^0.0.11",
+    "@react-native-google-signin/google-signin": "^16.1.2",
+    "@zerodev/ecdsa-validator": "^5.4.9",
+    "@zerodev/sdk": "^5.5.10",
+    "buffer": "^6.0.3",
+    "expo": "~56.0.9",
+    "expo-apple-authentication": "~56.0.4",
+    "expo-application": "~56.0.3",
+    "expo-clipboard": "~56.0.4",
+    "expo-crypto": "~56.0.4",
+    "expo-linking": "~56.0.13",
+    "expo-router": "~56.2.9",
+    "expo-secure-store": "~56.0.4",
+    "expo-status-bar": "~56.0.4",
+    "expo-web-browser": "~56.0.5",
+    "permissionless": "^0.3.6",
+    "react": "19.2.3",
+    "react-native": "0.85.3",
+    "react-native-get-random-values": "^2.0.0",
+    "react-native-passkey": "^3.4.0",
+    "react-native-passkeys": "^0.4.1",
+    "react-native-qrcode-styled": "^0.4.0",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-svg": "^15.15.5",
+    "react-native-webview": "^13.16.1",
+    "viem": "^2.52.2"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "resolutions": {
+    "viem": "2.52.2"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "private": true
+}

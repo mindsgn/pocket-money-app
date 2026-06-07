@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "afika",
+    "slug": "afika",
+    "version": "1.0.0",
+    "scheme": "afika",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "usesAppleSignIn": true,
+      "supportsTablet": false,
+      "bundleIdentifier": "mindsgn.studio.pockt",
+      "appleTeamId": "B3U8UM2966",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "mindsgn.studio.pockt",
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-apple-authentication",
+      "expo-web-browser"
+    ],
+    "extra": {
+      "privyAppId": "cmpgv7my000lk0ck0lqou8t1p",
+      "privyClientId": "client-WY6ZYS17vucWpizQijQ7wqqTxhxyeGWGfWXwV1pwzrhbi"
+    }
+  }
+}
