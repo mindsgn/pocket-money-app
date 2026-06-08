@@ -4,6 +4,9 @@ import {useEffect, useState} from "react"
 import WalletCard from '@/components/wallet-card';
 import Action from '@/components/action';
 import Transactions from '@/components/transactions';
+import { useFocusEffect } from 'expo-router';
+import { useCallback } from 'react';
+import * as Haptics from "expo-haptics"
 
 type chainTypes = "ethereum"
 
@@ -60,6 +63,16 @@ export default function Home() {
       createEmbeddedWallet("ethereum")
     }
   },[wallets, smartAddress])
+
+  useFocusEffect(
+        useCallback(() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+    
+          return () => {
+           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+          };
+        },[])
+      )
 
   return (
     <ScrollView style={styles.container}>
