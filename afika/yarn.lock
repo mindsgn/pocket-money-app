@@ -1452,6 +1452,13 @@
     "@noble/hashes" "~1.8.0"
     "@scure/base" "~1.2.5"
 
+"@shopify/flash-list@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@shopify/flash-list/-/flash-list-2.0.2.tgz#644748f883fccf8cf2e0ca251e0ef88673b89120"
+  integrity sha512-zhlrhA9eiuEzja4wxVvotgXHtqd3qsYbXkQ3rsBfOgbFA9BVeErpDE/yEwtlIviRGEqpuFj/oU5owD6ByaNX+w==
+  dependencies:
+    tslib "2.8.1"
+
 "@sinclair/typebox@^0.27.8":
   version "0.27.10"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.27.10.tgz#beefe675f1853f73676aecc915b2bd2ac98c4fc6"
@@ -2341,6 +2348,11 @@ expo-glass-effect@^56.0.4:
   resolved "https://registry.yarnpkg.com/expo-glass-effect/-/expo-glass-effect-56.0.4.tgz#4549a8c84058fb88619ecb2e818be36f2fe003ee"
   integrity sha512-xI9rXtDwi7RW82uAlfyaXO6+k21ApWJ2tHAWYqPr/FjfmZbKsgNJ4Q0iZzGPCwboqjTGxaRZ61SZxBl8hDt5iA==
 
+expo-haptics@~56.0.3:
+  version "56.0.3"
+  resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-56.0.3.tgz#55112832e0834ca8f505ee099f70092cfacdd945"
+  integrity sha512-ycoahZJnR9tWAVh/0mJYxbETtHRYaWjiWS8cHlP6aDGU6Q6Y8rZ5NKsuBwWw6HR2Pe30mfVFgbF2HrBR6gtYmw==
+
 expo-keep-awake@~56.0.3:
   version "56.0.3"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-56.0.3.tgz#88991b4859c77af73cf68c500839a18fe5d8febe"
@@ -2353,6 +2365,13 @@ expo-linking@~56.0.13:
   dependencies:
     expo-constants "~56.0.16"
     invariant "^2.2.4"
+
+expo-localization@~56.0.6:
+  version "56.0.6"
+  resolved "https://registry.yarnpkg.com/expo-localization/-/expo-localization-56.0.6.tgz#386663c5cb137d763e055feabeb74ec2b43b2194"
+  integrity sha512-zzBVoUFHCVNBywcxGsspoZeIXebihOo/AnmQYE4jMv8gHCSKlLNFT+ft+0+mWcZCMs9necvUs8S8TDonAu/xBA==
+  dependencies:
+    rtl-detect "^1.0.2"
 
 expo-modules-autolinking@~56.0.15:
   version "56.0.15"
@@ -3854,6 +3873,11 @@ restore-cursor@^2.0.0:
     onetime "^2.0.0"
     signal-exit "^3.0.2"
 
+rtl-detect@^1.0.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/rtl-detect/-/rtl-detect-1.1.2.tgz#ca7f0330af5c6bb626c15675c642ba85ad6273c6"
+  integrity sha512-PGMBq03+TTG/p/cRB7HCLKJ1MgDIi07+QU1faSjiYRfmY5UsAttV9Hs08jDAHVwcOwmVLcSJkpwyfXszVjWfIQ==
+
 safe-buffer@5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
@@ -4173,7 +4197,7 @@ toqr@^0.1.1:
   resolved "https://registry.yarnpkg.com/toqr/-/toqr-0.1.1.tgz#fb987ea706be36affc89336ca26543a16062725a"
   integrity sha512-FWAPzCIHZHnrE/5/w9MPk0kK25hSQSH2IKhYh9PyjS3SG/+IEMvlwIHbhz+oF7xl54I+ueZlVnMjyzdSwLmAwA==
 
-tslib@^2.0.0, tslib@^2.1.0:
+tslib@2.8.1, tslib@^2.0.0, tslib@^2.1.0:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==

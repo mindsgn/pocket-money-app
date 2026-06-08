@@ -18,6 +18,7 @@ export default function Settings() {
 
   return (
     <View style={styles.container}>
+      <View style={{flex:1}}/>
       <Button
         onPress={logoutWallet}
         label='SIGN OUT'

@@ -1,6 +1,9 @@
 import { StyleSheet, View, Text } from 'react-native';
 import { usePrivy, useEmbeddedEthereumWallet } from '@privy-io/expo';
 import {useEffect, useState} from "react"
+import WalletCard from '@/components/wallet-card';
+import Action from '@/components/action';
+import Transactions from '@/components/transactions';
 
 type chainTypes = "ethereum"
 
@@ -18,8 +21,8 @@ export default function Home() {
 
   const createSmartAccount = async() => {
     try {
-
-    const provider = await wallets[0].getProvider();
+      /*
+      const provider = await wallets[0].getProvider();
 
      const owner = {
         address: wallets[0].address as `0x${string}`,
@@ -44,7 +47,7 @@ export default function Home() {
 
       const { smartAccountAddress } = await createZeroDevSmartAccount(owner);
       setSmartAddress(smartAccountAddress);
-
+      */
     } catch(error){
 
     }finally{
@@ -54,12 +57,15 @@ export default function Home() {
 
   useEffect(() => {
     if(user && wallets.length === 0){
-      createWallet("ethereum")
+      createEmbeddedWallet("ethereum")
     }
   },[wallets, smartAddress])
 
   return (
     <View style={styles.container}>
+      <WalletCard />
+      <Action />
+      <Transactions />
     </View>
   );
 }
@@ -67,8 +73,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 20,
+    paddingTop: 50,
   },
 });
