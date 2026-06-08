@@ -10,7 +10,7 @@ export default function Settings() {
   async function logoutWallet(){
     try {
       await logout()
-      await router.replace("/")
+      await router.replace("/sign-in")
     } catch (error){}
     finally {
     }
@@ -18,6 +18,7 @@ export default function Settings() {
 
   return (
     <View style={styles.container}>
+      <View style={{flex:1}}/>
       <Button
         onPress={logoutWallet}
         label='SIGN OUT'

@@ -1,5 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
+import { colors } from '@/theme/colors';
+import { typography } from '@/theme/typography';
 
 export const Button: React.FC<{ 
   label: string; 
@@ -15,9 +17,12 @@ export const Button: React.FC<{
   width = 150,
   testID,
   progress = false,
+  backgroundColor = colors.buttonBackground,
+  color = colors.buttonTextBackground,
 }) => (
   <Pressable testID={testID} style={[styles.button, {
     width,
+    backgroundColor
   }]} onPress={onPress}>
     {
       progress?
@@ -25,7 +30,10 @@ export const Button: React.FC<{
       :
       <Text 
         style={[
-          styles.buttonText
+          styles.buttonText,
+          {
+            color,
+          }
         ]}>
           {label}
       </Text>
@@ -43,6 +51,8 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   buttonText: {
+    
+    ...typography.button,
     fontWeight: '700',
   },
 });

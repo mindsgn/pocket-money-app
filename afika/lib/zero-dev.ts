@@ -1,5 +1,5 @@
 import { http, createPublicClient } from "viem";
-import { baseSepolia } from "viem/chains";
+import { base } from "viem/chains";
 import { createKernelAccount, createKernelAccountClient } from "@zerodev/sdk";
 import { signerToEcdsaValidator } from "@zerodev/ecdsa-validator";
 // import { createSmartAccountClient } from "permissionless";
@@ -7,7 +7,7 @@ import { entryPoint07Address } from "viem/account-abstraction";
 
 const ZERODEV_PROJECT_ID = process.env.EXPO_PUBLIC_ZERODEV_PROJECT_ID!;
 
-const chain = baseSepolia;
+const chain = base;
 
 const bundlerRpc = `https://rpc.zerodev.app/api/v3/${ZERODEV_PROJECT_ID}/chain/${chain.id}`;
 const paymasterRpc = `https://rpc.zerodev.app/api/v3/${ZERODEV_PROJECT_ID}/chain/${chain.id}`;

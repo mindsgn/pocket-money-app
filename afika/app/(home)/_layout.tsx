@@ -13,7 +13,7 @@ export default function TabLayout() {
           src={<VectorIcon family={MaterialCommunityIcons} name="home" />}
         />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="index">
+      <NativeTabs.Trigger name="account">
         <NativeTabs.Trigger.Label>Account</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           selectedColor={colors.primary}
