@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Pressable, Share, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 import { Title } from '@/components/shared/title';
 import { Body } from '@/components/shared/body';
+import { SymbolView } from "expo-symbols"
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function EmptyTransactionCard() {
   return (
@@ -9,6 +11,12 @@ export default function EmptyTransactionCard() {
       <Title>
         No Transactions Yet
       </Title>
+      {
+        Platform.OS === "ios"?
+        <SymbolView name={"arrow.triangle.swap"} size={60} tintColor={"#000"} />
+        :
+        <Ionicons name={"swap-horizontal"} size={60} color="#000" />
+      }
       <Body>
         Your transactions will appear here once you start sending or receiving money.
       </Body>
@@ -23,6 +31,8 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 6,
     marginBottom: 16,
+    justifyContent: "center",
+    alignItems: "center"
   },
   header: {
     flexDirection: 'row',

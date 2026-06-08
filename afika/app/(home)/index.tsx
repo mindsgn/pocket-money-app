@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { usePrivy, useEmbeddedEthereumWallet } from '@privy-io/expo';
 import {useEffect, useState} from "react"
 import WalletCard from '@/components/wallet-card';
@@ -62,11 +62,11 @@ export default function Home() {
   },[wallets, smartAddress])
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <WalletCard />
       <Action />
       <Transactions />
-    </View>
+    </ScrollView>
   );
 }
 

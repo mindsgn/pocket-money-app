@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
       color: colors.textPrimary,
       ...typography.body,
       alignSelf: "center",
+      textAlign: "center"
   },
 });
 

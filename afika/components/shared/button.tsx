@@ -1,7 +1,8 @@
 import React from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, Dimensions, Pressable, StyleSheet, Text } from 'react-native';
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
+import { HapticPressable } from './haptic-pressable';
 
 export const Button: React.FC<{ 
   label: string; 
@@ -20,10 +21,18 @@ export const Button: React.FC<{
   backgroundColor = colors.buttonBackground,
   color = colors.buttonTextBackground,
 }) => (
-  <Pressable testID={testID} style={[styles.button, {
-    width,
-    backgroundColor
-  }]} onPress={onPress}>
+  <Pressable 
+    testID={testID} 
+    style={[styles.button, 
+      {
+        width,
+        backgroundColor
+      }
+    ]} 
+    onPress={onPress}
+    onPressIn={HapticPressable}
+    onPressOut={HapticPressable}
+    >
     {
       progress?
       <ActivityIndicator />
@@ -45,13 +54,12 @@ export const Button: React.FC<{
 const styles = StyleSheet.create({
   button: {
     marginTop: 8,
-    borderRadius: 999,
-    paddingVertical: 12,
+    borderRadius: 20,
+    paddingVertical: 20,
     alignItems: 'center',
-    alignSelf: "center"
+    alignSelf: "center",  
   },
   buttonText: {
-    
     ...typography.button,
     fontWeight: '700',
   },

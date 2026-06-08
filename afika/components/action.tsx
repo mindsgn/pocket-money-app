@@ -20,7 +20,7 @@ export default function ActionCard() {
           backgroundColor='none'
           color="#1f1f1f"
           onPress={() => {
-            router.push("/receive")
+            router.push("/recieve")
           }}
         />
       </View>
