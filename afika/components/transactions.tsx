@@ -3,6 +3,7 @@ import { FlashList } from "@shopify/flash-list";
 import EmptyTransactionCard from '@/components/empty-transaction-card';
 import TransactionCard from '@/components/transaction-card';
 import TransactionHeader from '@/components/transaction-header';
+import { Title } from '@/components/shared/title';
 
 export default function TransactionList() {
     /*
@@ -15,6 +16,13 @@ export default function TransactionList() {
 
   return (
     <View testID="transaction-list">
+      {
+        [].length === 0 ?
+        null
+        :
+        <Title>Transactions</Title>
+      }
+      
       <FlashList
         data={[]}
         //@ts-expect-error unknown error

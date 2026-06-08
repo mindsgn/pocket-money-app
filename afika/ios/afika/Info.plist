@@ -33,6 +33,18 @@
           <string>mindsgn.studio.pockt</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.695616839844-ffhb0aaps87gjcmcfb72nkjc3coqepf4</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>app-1-695616839844-ios-2eec75d70c33e212b94631</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
@@ -44,6 +56,8 @@
     <dict>
       <key>NSAllowsArbitraryLoads</key>
       <true/>
+      <key>ITSAppUsesNonExemptEncryption</key>
+      <false/>
     </dict>
     <key>NSFaceIDUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your Face ID biometric data.</string>
@@ -72,5 +86,7 @@
     <string>Light</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>appleTeamId</key>
+    <string>B3U8UM2966</string>
   </dict>
 </plist>

@@ -4,7 +4,8 @@ import { Title } from '@/components/shared/title';
 export default function WalletCard() {
   return (
     <View style={styles.container}>
-      <Title color="white">{'Your Balance'}</Title>
+      <Title>{'Your Balance'}</Title>
+      <Title>{'0.00'}</Title>
     </View>
   );
 }
