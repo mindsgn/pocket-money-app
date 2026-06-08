@@ -10,7 +10,7 @@ export default function Settings() {
   async function logoutWallet(){
     try {
       await logout()
-      await router.replace("/")
+      await router.replace("/sign-in")
     } catch (error){}
     finally {
     }
