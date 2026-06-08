@@ -3,6 +3,7 @@ import { ActivityIndicator, Dimensions, Pressable, StyleSheet, Text } from 'reac
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
 import { HapticPressable } from './haptic-pressable';
+import * as Haptics from 'expo-haptics';
 
 export const Button: React.FC<{ 
   label: string; 
@@ -30,8 +31,12 @@ export const Button: React.FC<{
       }
     ]} 
     onPress={onPress}
-    onPressIn={HapticPressable}
-    onPressOut={HapticPressable}
+    onPressIn={() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+    }}
+    onPressOut={() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid)
+    }}
     >
     {
       progress?
