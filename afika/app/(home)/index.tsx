@@ -65,6 +65,7 @@ export default function Home() {
   },[wallets, smartAddress])
 
   useFocusEffect(
+<<<<<<< HEAD
     useCallback(() => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
     
@@ -73,6 +74,16 @@ export default function Home() {
       };
     },[])
   )
+=======
+        useCallback(() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+    
+          return () => {
+           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+          };
+        },[])
+      )
+>>>>>>> 10b80d3a07165788680cbc466cee93c0e4abe4fd
 
   return (
     <ScrollView style={styles.container}>
