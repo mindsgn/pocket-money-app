@@ -3,6 +3,9 @@ import { usePrivy } from '@privy-io/expo';
 import { Button } from '@/components/shared/button';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import { useCallback } from 'react';
+import * as Haptics from "expo-haptics"
 
 export default function Settings() {
   const [progress, setProgress] = useState<boolean>(false);
@@ -19,6 +22,27 @@ export default function Settings() {
       setProgress(false)
     }
   }
+
+  useFocusEffect(
+<<<<<<< HEAD
+    useCallback(() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+  
+      return () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+      };
+    },[])
+  )
+=======
+      useCallback(() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+  
+        return () => {
+         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+        };
+      },[])
+    )
+>>>>>>> 10b80d3a07165788680cbc466cee93c0e4abe4fd
 
   return (
     <ScrollView>

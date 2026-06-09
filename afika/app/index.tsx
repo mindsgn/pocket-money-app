@@ -1,8 +1,9 @@
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { usePrivy } from "@privy-io/expo";
 import { useRouter } from "expo-router";
-import {useEffect} from "react";
-
+import {useCallback, useEffect} from "react";
+import { useFocusEffect } from 'expo-router';
+import * as Haptics from "expo-haptics"
 
 export default function Loading() {
   const router = useRouter();
@@ -15,6 +16,20 @@ export default function Loading() {
       router.replace("/(home)");
     }
   }, [isReady, user]);
+
+  useFocusEffect(
+    useCallback(() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+
+      return () => {
+<<<<<<< HEAD
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+=======
+       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+>>>>>>> 10b80d3a07165788680cbc466cee93c0e4abe4fd
+      };
+    },[])
+  )
 
   return (
     <View style={styles.container}>

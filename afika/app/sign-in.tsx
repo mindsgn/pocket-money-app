@@ -5,6 +5,9 @@ import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { useState } from 'react';
 import Hero from '@/components/hero';
 import { useRouter } from 'expo-router';
+import { useCallback } from 'react';
+import { useFocusEffect } from 'expo-router';
+import * as Haptics from "expo-haptics"
 
 export default function SignIn() {
   const router = useRouter();
@@ -22,6 +25,22 @@ export default function SignIn() {
        setProgress(false)
     }
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+      
+<<<<<<< HEAD
+      return () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+      };
+=======
+            return () => {
+             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+            };
+>>>>>>> 10b80d3a07165788680cbc466cee93c0e4abe4fd
+    },[])
+  )
 
   return (
     <View style={styles.container}>
