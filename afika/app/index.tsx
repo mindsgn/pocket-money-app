@@ -22,7 +22,7 @@ export default function Loading() {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
 
       return () => {
-       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
       };
     },[])
   )

@@ -24,14 +24,14 @@ export default function Settings() {
   }
 
   useFocusEffect(
-      useCallback(() => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+    useCallback(() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
   
-        return () => {
-         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-        };
-      },[])
-    )
+      return () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+      };
+    },[])
+  )
 
   return (
     <ScrollView>
