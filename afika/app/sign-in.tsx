@@ -30,9 +30,15 @@ export default function SignIn() {
     useCallback(() => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
       
+<<<<<<< HEAD
+      return () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+      };
+=======
             return () => {
              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
             };
+>>>>>>> 10b80d3a07165788680cbc466cee93c0e4abe4fd
     },[])
   )
 
