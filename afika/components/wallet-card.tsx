@@ -31,12 +31,6 @@ export default function WalletCard() {
           setBalance(parseFloat(wallet.data().usdAmount))
         }
       })
-
-      const TransactionData = await getTransaction(`0x04333a1788a47068b9102D2d35695c312A0b312F`.toLowerCase())
-      TransactionData?.forEach((transaction) => {
-        console.log(transaction.data())
-      })
-
     } catch(error){
     } finally {
     }
