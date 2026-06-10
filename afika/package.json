@@ -11,6 +11,7 @@
     "@react-native-firebase/app": "^24.1.0",
     "@react-native-firebase/auth": "^24.1.0",
     "@react-native-firebase/crashlytics": "^24.1.0",
+    "@react-native-firebase/firestore": "^24.1.0",
     "@react-native-google-signin/google-signin": "^16.1.2",
     "@shopify/flash-list": "2.0.2",
     "@zerodev/ecdsa-validator": "^5.4.9",

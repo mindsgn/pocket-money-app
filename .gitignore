@@ -39,3 +39,7 @@ PocketCore.xcframework
 .cursor
 functions
 assets
+android
+ios
+_app_
+app
