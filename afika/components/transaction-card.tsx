@@ -26,15 +26,19 @@ function formatAmount(amount: any, symbol: any) {
 
 export default function TransactionCard({ tx }: { tx: any}) {
   // const { locale, currency, rate } = useFxRate();
-  const amount = formatAmount(tx.amount, tx.tokenSymbol);
-  const usdAmount = tx.usdAmount || '';
+  //const amount = formatAmount(tx.amount, tx.tokenSymbol);
+  //const usdAmount = tx.usdAmount || '';
   //const converted = convertUSD(usdAmount, rate);
-  const displayAmount = 0//converted != null
+  //const displayAmount = 0//converted != null
   //  ? formatCurrency(converted, locale, currency)
   //  : (usdAmount ? formatCurrency(Number(usdAmount), locale, currency) : '');
 
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity 
+      style={styles.card}
+      onPressIn={() => {}}
+      onPressOut={() => {}}
+    >
       <View>
         {
           tx.direction === 'credit' ? 
@@ -52,7 +56,7 @@ export default function TransactionCard({ tx }: { tx: any}) {
       
       <View>
         <Text style={styles.primaryBalance}>
-          {`${tx.direction === 'credit' ? '+' : '-'} ${displayAmount || amount}`}
+           $ {parseFloat(tx.usdAmount).toFixed(2)}
         </Text>
       </View>
     </TouchableOpacity>
