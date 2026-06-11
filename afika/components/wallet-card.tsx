@@ -4,17 +4,23 @@ import { useEmbeddedEthereumWallet } from '@privy-io/expo';
 import {UpsertData, getTransaction, getWallet, upsertWallet } from '@/lib/firebase';
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import { useWallet } from '@/store/wallet';
 
 const DEFAULT_NETWORK: string = 'base-mainnet'
 
 export default function WalletCard() {
+  const {address, smartAdress} = useWallet()
   const [balance, setBalance] = useState<number>(0)
   const { wallets } = useEmbeddedEthereumWallet()
 
   const upsertAndListen = async() => {
+    if(address === null){
+      return
+    }
+
     try {
       const data: UpsertData = {
-        address:  `0x04333a1788a47068b9102D2d35695c312A0b312F`.toLowerCase(),
+        address:  smartAdress?  smartAdress.toLowerCase() : address.toLowerCase(),
         network: DEFAULT_NETWORK,
         createdAt:  firestore.FieldValue.serverTimestamp(),
         PhoneNumber:  null,
@@ -22,9 +28,9 @@ export default function WalletCard() {
         UserLevel:  0,
         PhoneLinkedAt:  null,
       }
-      await upsertWallet(`0x04333a1788a47068b9102D2d35695c312A0b312F`.toLowerCase(), data);
+      await upsertWallet(smartAdress?  smartAdress.toLowerCase() : address.toLowerCase(), data);
 
-      const walletData = await getWallet(`0x04333a1788a47068b9102D2d35695c312A0b312F`.toLowerCase())
+      const walletData = await getWallet(smartAdress?  smartAdress.toLowerCase() : address.toLowerCase())
 
       walletData?.forEach((wallet)=>{
         if(wallet.data().tokenSymbol === "USDC"){

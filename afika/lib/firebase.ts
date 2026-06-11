@@ -18,6 +18,9 @@ export async function upsertWallet(
   if (!walletAddress) return; 
 
   try {
+    const document = await firestore().collection("wallets").doc(walletAddress.toLowerCase()).get()    
+    if(document.exists()) return
+
     await firestore()
       .collection('wallets')
       .doc(walletAddress.toLowerCase())
