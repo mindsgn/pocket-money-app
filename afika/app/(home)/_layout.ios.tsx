@@ -12,6 +12,10 @@ export default function TabLayout() {
         <NativeTabs.Trigger.Label></NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="person.fill" selectedColor={colors.primary}/>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="smart">
+        <NativeTabs.Trigger.Label></NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="person" selectedColor={colors.primary}/>
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }

@@ -17,5 +17,9 @@ const resolveRequestWithPackageExports = (context, moduleName, platform) => {
 };
 
 config.resolver.resolveRequest = resolveRequestWithPackageExports;
+config.resolver.extraNodeModules = {
+  ...(config.resolver.extraNodeModules || {}),
+  events: require.resolve("events"),
+};
 
 module.exports = config;
