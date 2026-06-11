@@ -6,13 +6,19 @@ import TransactionHeader from '@/components/transaction-header';
 import { Title } from '@/components/shared/title';
 import { useState, useEffect } from 'react';
 import { getTransaction } from '@/lib/firebase';
+import { useWallet } from '@/store/wallet';
 
 export default function TransactionList() {
+  const {smartAdress, address} = useWallet()
   const [transactions, setTransactions] = useState<any[]>([])
 
   const getallTransaction = async() => {
+    if(address === null){
+      return null
+    }
+
     try {
-      const data = await getTransaction(`0x04333a1788a47068b9102D2d35695c312A0b312F`.toLowerCase())
+      const data = await getTransaction(smartAdress? smartAdress.toLowerCase() : address?.toLowerCase())
       
       const transactionArray: any[] = []
 
