@@ -7,10 +7,30 @@ import { Title } from '@/components/shared/title';
 import { useState, useEffect } from 'react';
 import { getTransaction } from '@/lib/firebase';
 import { useWallet } from '@/store/wallet';
+import firestore, { QuerySnapshot } from '@react-native-firebase/firestore';
+
+
 
 export default function TransactionList() {
   const {smartAdress, address} = useWallet()
   const [transactions, setTransactions] = useState<any[]>([])
+
+    const onResult = (data: QuerySnapshot) => {
+      const transactionArray: any[] = []
+
+      data?.forEach( (transaction)=> {
+        transactionArray.push( transaction.data())
+      })
+
+      if(transactionArray.length===0) return
+
+      setTransactions(transactionArray)
+    }
+  
+    const onError = (error: any) => {
+      console.log(error)
+    }
+
 
   const getallTransaction = async() => {
     if(address === null){
@@ -18,24 +38,16 @@ export default function TransactionList() {
     }
 
     try {
-      const data = await getTransaction(smartAdress? smartAdress.toLowerCase() : address?.toLowerCase())
-      
-      const transactionArray: any[] = []
-
-      data?.forEach( (transaction)=> {
-        transactionArray.push( transaction.data())
-      })
-
-      setTransactions(transactionArray)
-
+      firestore().collection("wallets").doc(smartAdress? smartAdress.toLowerCase() : address?.toLowerCase()).collection("transactions").onSnapshot(onResult, onError)
     } catch(error){
+      console.log(error)
     } finally {
     }
   }
 
   useEffect(() => {
     getallTransaction()
-  },[transactions])
+  },[])
 
   return (
     <View testID="transaction-list">
