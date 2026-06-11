@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // import { useFxRate } from '@/lib/locale/useFxRate';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '@/theme/colors';
+import * as Haptics from "expo-haptics"
 
 function shortenAddress(addr: any) {
   if (!addr) return '';
@@ -36,8 +37,12 @@ export default function TransactionCard({ tx }: { tx: any}) {
   return (
     <TouchableOpacity 
       style={styles.card}
-      onPressIn={() => {}}
-      onPressOut={() => {}}
+      onPressIn={() => [
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)  
+      ]}
+      onPressOut={() => {
+         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid)  
+      }}
     >
       <View>
         {
