@@ -3,13 +3,9 @@ import { FlashList } from "@shopify/flash-list";
 import EmptyTransactionCard from '@/components/empty-transaction-card';
 import TransactionCard from '@/components/transaction-card';
 import TransactionHeader from '@/components/transaction-header';
-import { Title } from '@/components/shared/title';
 import { useState, useEffect } from 'react';
-import { getTransaction } from '@/lib/firebase';
 import { useWallet } from '@/store/wallet';
 import firestore, { QuerySnapshot } from '@react-native-firebase/firestore';
-
-
 
 export default function TransactionList() {
   const {smartAdress, address} = useWallet()
@@ -21,8 +17,6 @@ export default function TransactionList() {
       data?.forEach( (transaction)=> {
         transactionArray.push( transaction.data())
       })
-
-      if(transactionArray.length===0) return
 
       setTransactions(transactionArray)
     }
