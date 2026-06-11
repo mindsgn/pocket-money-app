@@ -35,7 +35,6 @@ export default function Settings() {
 
   return (
     <ScrollView>
-      <View style={{width: 150, height: 150, backgroundColor: "#000", alignSelf: "center", borderRadius: "50%" }} />
       <Button
         onPress={logoutWallet}
         label='SIGN OUT'
