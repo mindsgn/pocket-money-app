@@ -39,15 +39,19 @@ export default function TransactionCard({ tx }: { tx: any}) {
       <View>
         {
           tx.direction === 'credit' ? 
-            <Ionicons style={[styles.primaryBalance, {color: "#00E71F"}]} name='arrow-up' />
+          <View style={{flexDirection: "row"}}>
+            <Ionicons style={[styles.primaryBalance, {color: "#00E71F"}]} name='arrow-down' />
+            <Text style={styles.secondaryBalance}>Recieved {tx.tokenSymbol}</Text>
+          </View>
+            
           :
-            <Ionicons style={[styles.primaryBalance, {color: "#FF225E"}]} name='arrow-down' />
+          <View style={{flexDirection: "row"}}>
+            <Ionicons style={[styles.primaryBalance, {color: "#FF225E"}]} name='arrow-up' />
+            <Text style={styles.secondaryBalance}>Sent {tx.tokenSymbol}</Text>
+          </View>
+
         }
-        {tx.description || tx.kind ? (
-          <Text style={styles.secondaryBalance}>{tx.description}</Text>
-        ) : (
-          <Text style={styles.secondaryBalance}>{tx.kind || tx.tokenSymbol || "Transaction"}</Text>
-        )}
+
         <Text style={styles.meta}>
           {(tx.state || "pending").toString()} • {formatDate(tx.timestampMs || tx.timestamp)}
         </Text>

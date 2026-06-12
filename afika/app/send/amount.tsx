@@ -24,6 +24,7 @@ import {
 } from "@/lib/transactions";
 import { shortenAddress, getActiveWalletAddress } from "@/lib/wallet";
 import { useWallet } from "@/store/wallet";
+import { KeyboardAvoidingView } from 'react-native';
 
 export default function SendAmountScreen() {
   const { address } = useLocalSearchParams<{ address: string }>();
@@ -183,7 +184,7 @@ export default function SendAmountScreen() {
   const amountError = amount ? validateAmount() : null;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.title}>Send USDC</Text>
       <Text style={styles.subtitle}>Enter the amount you want to send.</Text>
 
@@ -224,7 +225,7 @@ export default function SendAmountScreen() {
       >
         {sending ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Send USDC</Text>}
       </TouchableOpacity>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
