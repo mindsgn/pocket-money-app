@@ -32,6 +32,7 @@ export default function TransactionList() {
     }
 
     try {
+      //@ts-expect-error unkown error
       firestore().collection("wallets").doc(smartAdress? smartAdress.toLowerCase() : address?.toLowerCase()).collection("transactions").onSnapshot(onResult, onError)
     } catch(error){
       console.log(error)

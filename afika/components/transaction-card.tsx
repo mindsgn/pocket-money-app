@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '@/theme/colors';
 import * as Haptics from "expo-haptics"
+import { useRouter } from 'expo-router';
 
 function shortenAddress(addr: any) {
   if (!addr) return '';
@@ -26,6 +27,7 @@ function formatAmount(amount: any, symbol: any) {
 }
 
 export default function TransactionCard({ tx }: { tx: any}) {
+  const router = useRouter();
   // const { locale, currency, rate } = useFxRate();
   //const amount = formatAmount(tx.amount, tx.tokenSymbol);
   //const usdAmount = tx.usdAmount || '';
@@ -33,6 +35,7 @@ export default function TransactionCard({ tx }: { tx: any}) {
   //const displayAmount = 0//converted != null
   //  ? formatCurrency(converted, locale, currency)
   //  : (usdAmount ? formatCurrency(Number(usdAmount), locale, currency) : '');
+  
 
   return (
     <TouchableOpacity 
