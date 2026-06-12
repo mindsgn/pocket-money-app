@@ -11,6 +11,6 @@ export const HapticPressable: React.FC<HapticPressableProps> = ({
   hapticType = 'light',
   ...rest
 }) => {
-  const handlePress = withHaptic(onPress, hapticType);
+  const handlePress = onPress ? withHaptic(onPress, hapticType) : undefined;
   return <Pressable onPress={handlePress} {...rest} />;
 };

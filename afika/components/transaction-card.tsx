@@ -1,53 +1,34 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-// import { formatCurrency, convertUSD } from '@/lib/locale/currency';
-// import { useFxRate } from '@/lib/locale/useFxRate';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '@/theme/colors';
 import * as Haptics from "expo-haptics"
-import { useRouter } from 'expo-router';
-
-function shortenAddress(addr: any) {
-  if (!addr) return '';
-  return addr.slice(0, 6) + '...' + addr.slice(-4);
-}
 
 function formatDate(timestamp: any) {
-  const date = new Date(timestamp * 1000);
+  if (!timestamp) {
+    return "Just now";
+  }
+  const numericTimestamp = Number(timestamp);
+  const date = new Date(numericTimestamp > 1e12 ? numericTimestamp : numericTimestamp * 1000);
   return date.toLocaleString();
 }
 
-function formatAmount(amount: any, symbol: any) {
-  if (symbol === 'ETH') {
-    return (Number(amount) / 1e18).toFixed(4);
+function getDisplayAmount(tx: any) {
+  if (tx.usdAmount && !Number.isNaN(Number(tx.usdAmount))) {
+    return `$ ${Number(tx.usdAmount).toFixed(2)}`;
   }
-  if (symbol === 'USDC') {
-    return (Number(amount) / 1e6).toFixed(2);
+
+  if (tx.amount && tx.tokenSymbol) {
+    return `${tx.amount} ${tx.tokenSymbol}`;
   }
-  return amount;
+
+  return tx.tokenSymbol || "Pending";
 }
 
 export default function TransactionCard({ tx }: { tx: any}) {
-  const router = useRouter();
-  // const { locale, currency, rate } = useFxRate();
-  //const amount = formatAmount(tx.amount, tx.tokenSymbol);
-  //const usdAmount = tx.usdAmount || '';
-  //const converted = convertUSD(usdAmount, rate);
-  //const displayAmount = 0//converted != null
-  //  ? formatCurrency(converted, locale, currency)
-  //  : (usdAmount ? formatCurrency(Number(usdAmount), locale, currency) : '');
-  
-
   return (
     <TouchableOpacity 
       style={styles.card}
-      onPress={() => { 
-        router.push({
-          pathname: "/market/[symbol]",
-          params: {
-            symbol: item.symbol,
-          },
-        })
-       }}
+      onPress={() => {}}
       onPressIn={() => [
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)  
       ]}
@@ -62,17 +43,19 @@ export default function TransactionCard({ tx }: { tx: any}) {
           :
             <Ionicons style={[styles.primaryBalance, {color: "#FF225E"}]} name='arrow-down' />
         }
-        {tx.description ? (
+        {tx.description || tx.kind ? (
           <Text style={styles.secondaryBalance}>{tx.description}</Text>
-        ) : null}
+        ) : (
+          <Text style={styles.secondaryBalance}>{tx.kind || tx.tokenSymbol || "Transaction"}</Text>
+        )}
         <Text style={styles.meta}>
-          {tx.state} • {formatDate(tx.timestamp)}
+          {(tx.state || "pending").toString()} • {formatDate(tx.timestampMs || tx.timestamp)}
         </Text>
       </View>
       
       <View>
         <Text style={styles.primaryBalance}>
-           $ {parseFloat(tx.usdAmount).toFixed(2)}
+           {getDisplayAmount(tx)}
         </Text>
       </View>
     </TouchableOpacity>

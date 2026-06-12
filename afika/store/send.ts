@@ -1,4 +1,4 @@
-import { SendState } from "@/@src/types/send";
+import { SendState } from "@/@types";
 
 export const nextState = (state: SendState): SendState => {
   switch (state) {
