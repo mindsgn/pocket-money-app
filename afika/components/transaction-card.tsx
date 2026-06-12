@@ -40,6 +40,14 @@ export default function TransactionCard({ tx }: { tx: any}) {
   return (
     <TouchableOpacity 
       style={styles.card}
+      onPress={() => { 
+        router.push({
+          pathname: "/market/[symbol]",
+          params: {
+            symbol: item.symbol,
+          },
+        })
+       }}
       onPressIn={() => [
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)  
       ]}

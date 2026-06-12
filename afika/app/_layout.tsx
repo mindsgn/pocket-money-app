@@ -20,6 +20,7 @@ export default function RootLayout() {
                     <Stack.Screen name="send" options={{ headerShown: false }}/>
                     <Stack.Screen name="recieve" options={{ headerShown: false }}/>
                     <Stack.Screen name="market/[symbol]/index" options={{ headerShown: false }}/>
+                    <Stack.Screen name="swap" options={{ headerShown: false }}/>
                 </Stack>
              </GestureHandlerRootView>
             <PrivyElements />
