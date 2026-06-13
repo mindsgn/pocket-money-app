@@ -7,8 +7,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/shared/button";
 
 function isValidWalletAddress(address: string) {
   return /^0x[a-fA-F0-9]{40}$/.test(address.trim());
@@ -41,7 +43,9 @@ export default function SendAddressScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Recipient</Text>
-      <Text style={styles.subtitle}>Enter the wallet address you want to send USDC to.</Text>
+      <Text style={styles.subtitle}>
+        Enter the wallet address you want to send USDC to.
+      </Text>
 
       <View style={styles.card}>
         <Text style={styles.label}>Wallet Address</Text>
@@ -54,15 +58,13 @@ export default function SendAddressScreen() {
           autoCorrect={false}
           style={styles.input}
         />
-
-        <TouchableOpacity style={styles.scanButton} onPress={handleScanAddress}>
-          <Text style={styles.scanButtonText}>Scan Wallet Address</Text>
-        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleContinue}>
-        <Text style={styles.buttonText}>Continue</Text>
-      </TouchableOpacity>
+      <Button
+        label={"Continue"}
+        onPress={handleContinue}
+        width={Dimensions.get("screen").width - 20}
+      />
     </SafeAreaView>
   );
 }
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   card: {
+    flex: 1,
     backgroundColor: "#FFFFFF",
     borderRadius: 24,
     padding: 20,

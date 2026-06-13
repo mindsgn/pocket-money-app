@@ -24,9 +24,12 @@ import {
 } from "@/lib/transactions";
 import { shortenAddress, getActiveWalletAddress } from "@/lib/wallet";
 import { useWallet } from "@/store/wallet";
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView } from "react-native";
+import AmountInput from "@/components/amount-input";
 
 export default function SendAmountScreen() {
+  /*
+
   const { address } = useLocalSearchParams<{ address: string }>();
   const { wallets } = useEmbeddedEthereumWallet();
   const wallet = wallets?.[0];
@@ -182,50 +185,16 @@ export default function SendAmountScreen() {
   };
 
   const amountError = amount ? validateAmount() : null;
+  */
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <Text style={styles.title}>Send USDC</Text>
-      <Text style={styles.subtitle}>Enter the amount you want to send.</Text>
-
-      <View style={styles.recipientCard}>
-        <Text style={styles.label}>Sending to</Text>
-        <Text style={styles.address}>{shortAddress}</Text>
-      </View>
-
-      <View style={styles.amountCard}>
-        <Text style={styles.label}>Amount</Text>
-
-        <View style={styles.amountRow}>
-          <TextInput
-            value={amount}
-            onChangeText={setAmount}
-            placeholder="0.00"
-            keyboardType="decimal-pad"
-            style={styles.input}
-          />
-          <Text style={styles.token}>USDC</Text>
-        </View>
-
-        <Text style={styles.balanceText}>Available: {availableAmount} USDC</Text>
-        {amountError ? <Text style={styles.errorText}>{amountError}</Text> : null}
-      </View>
-
-      <View style={styles.infoCard}>
-        <InfoRow label="Network" value="Base" />
-        <InfoRow label="Token" value="USDC" />
-        <InfoRow label="Gas" value="Sponsored" />
-        <InfoRow label="Recipient" value={shortAddress} />
-      </View>
-
-      <TouchableOpacity
-        style={[styles.button, (sending || kernelLoading || balancesLoading) && styles.buttonDisabled]}
-        onPress={handleSend}
-        disabled={sending || kernelLoading || balancesLoading}
-      >
-        {sending ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Send USDC</Text>}
-      </TouchableOpacity>
-    </KeyboardAvoidingView>
+    <AmountInput
+      amount={"0"}
+      currency={"USDC"}
+      onChange={() => {}}
+      name={""}
+      handleCompleteSwipe={() => {}}
+    />
   );
 }
 
