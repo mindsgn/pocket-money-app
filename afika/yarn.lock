@@ -1827,23 +1827,23 @@
   resolved "https://registry.npmjs.org/@radix-ui/react-use-layout-effect/-/react-use-layout-effect-1.1.2.tgz"
   integrity sha512-jrBWOxZITuGcnjRCM2t2U5ZPkCLxD+Ym6DjfssS5haTj2iiak/DOb64JeN6OdLfLgptb6/e2kKR+ZuTrGoZTPA==
 
-"@react-native-firebase/analytics@^24.1.0":
+"@react-native-firebase/analytics@24.1.1":
   version "24.1.1"
-  resolved "https://registry.npmjs.org/@react-native-firebase/analytics/-/analytics-24.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-24.1.1.tgz#b7c789ec9930a8cd0235a9dc3a7a066f2dd4c734"
   integrity sha512-k5aACS+IqPIyuRepnDgkBd6xPYn/jxFE9GNYSPFiztbkzpcZNqRIHwPEGMEBAiA9BmD+d5PJ/Z4zicUPeE3S9w==
   dependencies:
     superstruct "^2.0.2"
 
-"@react-native-firebase/app@^24.1.0":
+"@react-native-firebase/app@24.1.1":
   version "24.1.1"
-  resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-24.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-24.1.1.tgz#9b66d5f85aca5fcfad01b882f9ce4d2a1199bb0a"
   integrity sha512-NKCUgBeilQvchHQeKwB6RuE3Ne2AZMlClXjJBVySkCAF2FNO73ML2brqrAyegRkuVswtqHsB6wAgypmP82WnnA==
   dependencies:
     firebase "12.14.0"
 
-"@react-native-firebase/auth@^24.1.0":
+"@react-native-firebase/auth@24.1.1":
   version "24.1.1"
-  resolved "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-24.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-24.1.1.tgz#2140b4d3b96dafb4c1332cf07de5216bb6514382"
   integrity sha512-7sYshSmLOcaHnEO3zT5OBA6/zLgO+SXQTwlvSDAWpzWq+FBKC9gLjd8zX/Z6AysqhdvjLNBQyRuEESdwCbtDuA==
   dependencies:
     plist "^3.1.0"
@@ -2050,7 +2050,14 @@
   dependencies:
     undici-types "~6.19.2"
 
-"@types/react@~19.2.2":
+"@types/react-test-renderer@^19.1.0":
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-19.1.0.tgz#1d0af8f2e1b5931e245b8b5b234d1502b854dc10"
+  integrity sha512-XD0WZrHqjNrxA/MaR9O22w/RNidWR9YZmBdRGI7wcnWGrv/3dA8wKCJ8m63Sn+tLJhcjmuhOi629N66W6kgWzQ==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@~19.2.2":
   version "19.2.17"
   resolved "https://registry.npmjs.org/@types/react/-/react-19.2.17.tgz"
   integrity sha512-MXfmqaVPEVgkBT/aY0aGCkRWWtByiYQXo3xdQ8r5RzuFrPiRn8Gar2tQdXSUQ2GKV3bkXckek89V8wQBY2Q/Aw==
@@ -3031,6 +3038,14 @@ expo-symbols@^56.0.6, expo-symbols@~56.0.6:
   dependencies:
     "@expo-google-fonts/material-symbols" "^0.4.1"
     sf-symbols-typescript "^2.0.0"
+
+expo-system-ui@~56.0.5:
+  version "56.0.5"
+  resolved "https://registry.yarnpkg.com/expo-system-ui/-/expo-system-ui-56.0.5.tgz#c23c3dc772c41df356dfa620071e5b4f479c7de2"
+  integrity sha512-n1MmnUArV4cc3gVed9fGtluPme00PE9axKVx+NHbKxHFMam5l4GcOI7PxbYKFNx8o7WA1LRD7eLW33agmZrxGg==
+  dependencies:
+    "@react-native/normalize-colors" "0.85.3"
+    debug "^4.3.2"
 
 expo-web-browser@~56.0.5:
   version "56.0.5"
@@ -4318,6 +4333,14 @@ react-native-drawer-layout@^4.2.2:
     color "^4.2.3"
     use-latest-callback "^0.2.4"
 
+react-native-gesture-handler@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-3.0.1.tgz#781981e3a554cc410d1227b574f7fbb9b002c644"
+  integrity sha512-fu9X6vLiDy197CUcOphmq6PnV5dDPpDltFjJDnq2mAkSxB24veqmYxHyEAfS7IsG8v8jYkvfgihp2UAojgYVNg==
+  dependencies:
+    "@types/react-test-renderer" "^19.1.0"
+    invariant "^2.2.4"
+
 react-native-get-random-values@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/react-native-get-random-values/-/react-native-get-random-values-2.0.0.tgz"
@@ -5278,12 +5301,7 @@ zod@^3.24.3, zod@^3.25.76:
   resolved "https://registry.npmjs.org/zod/-/zod-3.25.76.tgz"
   integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==
 
-zustand@^5.0.14:
-  version "5.0.14"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-5.0.14.tgz#18216c24fcb980cf36898f9c57520e67b1f77855"
-  integrity sha512-/8tAspM5LMPr28b3fwLYrtdj77ECpfZviaP75CMTnwO8ISyaE4GDIG/9rDDYq/cH9D2Xw2A2RXglLInmVBQB/g==
-
-zustand@^5.0.4:
+zustand@^5.0.14, zustand@^5.0.4:
   version "5.0.14"
   resolved "https://registry.npmjs.org/zustand/-/zustand-5.0.14.tgz"
   integrity sha512-/8tAspM5LMPr28b3fwLYrtdj77ECpfZviaP75CMTnwO8ISyaE4GDIG/9rDDYq/cH9D2Xw2A2RXglLInmVBQB/g==
