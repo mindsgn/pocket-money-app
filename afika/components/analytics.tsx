@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "expo-router";
-import analytics from "@react-native-firebase/analytics";
+import { getAnalytics, logEvent } from '@react-native-firebase/analytics';
 
 export function AnalyticsTracker() {
   const pathname = usePathname();
@@ -12,7 +12,7 @@ export function AnalyticsTracker() {
         pathname &&
         pathname !== previousPathname.current
       ) {
-        await analytics().logScreenView({
+        await logEvent(getAnalytics(), 'screen_view', {
           screen_name: pathname,
           screen_class: pathname,
         });

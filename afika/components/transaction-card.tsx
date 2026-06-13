@@ -1,62 +1,65 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-// import { formatCurrency, convertUSD } from '@/lib/locale/currency';
-// import { useFxRate } from '@/lib/locale/useFxRate';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '@/theme/colors';
-
-function shortenAddress(addr: any) {
-  if (!addr) return '';
-  return addr.slice(0, 6) + '...' + addr.slice(-4);
-}
+import * as Haptics from "expo-haptics"
 
 function formatDate(timestamp: any) {
-  const date = new Date(timestamp * 1000);
+  if (!timestamp) {
+    return "Just now";
+  }
+  const numericTimestamp = Number(timestamp);
+  const date = new Date(numericTimestamp > 1e12 ? numericTimestamp : numericTimestamp * 1000);
   return date.toLocaleString();
 }
 
-function formatAmount(amount: any, symbol: any) {
-  if (symbol === 'ETH') {
-    return (Number(amount) / 1e18).toFixed(4);
+function getDisplayAmount(tx: any) {
+  if (tx.usdAmount && !Number.isNaN(Number(tx.usdAmount))) {
+    return `$ ${Number(tx.usdAmount).toFixed(2)}`;
   }
-  if (symbol === 'USDC') {
-    return (Number(amount) / 1e6).toFixed(2);
+
+  if (tx.amount && tx.tokenSymbol) {
+    return `${tx.amount} ${tx.tokenSymbol}`;
   }
-  return amount;
+
+  return tx.tokenSymbol || "Pending";
 }
 
 export default function TransactionCard({ tx }: { tx: any}) {
-  // const { locale, currency, rate } = useFxRate();
-  //const amount = formatAmount(tx.amount, tx.tokenSymbol);
-  //const usdAmount = tx.usdAmount || '';
-  //const converted = convertUSD(usdAmount, rate);
-  //const displayAmount = 0//converted != null
-  //  ? formatCurrency(converted, locale, currency)
-  //  : (usdAmount ? formatCurrency(Number(usdAmount), locale, currency) : '');
-
   return (
     <TouchableOpacity 
       style={styles.card}
-      onPressIn={() => {}}
-      onPressOut={() => {}}
+      onPress={() => {}}
+      onPressIn={() => [
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)  
+      ]}
+      onPressOut={() => {
+         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid)  
+      }}
     >
       <View>
         {
           tx.direction === 'credit' ? 
-            <Ionicons style={[styles.primaryBalance, {color: "#00E71F"}]} name='arrow-up' />
+          <View style={{flexDirection: "row"}}>
+            <Ionicons style={[styles.primaryBalance, {color: "#00E71F"}]} name='arrow-down' />
+            <Text style={styles.secondaryBalance}>Recieved {tx.tokenSymbol}</Text>
+          </View>
+            
           :
-            <Ionicons style={[styles.primaryBalance, {color: "#FF225E"}]} name='arrow-down' />
+          <View style={{flexDirection: "row"}}>
+            <Ionicons style={[styles.primaryBalance, {color: "#FF225E"}]} name='arrow-up' />
+            <Text style={styles.secondaryBalance}>Sent {tx.tokenSymbol}</Text>
+          </View>
+
         }
-        {tx.description ? (
-          <Text style={styles.secondaryBalance}>{tx.description}</Text>
-        ) : null}
+
         <Text style={styles.meta}>
-          {tx.state} • {formatDate(tx.timestamp)}
+          {(tx.state || "pending").toString()} • {formatDate(tx.timestampMs || tx.timestamp)}
         </Text>
       </View>
       
       <View>
         <Text style={styles.primaryBalance}>
-           $ {parseFloat(tx.usdAmount).toFixed(2)}
+           {getDisplayAmount(tx)}
         </Text>
       </View>
     </TouchableOpacity>

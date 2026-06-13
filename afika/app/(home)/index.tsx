@@ -66,9 +66,6 @@ export default function Home() {
         });
   
         if (mounted) {
-          
-          console.log(code !== "0x")
-
           setWallet({
             smartContractDeployed: code !== "0x",
             address: wallet.address,
