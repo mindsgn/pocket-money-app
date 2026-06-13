@@ -61,7 +61,8 @@
             ]
           }
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "extra": {
       "router": {},
