@@ -1,6 +1,6 @@
 {
   "name": "afika",
-  "version": "1.0.0",
+  "version": "0.2.29",
   "main": "entrypoint.js",
   "dependencies": {
     "@ethersproject/shims": "^5.8.0",
@@ -16,8 +16,10 @@
     "@shopify/flash-list": "2.0.2",
     "@zerodev/ecdsa-validator": "^5.4.9",
     "@zerodev/sdk": "^5.5.10",
-    "babel-preset-expo": "^56.0.14",
+    "babel-plugin-inline-import": "^3.0.0",
+    "babel-preset-expo": "^56.0.15",
     "buffer": "^6.0.3",
+    "drizzle-orm": "^0.45.2",
     "ethers": "^6.16.0",
     "events": "^3.3.0",
     "expo": "~56.0.9",
@@ -31,6 +33,7 @@
     "expo-localization": "~56.0.6",
     "expo-router": "~56.2.9",
     "expo-secure-store": "~56.0.4",
+    "expo-sqlite": "~56.0.5",
     "expo-status-bar": "~56.0.4",
     "expo-symbols": "~56.0.6",
     "expo-system-ui": "~56.0.5",
@@ -55,6 +58,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "drizzle-kit": "^0.31.10",
     "typescript": "~6.0.3"
   },
   "resolutions": {
