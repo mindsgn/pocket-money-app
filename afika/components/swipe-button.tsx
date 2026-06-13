@@ -1,9 +1,9 @@
 import { View, StyleSheet, Text } from "react-native";
 import Animated from "react-native-reanimated";
-import { GestureDetector, PanGesture } from "react-native-gesture-handler";
+import { GestureDetector } from "react-native-gesture-handler";
 
 interface SwipeButtonProps {
-  panGesture: PanGesture;
+  panGesture: any;
   trackStyle: any;
   animatedStyle: any;
 }

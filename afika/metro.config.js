@@ -4,19 +4,27 @@ const { getDefaultConfig } = require("expo/metro-config");
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
-const resolveRequestWithPackageExports = (context, moduleName, platform) => {
+// Secure the upstream resolver safely, falling back to context's native resolver if undefined
+const upstreamResolveRequest =
+  config.resolver.resolveRequest ||
+  ((context, moduleName, platform) => {
+    return context.resolveRequest(context, moduleName, platform);
+  });
+
+config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (moduleName === "jose") {
     const ctx = {
       ...context,
       unstable_conditionNames: ["browser"],
     };
-    return ctx.resolveRequest(ctx, moduleName, platform);
+    return upstreamResolveRequest(ctx, moduleName, platform);
   }
 
-  return context.resolveRequest(context, moduleName, platform);
+  // Always route back through the secured resolution chain
+  return upstreamResolveRequest(context, moduleName, platform);
 };
 
-config.resolver.resolveRequest = resolveRequestWithPackageExports;
+config.resolver.sourceExts.push("sql");
 config.resolver.extraNodeModules = {
   ...(config.resolver.extraNodeModules || {}),
   events: require.resolve("events"),

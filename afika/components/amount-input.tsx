@@ -113,7 +113,7 @@ export default function AmountInput({
         </View>
 
         <Text style={styles.amount}>
-          {currency} {amount || "0"}
+          {currency === "USDC" ? "$" : "R"} {amount || "0"}
         </Text>
 
         <View
