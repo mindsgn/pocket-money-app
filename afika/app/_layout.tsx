@@ -17,8 +17,15 @@ export default function RootLayout() {
                     <Stack.Screen name="index" options={{ headerShown: false }}/>
                     <Stack.Screen name="sign-in" options={{ headerShown: false }}/>
                     <Stack.Screen name="(home)" options={{ headerShown: false }}/>
-                    <Stack.Screen name="send" options={{ headerShown: false }}/>
+                    <Stack.Screen name="send/index" options={{ headerShown: false }}/>
+                    <Stack.Screen name="send/amount" options={{ headerShown: false }}/>
+                    <Stack.Screen name="send/address" options={{ headerShown: false }}/>
                     <Stack.Screen name="recieve" options={{ headerShown: false }}/>
+                    <Stack.Screen name="market/[symbol]/index" options={{ headerShown: false }}/>
+                    <Stack.Screen name="swap" options={{ headerShown: false }}/>
+                    <Stack.Screen name="transaction/process" options={{ headerShown: false }}/>
+                    <Stack.Screen name="transaction/complete" options={{ headerShown: false }}/>
+                    <Stack.Screen name="transaction/error" options={{ headerShown: false }}/>
                 </Stack>
              </GestureHandlerRootView>
             <PrivyElements />

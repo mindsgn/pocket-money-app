@@ -13,6 +13,13 @@ export default function TabLayout() {
           src={<VectorIcon family={MaterialCommunityIcons} name="home" />}
         />  
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="markets">
+        <NativeTabs.Trigger.Label>Markets</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          selectedColor={colors.primary}
+          src={<VectorIcon family={MaterialCommunityIcons} name="chart-line" />}
+        />
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="account">
         <NativeTabs.Trigger.Label>Account</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
