@@ -71,6 +71,10 @@ export default function RootLayout() {
                 name="market/[symbol]/index"
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="transaction-details/index"
+                options={{ headerShown: false }}
+              />
               <Stack.Screen name="swap" options={{ headerShown: false }} />
               <Stack.Screen
                 name="transaction/process"
