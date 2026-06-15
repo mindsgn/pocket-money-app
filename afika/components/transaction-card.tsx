@@ -3,6 +3,11 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { colors } from "@/theme/colors";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
+import type { AppTransactionRecord } from "@/lib/transactions";
+
+type TransactionCardItem = AppTransactionRecord & {
+  id?: string;
+};
 
 function formatDate(timestamp: any) {
   if (!timestamp) {
@@ -15,7 +20,7 @@ function formatDate(timestamp: any) {
   return date.toLocaleString();
 }
 
-function getDisplayAmount(tx: any) {
+function getDisplayAmount(tx: TransactionCardItem) {
   if (tx.usdAmount && !Number.isNaN(Number(tx.usdAmount))) {
     return `$ ${Number(tx.usdAmount).toFixed(2)}`;
   }
@@ -27,8 +32,10 @@ function getDisplayAmount(tx: any) {
   return tx.tokenSymbol || "Pending";
 }
 
-export default function TransactionCard({ tx }: { tx: any }) {
+export default function TransactionCard({ tx }: { tx: TransactionCardItem }) {
   const router = useRouter();
+  const transactionHash = tx.txHash || tx.userOperationHash || "";
+  const transactionId = tx.id || transactionHash;
 
   return (
     <TouchableOpacity
@@ -37,7 +44,8 @@ export default function TransactionCard({ tx }: { tx: any }) {
         router.navigate({
           pathname: "/transaction-details",
           params: {
-            id: tx.TxHash,
+            id: transactionId,
+            txHash: transactionHash,
           },
         });
       }}

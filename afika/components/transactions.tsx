@@ -5,18 +5,26 @@ import TransactionCard from "@/components/transaction-card";
 import TransactionHeader from "@/components/transaction-header";
 import { useState, useEffect } from "react";
 import { useWallet } from "@/store/wallet";
-import firestore, { QuerySnapshot } from "@react-native-firebase/firestore";
+import firestore from "@react-native-firebase/firestore";
 import { getActiveWalletAddress } from "@/lib/wallet";
+import type { AppTransactionRecord } from "@/lib/transactions";
+
+type TransactionListItem = AppTransactionRecord & {
+  id: string;
+};
 
 export default function TransactionList() {
   const wallet = useWallet();
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<TransactionListItem[]>([]);
 
-  const onResult = (data: QuerySnapshot) => {
-    const transactionArray: any[] = [];
+  const onResult = (data: any) => {
+    const transactionArray: TransactionListItem[] = [];
 
-    data?.forEach((transaction) => {
-      transactionArray.push(transaction.data());
+    data?.forEach((transaction: any) => {
+      transactionArray.push({
+        id: transaction.id,
+        ...(transaction.data() as AppTransactionRecord),
+      });
     });
 
     transactionArray.sort((a, b) => {
@@ -32,7 +40,7 @@ export default function TransactionList() {
     console.log(error);
   };
 
-  const getallTransaction = async () => {
+  const getallTransaction = () => {
     const activeWalletAddress = getActiveWalletAddress(wallet);
 
     if (!activeWalletAddress) {
@@ -40,8 +48,7 @@ export default function TransactionList() {
     }
 
     try {
-      //@ts-expect-error unkown error
-      firestore()
+      return firestore()
         .collection("wallets")
         .doc(activeWalletAddress)
         .collection("transactions")
@@ -53,15 +60,18 @@ export default function TransactionList() {
   };
 
   useEffect(() => {
-    getallTransaction();
+    const unsubscribe = getallTransaction();
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe();
+      }
+    };
   }, []);
 
   return (
     <View style={styles.container} testID="transaction-list">
       <FlashList
         data={transactions}
-        //@ts-expect-error unknown error
-        estimatedItemSize={90}
         ListEmptyComponent={<EmptyTransactionCard />}
         ListHeaderComponent={
           transactions.length == 0 ? null : <TransactionHeader />

@@ -1,31 +1,14 @@
 import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { usePrivy } from "@privy-io/expo";
-import { useRouter } from "expo-router";
-import { useEffect } from "react";
 import { useFocusEffect } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { useCallback } from "react";
 import QRCodeStyled from "react-native-qrcode-styled";
-import { Title } from "@/components/shared/title";
-import { Button } from "@/components/shared/button";
 import { useState } from "react";
-import { shortenAddress } from "@/hooks/shorten-address";
-import { useEmbeddedEthereumWallet } from "@privy-io/expo";
 import { useWallet } from "@/store/wallet";
 
 export default function Receive() {
   const { smartAdress } = useWallet();
-  const { user } = usePrivy();
-  const [sharing, setSharing] = useState(false);
-
-  const share = async () => {
-    setSharing(true);
-    try {
-    } catch {
-    } finally {
-      setSharing(false);
-    }
-  };
 
   useFocusEffect(
     useCallback(() => {

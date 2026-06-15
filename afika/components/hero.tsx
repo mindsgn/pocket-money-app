@@ -13,10 +13,10 @@ export default function Hero() {
       <View style={{ flex: 1 }} />
       <View style={{ padding: 20 }}>
         <Text style={{ color: "white", fontSize: 42 }}>
-          {"Save in Dollars \nSend Instantly"}
+          {"Save in Dollars"}
         </Text>
         <Text style={{ color: "green", fontSize: 42, fontWeight: "bold" }}>
-          {"Spend Anywhere."}
+          {"Send Instantly"}
         </Text>
       </View>
     </View>
