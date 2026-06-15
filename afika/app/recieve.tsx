@@ -11,9 +11,10 @@ import { Button } from "@/components/shared/button";
 import { useState } from "react";
 import { shortenAddress } from "@/hooks/shorten-address";
 import { useEmbeddedEthereumWallet } from "@privy-io/expo";
+import { useWallet } from "@/store/wallet";
 
 export default function Receive() {
-  const { wallets } = useEmbeddedEthereumWallet();
+  const { smartAdress } = useWallet();
   const { user } = usePrivy();
   const [sharing, setSharing] = useState(false);
 
@@ -39,12 +40,11 @@ export default function Receive() {
   return (
     <View style={styles.container}>
       <QRCodeStyled
-        data={"Styling Pieces"}
+        data={`${smartAdress}`}
         padding={25}
         pieceBorderRadius={"50%"}
         color={"#1F1F1F"}
       />
-      <Button progress={sharing} label={"SHARE"} onPress={share} />
     </View>
   );
 }
