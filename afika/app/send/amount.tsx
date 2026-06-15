@@ -3,13 +3,11 @@ import { useLocalSearchParams, router } from "expo-router";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { encodeFunctionData, erc20Abi } from "viem";
 import { useEmbeddedEthereumWallet } from "@privy-io/expo";
 import { SEND_TOKEN } from "@/constants/tokens";
@@ -24,7 +22,8 @@ import {
 } from "@/lib/transactions";
 import { shortenAddress, getActiveWalletAddress } from "@/lib/wallet";
 import { useWallet } from "@/store/wallet";
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView } from "react-native";
+import AmountInput from "@/components/amount-input";
 
 export default function SendAmountScreen() {
   const { address } = useLocalSearchParams<{ address: string }>();
@@ -33,7 +32,8 @@ export default function SendAmountScreen() {
   const { kernelClient, loading: kernelLoading } = useKernelClient(wallet);
   const walletStore = useWallet();
   const activeWalletAddress = getActiveWalletAddress(walletStore);
-  const { balanceMap, loading: balancesLoading } = useWalletBalances(activeWalletAddress);
+  const { balanceMap, loading: balancesLoading } =
+    useWalletBalances(activeWalletAddress);
   const usdcBalance = balanceMap.USDC;
 
   const [amount, setAmount] = useState("");
@@ -45,7 +45,10 @@ export default function SendAmountScreen() {
   const validateAmount = () => {
     try {
       const parsedAmount = parseTokenAmount(amount, SEND_TOKEN.decimals);
-      const parsedBalance = parseTokenAmount(availableAmount, SEND_TOKEN.decimals);
+      const parsedBalance = parseTokenAmount(
+        availableAmount,
+        SEND_TOKEN.decimals,
+      );
 
       if (parsedAmount <= 0n) {
         return "Please enter a valid USDC amount.";
@@ -54,7 +57,7 @@ export default function SendAmountScreen() {
         return "Send amount cannot exceed your available USDC balance.";
       }
       return null;
-    } catch (error) {
+    } catch {
       return "Please enter a valid USDC amount.";
     }
   };
@@ -67,7 +70,10 @@ export default function SendAmountScreen() {
     }
 
     if (!address?.trim() || !activeWalletAddress || !kernelClient) {
-      Alert.alert("Wallet not ready", "Your smart wallet is still loading. Please try again.");
+      Alert.alert(
+        "Wallet not ready",
+        "Your smart wallet is still loading. Please try again.",
+      );
       return;
     }
 
@@ -109,7 +115,10 @@ export default function SendAmountScreen() {
       const callData = encodeFunctionData({
         abi: erc20Abi,
         functionName: "transfer",
-        args: [address as `0x${string}`, parseTokenAmount(normalizedAmount, SEND_TOKEN.decimals)],
+        args: [
+          address as `0x${string}`,
+          parseTokenAmount(normalizedAmount, SEND_TOKEN.decimals),
+        ],
       });
 
       const userOperationHash = await kernelClient.sendUserOperation({
@@ -133,11 +142,17 @@ export default function SendAmountScreen() {
 
       const txHash = receipt?.receipt?.transactionHash;
       const finalDocId = txHash
-        ? await finalizeTransaction(activeWalletAddress, pendingDocId, txHash, "debit", {
-            state: "confirmed",
+        ? await finalizeTransaction(
+            activeWalletAddress,
+            pendingDocId,
             txHash,
-            userOperationHash,
-          })
+            "debit",
+            {
+              state: "confirmed",
+              txHash,
+              userOperationHash,
+            },
+          )
         : pendingDocId;
 
       if (!txHash) {
@@ -185,56 +200,26 @@ export default function SendAmountScreen() {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <Text style={styles.title}>Send USDC</Text>
-      <Text style={styles.subtitle}>Enter the amount you want to send.</Text>
-
-      <View style={styles.recipientCard}>
-        <Text style={styles.label}>Sending to</Text>
-        <Text style={styles.address}>{shortAddress}</Text>
-      </View>
-
-      <View style={styles.amountCard}>
-        <Text style={styles.label}>Amount</Text>
-
-        <View style={styles.amountRow}>
-          <TextInput
-            value={amount}
-            onChangeText={setAmount}
-            placeholder="0.00"
-            keyboardType="decimal-pad"
-            style={styles.input}
-          />
-          <Text style={styles.token}>USDC</Text>
+      {/*
+        <View style={styles.header}>
+          <Text style={styles.title}>Send USDC</Text>
+          <Text style={styles.subtitle}>Sending to {shortAddress}</Text>
+          <Text style={styles.balanceText}>
+            Available: {availableAmount} USDC
+          </Text>
+          {amountError ? (
+            <Text style={styles.errorText}>{amountError}</Text>
+          ) : null}
         </View>
-
-        <Text style={styles.balanceText}>Available: {availableAmount} USDC</Text>
-        {amountError ? <Text style={styles.errorText}>{amountError}</Text> : null}
-      </View>
-
-      <View style={styles.infoCard}>
-        <InfoRow label="Network" value="Base" />
-        <InfoRow label="Token" value="USDC" />
-        <InfoRow label="Gas" value="Sponsored" />
-        <InfoRow label="Recipient" value={shortAddress} />
-      </View>
-
-      <TouchableOpacity
-        style={[styles.button, (sending || kernelLoading || balancesLoading) && styles.buttonDisabled]}
-        onPress={handleSend}
-        disabled={sending || kernelLoading || balancesLoading}
-      >
-        {sending ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Send USDC</Text>}
-      </TouchableOpacity>
+       */}
+      <AmountInput
+        amount={amount}
+        currency={"USDC"}
+        onChange={setAmount}
+        name={shortAddress}
+        handleCompleteSwipe={handleSend}
+      />
     </KeyboardAvoidingView>
-  );
-}
-
-function InfoRow({ label, value }: { label: string; value: string }) {
-  return (
-    <View style={styles.infoRow}>
-      <Text style={styles.infoLabel}>{label}</Text>
-      <Text style={styles.infoValue}>{value}</Text>
-    </View>
   );
 }
 
@@ -244,6 +229,9 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#F5F7FA",
   },
+  header: {
+    marginBottom: 12,
+  },
   title: {
     fontSize: 34,
     fontWeight: "800",
@@ -251,49 +239,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginTop: 6,
-    marginBottom: 24,
     fontSize: 16,
     color: "#666",
   },
-  recipientCard: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 22,
-    padding: 18,
-    marginBottom: 14,
-  },
-  amountCard: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 24,
-    padding: 20,
-    marginBottom: 14,
-  },
-  label: {
-    fontSize: 14,
-    color: "#777",
-    marginBottom: 10,
-  },
-  address: {
-    fontSize: 18,
-    fontWeight: "800",
-    color: "#111",
-  },
-  amountRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  input: {
-    flex: 1,
-    fontSize: 42,
-    fontWeight: "800",
-    color: "#111",
-  },
-  token: {
-    fontSize: 18,
-    fontWeight: "800",
-    color: "#1D4878",
-  },
   balanceText: {
-    marginTop: 12,
+    marginTop: 10,
     fontSize: 14,
     color: "#475569",
   },
@@ -302,27 +252,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#B91C1C",
   },
-  infoCard: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 20,
-    padding: 18,
-  },
-  infoRow: {
+  loadingRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginBottom: 12,
   },
-  infoLabel: {
-    color: "#777",
+  loadingText: {
+    color: "#1D4878",
     fontSize: 14,
-  },
-  infoValue: {
-    color: "#111",
-    fontSize: 14,
-    fontWeight: "700",
+    fontWeight: "600",
   },
   button: {
-    marginTop: "auto",
     backgroundColor: "#1D4878",
     paddingVertical: 18,
     borderRadius: 24,
