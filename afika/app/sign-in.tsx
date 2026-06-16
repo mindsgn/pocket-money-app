@@ -46,7 +46,16 @@ export default function SignIn() {
   return (
     <View style={styles.container}>
       <Hero />
-      <View style={{ paddingVertical: 20 }}>
+      <View
+        style={{
+          width: Dimensions.get("screen").width,
+          backgroundColor: "white",
+          paddingVertical: 20,
+          position: "absolute",
+          bottom: 0,
+          alignItems: "center",
+        }}
+      >
         {progress ? (
           <ActivityIndicator size={40} />
         ) : Platform.OS === "ios" ? (

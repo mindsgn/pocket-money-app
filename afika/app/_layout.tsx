@@ -72,7 +72,7 @@ export default function RootLayout() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="transaction-details/index"
+                name="transaction-details"
                 options={{ headerShown: false }}
               />
               <Stack.Screen name="swap" options={{ headerShown: false }} />

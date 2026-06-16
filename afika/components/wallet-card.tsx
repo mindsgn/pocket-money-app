@@ -1,12 +1,7 @@
 import { Dimensions, StyleSheet, View, Text } from "react-native";
 import { Title } from "@/components/shared/title";
 import { useEmbeddedEthereumWallet } from "@privy-io/expo";
-import {
-  UpsertData,
-  getTransaction,
-  getWallet,
-  upsertWallet,
-} from "@/lib/firebase";
+import { UpsertData, upsertWallet } from "@/lib/firebase";
 import { useEffect, useState } from "react";
 import {
   QuerySnapshot,

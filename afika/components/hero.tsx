@@ -1,23 +1,28 @@
 import { StyleSheet, View, Text } from "react-native";
 import { Dimensions } from "react-native";
+import { GrainyGradient } from "@/shared/ui/organisms/grainy-gradient";
 
 export default function Hero() {
   return (
-    <View
-      style={{
-        flex: 1,
-        width: Dimensions.get("window").width,
-        backgroundColor: "#000",
-      }}
-    >
-      <View style={{ flex: 1 }} />
-      <View style={{ padding: 20 }}>
-        <Text style={{ color: "white", fontSize: 42 }}>
-          {"Save in Dollars"}
-        </Text>
-        <Text style={{ color: "green", fontSize: 42, fontWeight: "bold" }}>
-          {"Send Instantly"}
-        </Text>
+    <View>
+      <GrainyGradient />
+      <View
+        style={{
+          height: Dimensions.get("screen").height,
+          width: Dimensions.get("window").width,
+          position: "absolute",
+          paddingBottom: 100,
+        }}
+      >
+        <View style={{ flex: 1 }} />
+        <View style={{ padding: 20 }}>
+          <Text style={{ color: "white", fontSize: 42 }}>
+            {"Save in Dollars"}
+          </Text>
+          <Text style={{ color: "white", fontSize: 42, fontWeight: "bold" }}>
+            {"Send Instantly"}
+          </Text>
+        </View>
       </View>
     </View>
   );
