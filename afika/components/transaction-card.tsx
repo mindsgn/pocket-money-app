@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { colors } from "@/theme/colors";
 import * as Haptics from "expo-haptics";
@@ -38,8 +38,8 @@ export default function TransactionCard({ tx }: { tx: TransactionCardItem }) {
   const transactionId = tx.id || transactionHash;
 
   return (
-    <TouchableOpacity
-      style={styles.card}
+    <Pressable
+      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
       onPress={() => {
         router.navigate({
           pathname: "/transaction-details",
@@ -84,7 +84,7 @@ export default function TransactionCard({ tx }: { tx: TransactionCardItem }) {
       <View>
         <Text style={styles.primaryBalance}>{getDisplayAmount(tx)}</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
@@ -99,6 +99,9 @@ const styles = StyleSheet.create({
     // borderColor: '#2A3143',
     marginBottom: 16,
     justifyContent: "space-between",
+  },
+  cardPressed: {
+    opacity: 0.85,
   },
 
   header: {

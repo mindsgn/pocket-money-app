@@ -5,7 +5,7 @@ import { GrainyGradient } from "@/shared/ui/organisms/grainy-gradient";
 export default function Hero() {
   return (
     <View>
-      <GrainyGradient />
+      <GrainyGradient colors={["#000", "#D9D9D9", "#4F4F4F", "#fff"]} />
       <View
         style={{
           height: Dimensions.get("screen").height,

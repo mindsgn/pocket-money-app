@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button } from '@/components/shared/button';
 
