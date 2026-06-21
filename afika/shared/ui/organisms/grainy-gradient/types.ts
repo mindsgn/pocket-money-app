@@ -13,6 +13,7 @@ interface IGrainyGradient {
   enabled?: boolean;
   amplitude?: number;
   brightness?: number;
+  borderRadius?: number;
   style?: StyleProp<ViewStyle>;
 }
 
