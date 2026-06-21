@@ -58,6 +58,7 @@ export default function RootLayout() {
                 name="send/index"
                 options={{ headerShown: false }}
               />
+              <Stack.Screen name="top-up" options={{ headerShown: false }} />
               <Stack.Screen
                 name="send/amount"
                 options={{ headerShown: false }}

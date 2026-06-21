@@ -25,9 +25,11 @@ export default function SignIn() {
     setProgress(true);
     try {
       await login({ provider });
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.replace("/(home)");
     } catch (error) {
       console.log(error);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     } finally {
       setProgress(false);
     }
