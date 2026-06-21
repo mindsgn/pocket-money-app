@@ -7,14 +7,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useLoginWithOAuth, OAuthProviderID } from "@privy-io/expo";
-import * as AppleAuthentication from "expo-apple-authentication";
-import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { useState } from "react";
 import Hero from "@/components/hero";
 import { useRouter } from "expo-router";
 import { useCallback } from "react";
 import { useFocusEffect } from "expo-router";
 import * as Haptics from "expo-haptics";
+import Animated from "react-native-reanimated";
+import { SignInButton } from "@/components/sign-in-button";
 
 export default function SignIn() {
   const router = useRouter();
@@ -25,9 +25,11 @@ export default function SignIn() {
     setProgress(true);
     try {
       await login({ provider });
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.replace("/(home)");
     } catch (error) {
       console.log(error);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     } finally {
       setProgress(false);
     }
@@ -46,10 +48,9 @@ export default function SignIn() {
   return (
     <View style={styles.container}>
       <Hero />
-      <View
+      <Animated.View
         style={{
           width: Dimensions.get("screen").width,
-          backgroundColor: "white",
           paddingVertical: 20,
           position: "absolute",
           bottom: 0,
@@ -59,26 +60,19 @@ export default function SignIn() {
         {progress ? (
           <ActivityIndicator size={40} />
         ) : Platform.OS === "ios" ? (
-          <AppleAuthentication.AppleAuthenticationButton
-            buttonType={
-              AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
-            }
-            buttonStyle={
-              AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
-            }
-            cornerRadius={8}
-            style={styles.button}
-            onPress={() => handleSignIn("apple")}
+          <SignInButton
+            onPress={() => {
+              handleSignIn("apple");
+            }}
           />
         ) : (
-          <GoogleSigninButton
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={() => handleSignIn("google")}
-            disabled={false}
+          <SignInButton
+            onPress={() => {
+              handleSignIn("google");
+            }}
           />
         )}
-      </View>
+      </Animated.View>
     </View>
   );
 }

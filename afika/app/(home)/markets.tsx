@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
+  Pressable,
   ActivityIndicator,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
@@ -129,7 +129,7 @@ function MarketCard({ item }: { item: MarketItem }) {
     zarValue !== undefined ? `R${Number(zarValue).toFixed(2)}` : "R0.00";
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => { 
         router.push({
           pathname: "/market/[symbol]",
@@ -144,7 +144,7 @@ function MarketCard({ item }: { item: MarketItem }) {
       onPressOut={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid)  
       }}
-      activeOpacity={0.8} style={styles.card}>
+      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}>
         <View style={styles.row}>
           <View style={styles.logo}>
             <Text style={styles.logoText}>
@@ -161,7 +161,7 @@ function MarketCard({ item }: { item: MarketItem }) {
             <Text style={styles.usdPrice}>{formattedUSD}</Text>
           </View>
         </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
@@ -209,6 +209,9 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 6 },
     elevation: 3,
+  },
+  cardPressed: {
+    opacity: 0.8,
   },
   row: {
     flexDirection: "row",

@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   Alert,
   ActivityIndicator,
 } from "react-native";
@@ -340,9 +340,12 @@ export default function SwapScreen() {
           />
         </View>
 
-        <TouchableOpacity style={styles.switchButton} onPress={switchTokens}>
+        <Pressable
+          style={({ pressed }) => [styles.switchButton, pressed && styles.buttonPressed]}
+          onPress={switchTokens}
+        >
           <Text style={styles.switchText}>↓</Text>
-        </TouchableOpacity>
+        </Pressable>
 
         <View style={styles.card}>
           <Text style={styles.label}>To</Text>
@@ -382,9 +385,10 @@ export default function SwapScreen() {
 
         {validationMessage ? <Text style={styles.errorText}>{validationMessage}</Text> : null}
 
-        <TouchableOpacity
-          style={[
+        <Pressable
+          style={({ pressed }) => [
             styles.swapButton,
+            pressed && styles.buttonPressed,
             (loadingQuote || submitting || kernelLoading || balancesLoading) && styles.buttonDisabled,
           ]}
           onPress={reviewState ? executeSwap : fetchReviewQuote}
@@ -395,7 +399,7 @@ export default function SwapScreen() {
           ) : (
             <Text style={styles.swapButtonText}>{buttonLabel}</Text>
           )}
-        </TouchableOpacity>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
@@ -421,13 +425,17 @@ function TokenPicker({
       {tokens.map((token) => {
         const active = selected?.symbol === token.symbol;
         return (
-          <TouchableOpacity
+          <Pressable
             key={`${title}-${token.symbol}`}
-            style={[styles.pill, active && styles.pillActive]}
+            style={({ pressed }) => [
+              styles.pill,
+              active && styles.pillActive,
+              pressed && styles.pillPressed,
+            ]}
             onPress={() => onSelect(token)}
           >
             <Text style={[styles.pillText, active && styles.pillTextActive]}>{token.symbol}</Text>
-          </TouchableOpacity>
+          </Pressable>
         );
       })}
     </ScrollView>
@@ -545,6 +553,9 @@ const styles = StyleSheet.create({
   buttonDisabled: {
     opacity: 0.6,
   },
+  buttonPressed: {
+    opacity: 0.85,
+  },
   tokenPicker: {
     flexDirection: "row",
   },
@@ -557,6 +568,9 @@ const styles = StyleSheet.create({
   },
   pillActive: {
     backgroundColor: "#1D4878",
+  },
+  pillPressed: {
+    opacity: 0.85,
   },
   pillText: {
     color: "#1D4878",

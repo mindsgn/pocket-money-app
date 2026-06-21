@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SendScreen() {
@@ -8,18 +8,18 @@ export default function SendScreen() {
       <Text style={styles.title}>Send Money</Text>
       <Text style={styles.subtitle}>Send USDC to another wallet on Base.</Text>
 
-      <TouchableOpacity
-        style={styles.card}
+      <Pressable
+        style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
         onPress={() => router.push("/send/address")}
       >
         <Text style={styles.cardTitle}>Wallet Address</Text>
         <Text style={styles.cardText}>Enter or scan a wallet address</Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity style={styles.disabledCard} disabled>
+      <Pressable style={styles.disabledCard} disabled>
         <Text style={styles.cardTitle}>Contacts</Text>
         <Text style={styles.cardText}>Coming soon</Text>
-      </TouchableOpacity>
+      </Pressable>
     </SafeAreaView>
   );
 }
@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     padding: 20,
     marginBottom: 14,
+  },
+  cardPressed: {
+    opacity: 0.85,
   },
   disabledCard: {
     backgroundColor: "#FFFFFF",

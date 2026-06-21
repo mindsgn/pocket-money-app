@@ -9,6 +9,7 @@ import {
 } from "@react-native-firebase/firestore";
 import { useWallet } from "@/store/wallet";
 import firestore from "@react-native-firebase/firestore";
+import { GrainyGradient } from "@/shared/ui/organisms/grainy-gradient";
 
 const DEFAULT_NETWORK: string = "base-mainnet";
 
@@ -16,7 +17,6 @@ export default function WalletCard() {
   const { address, smartAdress } = useWallet();
   const [balance, setBalance] = useState<number>(0);
   const { wallets } = useEmbeddedEthereumWallet();
-  console.log(smartAdress);
 
   const onResult = (data: QuerySnapshot) => {
     data?.forEach((wallet) => {
@@ -61,7 +61,6 @@ export default function WalletCard() {
       // })
     } catch (error) {
     } finally {
-      //@ts-expect-error unkown error
       firestore()
         .collection("wallets")
         .doc(smartAdress ? smartAdress.toLowerCase() : address.toLowerCase())
@@ -78,22 +77,28 @@ export default function WalletCard() {
 
   return (
     <View style={styles.container}>
-      <Title>{"Your Balance"}</Title>
-      <Text style={{ fontSize: 80, fontWeight: "bold" }}>
-        ${balance.toFixed(2)}
-      </Text>
+      <GrainyGradient
+        borderRadius={40}
+        width={Dimensions.get("screen").width - 40}
+        colors={["#000", "#D9D9D9", "#4F4F4F", "#fff"]}
+        height={200}
+      />
+      <View style={{ position: "absolute", padding: 10 }}>
+        <Title color="white">{"Your Balance"}</Title>
+        <Text style={{ fontSize: 80, fontWeight: "bold", color: "white" }}>
+          ${balance.toFixed(2)}
+        </Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 100,
+    height: 200,
     width: Dimensions.get("screen").width - 40,
-    backgroundColor: "#fff",
     alignSelf: "center",
-    borderRadius: 10,
-    padding: 20,
-    marginVertical: 20,
+    borderRadius: 20,
+    overflow: "hidden",
   },
 });

@@ -5,7 +5,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   ActivityIndicator,
   Alert,
 } from "react-native";
@@ -218,13 +218,17 @@ export default function SendAmountScreen() {
         <InfoRow label="Recipient" value={shortAddress} />
       </View>
 
-      <TouchableOpacity
-        style={[styles.button, (sending || kernelLoading || balancesLoading) && styles.buttonDisabled]}
+      <Pressable
+        style={({ pressed }) => [
+          styles.button,
+          pressed && styles.buttonPressed,
+          (sending || kernelLoading || balancesLoading) && styles.buttonDisabled,
+        ]}
         onPress={handleSend}
         disabled={sending || kernelLoading || balancesLoading}
       >
         {sending ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Send USDC</Text>}
-      </TouchableOpacity>
+      </Pressable>
     </KeyboardAvoidingView>
   );
 }
@@ -330,6 +334,9 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     opacity: 0.6,
+  },
+  buttonPressed: {
+    opacity: 0.85,
   },
   buttonText: {
     color: "#FFFFFF",

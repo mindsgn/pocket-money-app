@@ -5,6 +5,7 @@ import {
   Skia,
   Fill,
   Shader,
+  Group,
   type SkRuntimeEffect,
 } from "@shopify/react-native-skia";
 import {
@@ -33,6 +34,7 @@ export const GrainyGradient: React.FC<IGrainyGradient> &
     enabled = true,
     amplitude = 0.1,
     brightness = 0,
+    borderRadius = 0,
     style,
   }: React.ComponentProps<typeof GrainyGradient> | IGrainyGradient):
     | (React.ReactElement & React.ReactNode & React.JSX.Element)
@@ -78,7 +80,7 @@ export const GrainyGradient: React.FC<IGrainyGradient> &
     if (!shader) return null;
 
     return (
-      <Canvas style={[{ width, height }, style]}>
+      <Canvas style={[{ width, height, borderRadius }, style]}>
         <Fill>
           <Shader source={shader} uniforms={uniforms} />
         </Fill>

@@ -13,6 +13,10 @@ type TransactionListItem = AppTransactionRecord & {
   id: string;
 };
 
+function onTransactionError(error: unknown) {
+  console.log(error);
+}
+
 export default function TransactionList() {
   const wallet = useWallet();
   const [transactions, setTransactions] = useState<TransactionListItem[]>([]);
@@ -36,10 +40,6 @@ export default function TransactionList() {
     setTransactions(transactionArray);
   };
 
-  const onError = (error: any) => {
-    console.log(error);
-  };
-
   const getallTransaction = () => {
     const activeWalletAddress = getActiveWalletAddress(wallet);
 
@@ -52,7 +52,7 @@ export default function TransactionList() {
         .collection("wallets")
         .doc(activeWalletAddress)
         .collection("transactions")
-        .onSnapshot(onResult, onError);
+        .onSnapshot(onResult, onTransactionError);
     } catch (error) {
       console.log(error);
     } finally {

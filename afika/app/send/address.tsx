@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
   Alert,
   Dimensions,
 } from "react-native";
@@ -14,6 +13,11 @@ import { Button } from "@/components/shared/button";
 
 function isValidWalletAddress(address: string) {
   return /^0x[a-fA-F0-9]{40}$/.test(address.trim());
+}
+
+function handleScanAddress() {
+  // Later connect this to expo-camera / QR scanner screen.
+  Alert.alert("Scan wallet", "QR scanner screen coming soon.");
 }
 
 export default function SendAddressScreen() {
@@ -33,11 +37,6 @@ export default function SendAddressScreen() {
         address: cleanAddress,
       },
     });
-  };
-
-  const handleScanAddress = () => {
-    // Later connect this to expo-camera / QR scanner screen.
-    Alert.alert("Scan wallet", "QR scanner screen coming soon.");
   };
 
   return (

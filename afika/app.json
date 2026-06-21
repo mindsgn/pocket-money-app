@@ -2,7 +2,7 @@
   "expo": {
     "name": "AFIKA",
     "slug": "afika",
-    "version": "0.2.30",
+    "version": "0.2.31",
     "scheme": "afika",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,7 +14,7 @@
       "supportsTablet": false,
       "bundleIdentifier": "mindsgn.studio.pockt",
       "appleTeamId": "B3U8UM2966",
-      "buildNumber": "41",
+      "buildNumber": "42",
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true,
